@@ -7,4 +7,4 @@ onlyBuiltDependencies:
   - vue-demi
 
 overrides:
-  vue-library-starter: 'link:'
+  vue-frimousse: 'link:'

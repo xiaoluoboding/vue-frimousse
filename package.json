@@ -1,5 +1,5 @@
 {
-  "name": "vue-library-starter",
+  "name": "vue-frimousse",
   "version": "0.1.0",
   "type": "module",
   "engines": {
@@ -7,10 +7,10 @@
   },
   "author": "xiaoluoboding <xiaoluoboding@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/xiaoluoboding/vue-library-starter",
+  "homepage": "https://github.com/xiaoluoboding/vue-frimousse",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaoluoboding/vue-library-starter.git"
+    "url": "git+https://github.com/xiaoluoboding/vue-frimousse.git"
   },
   "scripts": {
     "dev": "vite",
@@ -96,7 +96,7 @@
     "vite": "npm:rolldown-vite@latest",
     "vite-plugin-vue-devtools": "^8.0.0",
     "vitest": "^3.2.4",
-    "vue-library-starter": "link:",
+    "vue-frimousse": "link:",
     "vue-tsc": "^3.0.4"
   }
 }

@@ -11,7 +11,7 @@ import type { App } from 'vue'
  * @example
  * // index.html (UMD / CDN build)
  * <script src="https://unpkg.com/vue@3"></script>
- * <script src="https://unpkg.com/vue-library-starter"></script>
+ * <script src="https://unpkg.com/vue-frimousse"></script>
  * <script>
  *   const app = Vue.createApp({})
  *   app.use(VueLibraryStarter)

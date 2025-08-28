@@ -10,8 +10,8 @@ interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'vue-library-starter',
-    configKey: 'vueLibraryStarter',
+    name: 'vue-frimousse',
+    configKey: 'vueFrimousse',
     compatibility: {
       nuxt: '>=3.0.0',
     },
@@ -23,12 +23,12 @@ export default defineNuxtModule<ModuleOptions>({
     addComponent({
       name: 'MyComponent',
       export: 'MyComponent',
-      filePath: 'vue-library-starter',
+      filePath: 'vue-frimousse',
       mode: 'client',
     })
 
     if (moduleOptions.css) {
-      nuxt.options.css.push('vue-library-starter/style.css')
+      nuxt.options.css.push('vue-frimousse/style.css')
     }
   },
 })

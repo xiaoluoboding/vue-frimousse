@@ -4,12 +4,12 @@
 [![Minzip Package][bundlePhobiaBadge]][bundlePhobiaUrl]
 [![NPM Download][npmDtBadge]][npmDtUrl]
 
-[npmBadge]: https://img.shields.io/npm/v/vue-library-starter.svg?maxAge=2592000
-[npmUrl]: https://www.npmjs.com/package/vue-library-starter
-[npmDtBadge]: https://img.shields.io/npm/dt/vue-library-starter.svg
-[npmDtUrl]: https://www.npmjs.com/package/vue-library-starter
-[bundlePhobiaBadge]: https://img.shields.io/bundlephobia/minzip/vue-library-starter
-[bundlePhobiaUrl]: https://bundlephobia.com/package/vue-library-starter@latest
+[npmBadge]: https://img.shields.io/npm/v/vue-frimousse.svg?maxAge=2592000
+[npmUrl]: https://www.npmjs.com/package/vue-frimousse
+[npmDtBadge]: https://img.shields.io/npm/dt/vue-frimousse.svg
+[npmDtUrl]: https://www.npmjs.com/package/vue-frimousse
+[bundlePhobiaBadge]: https://img.shields.io/bundlephobia/minzip/vue-frimousse
+[bundlePhobiaUrl]: https://bundlephobia.com/package/vue-frimousse@latest
 
 > A minimal Vue library starter, built on top of Vite & Vue 3
 
@@ -19,7 +19,7 @@
 
 <summary>TOC</summary>
 
-- [Vue Library Starter](#vue-library-starter)
+- [Vue Library Starter](#vue-frimousse)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Use the Template](#use-the-template)
@@ -45,14 +45,14 @@
 
 ### GitHub Template
 
-[create a repo from this template on GitHub](https://github.com/new?template_name=vue-library-starter&template_owner=xiaoluoboding)
+[create a repo from this template on GitHub](https://github.com/new?template_name=vue-frimousse&template_owner=xiaoluoboding)
 
 ### Clone to local
 
 ```bash
-git clone https://github.com/xiaoluoboding/vue-library-starter
+git clone https://github.com/xiaoluoboding/vue-frimousse
 
-cd vue-library-starter
+cd vue-frimousse
 ```
 
 ## Usage
@@ -67,7 +67,7 @@ pnpm install
 
 ### 2、Build a library
 
-Rename all the `vue-library-starter` to your component name in the file `package.json、vite.config.ts`, eg: `my-component`
+Rename all the `vue-frimousse` to your component name in the file `package.json、vite.config.ts`, eg: `my-component`
 
 ```bash
 pnpm run build:lib
@@ -105,8 +105,8 @@ Use in a Nuxt app by adding the module and CSS in your `nuxt.config.ts`:
 
 ```ts
 export default defineNuxtConfig({
-  modules: ['vue-library-starter/nuxt'],
-  css: ['vue-library-starter/style.css']
+  modules: ['vue-frimousse/nuxt'],
+  css: ['vue-frimousse/style.css']
 })
 ```
 

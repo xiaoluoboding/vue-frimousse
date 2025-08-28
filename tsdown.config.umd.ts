@@ -67,7 +67,7 @@ export default defineConfig({
   outputOptions: {
     // Bundle location and file name
     dir: 'lib/umd',
-    entryFileNames: 'vue-library-starter.umd.prod.js',
+    entryFileNames: 'vue-frimousse.umd.prod.js',
 
     // Define globals for UMD build
     globals: {
