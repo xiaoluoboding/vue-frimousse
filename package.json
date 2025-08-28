@@ -1,0 +1,102 @@
+{
+  "name": "vue-library-starter",
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "author": "xiaoluoboding <xiaoluoboding@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/xiaoluoboding/vue-library-starter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaoluoboding/vue-library-starter.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "dev:nuxt": "nuxi dev playground --port 5174",
+    "dev:nuxt:build": "nuxi build playground",
+    "dev:nuxt:prepare": "nuxt-module-build build --stub && nuxi prepare playground",
+    "build:dev": "tsdown --watch",
+    "build:lib": "tsdown",
+    "build:module": "nuxt-module-build build --outDir lib/nuxt",
+    "build:umd": "tsdown --config tsdown.config.umd.ts",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "release": "pnpm run build:lib && pnpm run build:module && pnpm run build:umd",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build",
+    "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
+    "lint:eslint": "eslint . --fix",
+    "lint": "run-s lint:*",
+    "format": "prettier --write src/",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/src/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./style.css": "./lib/index.css",
+    "./nuxt": {
+      "import": {
+        "types": "./lib/nuxt/types.d.mts",
+        "default": "./lib/nuxt/module.mjs"
+      }
+    },
+    "./src/*": {
+      "import": "./src/*",
+      "default": "./src/*"
+    }
+  },
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "pinia": "^3.0.3",
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@nuxt/kit": "^4.0.3",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.0.3",
+    "@prettier/plugin-oxc": "^0.0.4",
+    "@senojs/rollup-plugin-style-inject": "^0.2.3",
+    "@tsconfig/node22": "^22.0.2",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.16.5",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/eslint-plugin": "^1.3.4",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.6.0",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.7.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-oxlint": "~1.8.0",
+    "eslint-plugin-vue": "~10.3.0",
+    "jiti": "^2.4.2",
+    "jsdom": "^26.1.0",
+    "npm-run-all2": "^8.0.4",
+    "nuxt": "^4.0.3",
+    "oxlint": "~1.8.0",
+    "prettier": "3.6.2",
+    "tsdown": "^0.14.2",
+    "typescript": "~5.8.0",
+    "unplugin-vue": "^7.0.1",
+    "vite": "npm:rolldown-vite@latest",
+    "vite-plugin-vue-devtools": "^8.0.0",
+    "vitest": "^3.2.4",
+    "vue-library-starter": "link:",
+    "vue-tsc": "^3.0.4"
+  }
+}

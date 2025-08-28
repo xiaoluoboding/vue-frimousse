@@ -1,0 +1,12 @@
+{
+  "name": "vue-library-starter",
+  "configKey": "vueLibraryStarter",
+  "compatibility": {
+    "nuxt": ">=3.0.0"
+  },
+  "version": "0.0.1",
+  "builder": {
+    "@nuxt/module-builder": "1.0.2",
+    "unbuild": "unknown"
+  }
+}

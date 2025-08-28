@@ -1,0 +1,10 @@
+packages:
+  - playground
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - vue-demi
+
+overrides:
+  vue-library-starter: 'link:'
