@@ -1,1 +1,21 @@
-export { default as MyComponent } from './MyComponent.vue'
+export * as EmojiPicker from './components/emoji-picker'
+export { useActiveEmoji, useSkinTone } from './hooks'
+export type {
+  Category,
+  Emoji,
+  EmojiPickerActiveEmojiProps,
+  EmojiPickerEmptyProps,
+  EmojiPickerListCategoryHeaderProps,
+  EmojiPickerListComponents,
+  EmojiPickerListEmojiProps,
+  EmojiPickerListProps,
+  EmojiPickerListRowProps,
+  EmojiPickerLoadingProps,
+  EmojiPickerRootProps,
+  EmojiPickerSearchProps,
+  EmojiPickerSkinToneProps,
+  EmojiPickerSkinToneSelectorProps,
+  EmojiPickerViewportProps,
+  Locale,
+  SkinTone
+} from './types'

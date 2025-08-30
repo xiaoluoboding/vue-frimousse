@@ -81,6 +81,8 @@
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
+    "emojibase": "^16.0.0",
+    "emojibase-data": "^16.0.3",
     "eslint": "^9.31.0",
     "eslint-plugin-oxlint": "~1.8.0",
     "eslint-plugin-vue": "~10.3.0",
@@ -97,6 +99,7 @@
     "vite-plugin-vue-devtools": "^8.0.0",
     "vitest": "^3.2.4",
     "vue-frimousse": "link:",
+    "vue-sonner": "^2.0.8",
     "vue-tsc": "^3.0.4"
   }
 }

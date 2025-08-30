@@ -1,4 +1,4 @@
-# Vue Library Starter
+# Vue Frimousse
 
 [![NPM][npmBadge]][npmUrl]
 [![Minzip Package][bundlePhobiaBadge]][bundlePhobiaUrl]
@@ -11,35 +11,152 @@
 [bundlePhobiaBadge]: https://img.shields.io/bundlephobia/minzip/vue-frimousse
 [bundlePhobiaUrl]: https://bundlephobia.com/package/vue-frimousse@latest
 
-> A minimal Vue library starter, built on top of Vite & Vue 3
-
-## Table of Contents
-
-<details>
-
-<summary>TOC</summary>
-
-- [Vue Library Starter](#vue-frimousse)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Use the Template](#use-the-template)
-    - [GitHub Template](#github-template)
-    - [Clone to local](#clone-to-local)
-  - [Usage](#usage)
-    - [1、Install dependencies](#1install-dependencies)
-    - [2、Build a library](#2build-a-library)
-    - [3、Build nuxt library](#3build-nuxt-library)
-    - [4、Publish to npm](#4publish-to-npm)
-  - [License](#license)
-
-</details>
+> A Vue 3 emoji picker component library - 1:1 port of the React Frimousse emoji picker
 
 ## Features
 
-- Package manager [pnpm](https://pnpm.js.org/), safe and fast
-- Bundle with the [library mode](https://vitejs.dev/guide/build.html#library-mode)
-- Release with [semantic-release](https://www.npmjs.com/package/semantic-release)
-- Publish to [npm](https://docs.npmjs.com/cli/v8/commands/npm-publish)
+- 🎯 **1:1 React Port**: Complete feature parity with the React Frimousse emoji picker
+- 🚀 **Vue 3 Composition API**: Built with modern Vue 3 patterns and TypeScript
+- 🎨 **Customizable Components**: Flexible component system with custom renderers
+- ⌨️ **Keyboard Navigation**: Full keyboard accessibility support
+- 🔍 **Search & Filter**: Real-time emoji search with category filtering
+- 🌈 **Skin Tone Support**: Complete skin tone variation support
+- 📱 **Responsive Design**: Works seamlessly across all device sizes
+- 🎭 **Emoji Data**: Uses Emojibase for comprehensive emoji data
+
+## Installation
+
+```bash
+npm install vue-frimousse
+# or
+pnpm add vue-frimousse
+# or
+yarn add vue-frimousse
+```
+
+## Basic Usage
+
+```vue
+<template>
+  <EmojiPicker.Root @emoji-click="onEmojiClick">
+    <EmojiPicker.Search placeholder="Search emojis..." />
+    <EmojiPicker.Viewport>
+      <EmojiPicker.List />
+    </EmojiPicker.Viewport>
+  </EmojiPicker.Root>
+</template>
+
+<script setup lang="ts">
+import * as EmojiPicker from 'vue-frimousse'
+import 'vue-frimousse/style.css'
+
+const onEmojiClick = (emoji: any) => {
+  console.log('Selected emoji:', emoji)
+}
+</script>
+```
+
+## Advanced Usage
+
+### Custom Components
+
+```vue
+<template>
+  <EmojiPicker.Root 
+    :components="{
+      CategoryHeader: CustomCategoryHeader,
+      Emoji: CustomEmojiButton,
+      Row: CustomRow
+    }"
+    @emoji-click="onEmojiClick"
+  >
+    <EmojiPicker.Search />
+    <EmojiPicker.Viewport>
+      <EmojiPicker.List />
+    </EmojiPicker.Viewport>
+  </EmojiPicker.Root>
+</template>
+```
+
+### With Loading and Empty States
+
+```vue
+<template>
+  <EmojiPicker.Root @emoji-click="onEmojiClick">
+    <EmojiPicker.Search />
+    
+    <EmojiPicker.Loading>
+      <div>Loading emojis...</div>
+    </EmojiPicker.Loading>
+    
+    <EmojiPicker.Empty>
+      <template #default="{ search }">
+        <div>No emojis found for "{{ search }}"</div>
+      </template>
+    </EmojiPicker.Empty>
+    
+    <EmojiPicker.Viewport>
+      <EmojiPicker.List />
+    </EmojiPicker.Viewport>
+  </EmojiPicker.Root>
+</template>
+```
+
+### Skin Tone Selector
+
+```vue
+<template>
+  <EmojiPicker.Root @emoji-click="onEmojiClick">
+    <EmojiPicker.SkinTone>
+      <template #default="{ skinTone, setSkinTone, skinToneVariations }">
+        <EmojiPicker.SkinToneSelector 
+          :skin-tone="skinTone"
+          @skin-tone-change="setSkinTone"
+        />
+      </template>
+    </EmojiPicker.SkinTone>
+    
+    <EmojiPicker.Search />
+    <EmojiPicker.Viewport>
+      <EmojiPicker.List />
+    </EmojiPicker.Viewport>
+  </EmojiPicker.Root>
+</template>
+```
+
+## API Reference
+
+### Components
+
+- `EmojiPicker.Root` - Main container component
+- `EmojiPicker.Search` - Search input component  
+- `EmojiPicker.Viewport` - Scrollable container for the emoji list
+- `EmojiPicker.List` - Virtualized emoji list component
+- `EmojiPicker.Loading` - Loading state component
+- `EmojiPicker.Empty` - Empty state component
+- `EmojiPicker.SkinToneSelector` - Skin tone selection button
+- `EmojiPicker.ActiveEmoji` - Active emoji display component
+- `EmojiPicker.SkinTone` - Skin tone context provider
+
+### Hooks
+
+- `useActiveEmoji()` - Get the currently active emoji
+- `useSkinTone(emoji)` - Manage skin tone state for an emoji
+
+### Types
+
+All TypeScript types are exported for full type safety:
+
+```typescript
+import type { 
+  EmojiPickerRootProps,
+  EmojiPickerListProps,
+  Emoji,
+  Category,
+  SkinTone,
+  Locale
+} from 'vue-frimousse'
+```
 
 ## Use the Template
 
