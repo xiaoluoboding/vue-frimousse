@@ -16,7 +16,7 @@ export default defineConfig({
   platform: 'browser',
 
   // Global variable name used in <script> tag
-  globalName: 'MyComponent',
+  globalName: 'VueFrimousse',
 
   // Use modern JavaScript
   target: 'ESNext',
@@ -46,7 +46,7 @@ export default defineConfig({
     // ✅ This older plugin (`@senojs/rollup-plugin-style-inject`) still works perfectly.
     // It inlines <style> tags into the final JS bundle, making distribution simple.
     styleInject({
-      insertAt: 'top',
+      insertAt: 'top'
     }),
 
     // Plugin to prevent empty CSS files from being generated
@@ -60,8 +60,8 @@ export default defineConfig({
             delete bundle[fileName]
           }
         })
-      },
-    },
+      }
+    }
   ],
 
   outputOptions: {
@@ -71,7 +71,7 @@ export default defineConfig({
 
     // Define globals for UMD build
     globals: {
-      vue: 'Vue',
-    },
-  },
+      vue: 'Vue'
+    }
+  }
 })

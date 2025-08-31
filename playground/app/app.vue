@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <MyComponent msg="Hello Nuxt" />
+    <!-- <EmojiPicker /> -->
   </div>
 </template>
 

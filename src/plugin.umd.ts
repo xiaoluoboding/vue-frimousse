@@ -1,12 +1,12 @@
-import MyComponent from './packages/MyComponent.vue'
+import EmojiPicker from './packages/EmojiPicker.vue'
 import type { App } from 'vue'
 
 /**
  * VueLibraryStarter plugin for Vue 3
  *
- * - Globally registers the `<MyComponent />` component
- * - Provides `MyComponent` via Vue's dependency injection (Composition API)
- * - Automatically exposes `window.MyComponent` in UMD builds for use in plain JS
+ * - Globally registers the `<EmojiPicker />` component
+ * - Provides `EmojiPicker` via Vue's dependency injection (Composition API)
+ * - Automatically exposes `window.EmojiPicker` in UMD builds for use in plain JS
  *
  * @example
  * // index.html (UMD / CDN build)
@@ -18,17 +18,17 @@ import type { App } from 'vue'
  *   app.mount('#app')
  *
  *   // Component usage anywhere (even outside Vue)
- *   window.MyComponent
+ *   window.EmojiPicker
  * </script>
  *
  * @example
  * // Inside a Vue component (Options API)
- * <MyComponent msg="Hello World!" />
+ * <EmojiPicker msg="Hello World!" />
  *
  * @example
  * // Inside a Vue component (Composition API)
  * import { inject } from 'vue'
- * const myComponent = inject('MyComponent')
+ * const myComponent = inject('EmojiPicker')
  * // myComponent is available for injection
  */
 const VueLibraryStarter = {
@@ -37,18 +37,18 @@ const VueLibraryStarter = {
    * @param {App} app - The Vue application instance
    */
   install(app: App) {
-    // Register the <MyComponent /> component globally
-    app.component('MyComponent', MyComponent)
+    // Register the <EmojiPicker /> component globally
+    app.component('EmojiPicker', EmojiPicker)
 
-    // Provide MyComponent for Composition API usage
-    app.provide('MyComponent', MyComponent)
+    // Provide EmojiPicker for Composition API usage
+    app.provide('EmojiPicker', EmojiPicker)
 
-    // assign MyComponent to window for UMD usage
+    // assign EmojiPicker to window for UMD usage
     if (typeof window !== 'undefined') {
-      ;(window as unknown as { MyComponent: typeof MyComponent }).MyComponent = MyComponent
+      ;(window as unknown as { EmojiPicker: typeof EmojiPicker }).EmojiPicker = EmojiPicker
     }
-  },
+  }
 }
 
-// UMD-friendly single export for Vue.use(VueLibraryStarter)
-export default VueLibraryStarter
+// UMD-friendly single export for Vue.use(EmojiPicker)
+export default VueFrimousse

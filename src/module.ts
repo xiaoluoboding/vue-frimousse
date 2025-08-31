@@ -13,22 +13,22 @@ export default defineNuxtModule<ModuleOptions>({
     name: 'vue-frimousse',
     configKey: 'vueFrimousse',
     compatibility: {
-      nuxt: '>=3.0.0',
-    },
+      nuxt: '>=3.0.0'
+    }
   },
   defaults: {
-    css: true,
+    css: true
   },
   setup(moduleOptions, nuxt) {
     addComponent({
-      name: 'MyComponent',
-      export: 'MyComponent',
+      name: 'VueFrimousse',
+      export: 'VueFrimousse',
       filePath: 'vue-frimousse',
-      mode: 'client',
+      mode: 'client'
     })
 
-    if (moduleOptions.css) {
-      nuxt.options.css.push('vue-frimousse/style.css')
-    }
-  },
+    // if (moduleOptions.css) {
+    //   nuxt.options.css.push('vue-frimousse/style.css')
+    // }
+  }
 })
