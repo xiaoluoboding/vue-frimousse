@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/EmojiPickerDemo.vue')
+      component: () => import('../views/Home.vue')
     }
   ]
 })

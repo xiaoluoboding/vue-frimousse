@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted, provide, type CSSProperties } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted, type CSSProperties } from 'vue';
 import { EMOJI_FONT_FAMILY } from './constants';
 import { validateLocale, validateSkinTone } from './data/emoji';
 import { createEmojiPickerStore, provideEmojiPickerStore, type EmojiPickerStore } from './store';
