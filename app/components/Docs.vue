@@ -34,9 +34,9 @@
       by composing them.
     </p>
 
-    <!-- <CodeBlock 
-      lang="vue" 
-      :html="exampleCode" 
+    <!-- <CodeBlock
+      lang="vue"
+      :html="exampleCode"
     /> -->
 
     <p>
@@ -284,7 +284,7 @@ const shadcnCode = 'npx shadcn@latest add https://frimousse.liveblocks.io/r/emoj
 
 // <script setup lang="ts">
 // import { ref } from 'vue'
-// import { 
+// import {
 //   EmojiPickerRoot,
 //   EmojiPickerSearch,
 //   EmojiPickerViewport,

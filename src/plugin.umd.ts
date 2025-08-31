@@ -14,7 +14,7 @@ import type { App } from 'vue'
  * <script src="https://unpkg.com/vue-frimousse"></script>
  * <script>
  *   const app = Vue.createApp({})
- *   app.use(VueLibraryStarter)
+ *   app.use(EmojiPicker)
  *   app.mount('#app')
  *
  *   // Component usage anywhere (even outside Vue)
@@ -31,7 +31,7 @@ import type { App } from 'vue'
  * const myComponent = inject('EmojiPicker')
  * // myComponent is available for injection
  */
-const VueLibraryStarter = {
+const VueFrimousse = {
   /**
    * Install function used by Vue.use()
    * @param {App} app - The Vue application instance
@@ -51,4 +51,4 @@ const VueLibraryStarter = {
 }
 
 // UMD-friendly single export for Vue.use(EmojiPicker)
-export default EmojiPicker
+export default VueFrimousse
