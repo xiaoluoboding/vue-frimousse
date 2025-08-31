@@ -51,4 +51,4 @@ const VueLibraryStarter = {
 }
 
 // UMD-friendly single export for Vue.use(EmojiPicker)
-export default VueFrimousse
+export default EmojiPicker
