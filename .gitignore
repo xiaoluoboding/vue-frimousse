@@ -31,3 +31,4 @@ coverage
 
 .nuxt
 playground/.nuxt
+/lib/*
