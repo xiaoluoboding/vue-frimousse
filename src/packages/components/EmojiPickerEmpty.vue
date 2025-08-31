@@ -4,12 +4,12 @@
     frimousse-empty=""
     v-bind="$attrs"
   >
-    <EmojiPickerEmptyWithSearch v-if="typeof $slots.default === 'function'">
+    <EmojiPickerEmptyWithSearch v-if="$slots.default">
       <template #default="{ search }">
         <slot :search="search" />
       </template>
     </EmojiPickerEmptyWithSearch>
-    <slot v-else />
+    <slot v-else :search="''" />
   </span>
 </template>
 
@@ -17,10 +17,14 @@
 import { useEmojiPickerStore } from '../store';
 import { useSelector } from '../utils/store';
 import { $isEmpty } from '../store';
-import type { EmojiPickerEmptyProps } from '../types';
+import type { EmojiPickerEmptyProps, EmojiPickerEmptyRenderProps } from '../types';
 import EmojiPickerEmptyWithSearch from './EmojiPickerEmptyWithSearch.vue';
 
 defineProps<EmojiPickerEmptyProps>();
+
+defineSlots<{
+  default?: (props: EmojiPickerEmptyRenderProps) => void
+}>()
 
 const store = useEmojiPickerStore();
 const isEmpty = useSelector(store, $isEmpty);

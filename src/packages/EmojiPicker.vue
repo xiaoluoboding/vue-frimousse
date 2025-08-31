@@ -266,7 +266,7 @@ onMounted(() => {
       return;
     }
 
-    if (previousViewportWidth !== state.viewportWidth) {
+    if (previousViewportWidth !== state.viewportWidth && rootRef.value) {
       previousViewportWidth = state.viewportWidth;
 
       rootRef.value.style.setProperty(
@@ -275,7 +275,7 @@ onMounted(() => {
       );
     }
 
-    if (previousViewportHeight !== state.viewportHeight) {
+    if (previousViewportHeight !== state.viewportHeight && rootRef.value) {
       previousViewportHeight = state.viewportHeight;
 
       rootRef.value.style.setProperty(
@@ -284,7 +284,7 @@ onMounted(() => {
       );
     }
 
-    if (previousRowHeight !== state.rowHeight) {
+    if (previousRowHeight !== state.rowHeight && rootRef.value) {
       previousRowHeight = state.rowHeight;
 
       rootRef.value.style.setProperty(
@@ -293,7 +293,7 @@ onMounted(() => {
       );
     }
 
-    if (previousCategoryHeaderHeight !== state.categoryHeaderHeight) {
+    if (previousCategoryHeaderHeight !== state.categoryHeaderHeight && rootRef.value) {
       previousCategoryHeaderHeight = state.categoryHeaderHeight;
 
       rootRef.value.style.setProperty(
@@ -305,28 +305,28 @@ onMounted(() => {
 
   const { viewportWidth, viewportHeight, rowHeight, categoryHeaderHeight } = store.get();
 
-  if (viewportWidth) {
+  if (viewportWidth && rootRef.value) {
     rootRef.value.style.setProperty(
       "--frimousse-viewport-width",
       `${viewportWidth}px`,
     );
   }
 
-  if (viewportHeight) {
+  if (viewportHeight && rootRef.value) {
     rootRef.value.style.setProperty(
       "--frimousse-viewport-height",
       `${viewportHeight}px`,
     );
   }
 
-  if (rowHeight) {
+  if (rowHeight && rootRef.value) {
     rootRef.value.style.setProperty(
       "--frimousse-row-height",
       `${rowHeight}px`,
     );
   }
 
-  if (categoryHeaderHeight) {
+  if (categoryHeaderHeight && rootRef.value) {
     rootRef.value.style.setProperty(
       "--frimousse-category-header-height",
       `${categoryHeaderHeight}px`,
