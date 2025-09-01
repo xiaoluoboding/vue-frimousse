@@ -1,3 +1,5 @@
+import packageJson from '../../package.json'
+
 /**
  * Extract text content from Vue slot children
  */
@@ -15,7 +17,7 @@ export function getTextContent(children: unknown): string {
   }
 
   if (typeof children === 'object' && children !== null) {
-    const obj = children as any
+    const obj = children as Record<string, unknown>
 
     // Handle VNode with children
     if ('children' in obj) {
@@ -29,12 +31,12 @@ export function getTextContent(children: unknown): string {
 
     // Handle text nodes
     if (obj.type === 'text' || obj.type === Symbol.for('v-txt')) {
-      return obj.children || ''
+      return (obj.children as string) || ''
     }
 
     // Handle VNode props (for text content)
-    if (obj.props && typeof obj.props.children === 'string') {
-      return obj.props.children
+    if (obj.props && typeof (obj.props as Record<string, unknown>).children === 'string') {
+      return (obj.props as Record<string, unknown>).children as string
     }
   }
 
@@ -44,6 +46,19 @@ export function getTextContent(children: unknown): string {
 /**
  * Utility function to combine class names (similar to clsx/cn)
  */
-export function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ')
+import { type ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+export function getPackageVersion(): string {
+  try {
+    // In a Vite environment, we can use import.meta.env or read from a build-time constant
+    // For now, we'll return a fallback that can be overridden at build time
+    return packageJson.version || '0.1.0'
+  } catch {
+    return '0.1.0'
+  }
 }

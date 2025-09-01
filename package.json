@@ -1,6 +1,6 @@
 {
   "name": "vue-frimousse",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
@@ -42,7 +42,6 @@
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js"
     },
-    "./style.css": "./lib/index.css",
     "./nuxt": {
       "import": {
         "types": "./lib/nuxt/types.d.mts",
@@ -113,5 +112,9 @@
     "vue-router": "^4.5.1",
     "vue-sonner": "^2.0.8",
     "vue-tsc": "^3.0.4"
+  },
+  "dependencies": {
+    "@vueuse/core": "^13.8.0",
+    "motion": "^12.23.12"
   }
 }

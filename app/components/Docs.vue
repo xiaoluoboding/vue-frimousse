@@ -4,7 +4,7 @@
   >
     <PermalinkHeading as="h2">Installation</PermalinkHeading>
 
-    <CodeBlock lang="bash" :html="installCode"/>
+    <CodeBlock lang="bash" :code="installCode"/>
 
     <p>
       If you are using
@@ -22,7 +22,7 @@
       .
     </p>
 
-    <CodeBlock lang="bash" :html="shadcnCode"/>
+    <CodeBlock lang="bash" :code="shadcnCode"/>
 
     <p>
       Learn more in the shadcn/ui <a href="#shadcnui">section</a>.
@@ -34,10 +34,7 @@
       by composing them.
     </p>
 
-    <!-- <CodeBlock
-      lang="vue"
-      :html="exampleCode"
-    /> -->
+    <CodeBlock lang="vue" :code="exampleCode" />
 
     <p>
       Apart from a few sizing and overflow defaults, the parts don't have any
@@ -50,19 +47,7 @@
       <code>[frimousse-*]</code> attributes present on each part.
     </p>
 
-    <div class="not-prose relative overflow-hidden">
-      <div class="flex items-center justify-center rounded-t-lg border border-b-0 border-dotted bg-background">
-        <div class="relative flex w-full items-center justify-center h-[480px]">
-          <EmojiPickerRoot :onEmojiSelect="onEmojiClick">
-            <EmojiPickerSearch placeholder="Search emojis..." />
-            <EmojiPickerViewport>
-              <EmojiPickerList />
-            </EmojiPickerViewport>
-            <EmojiPickerFooter />
-          </EmojiPickerRoot>
-        </div>
-      </div>
-    </div>
+    <EmojiPickerBasicDemo />
 
     <p>
       You might want to use it in a popover rather than on its own. Frimousse
@@ -121,35 +106,23 @@
       .
     </p>
 
-    <CodeBlock lang="bash" html="npx shadcn@latest add https://frimousse.liveblocks.io/r/emoji-picker"/>
+    <CodeBlock lang="bash" code="npx shadcn@latest add https://vue-frimousse.vercel.app"/>
 
-    <div class="mt-4 not-prose relative overflow-hidden">
-      <div class="flex items-center justify-center rounded-t-lg border border-b-0 border-dotted bg-background">
-        <div class="relative flex w-full items-center justify-center h-[480px]">
-          <EmojiPickerRoot :onEmojiSelect="onEmojiClick">
-            <EmojiPickerSearch />
+    <EmojiPickerShadcnVueDemo />
 
-            <EmojiPickerLoading>
-              <div class="p-6 text-center text-neutral-500 dark:text-neutral-400 text-sm">
-                🔄 Loading emojis...
-              </div>
-            </EmojiPickerLoading>
+    <p>
+      It can be composed and combined with other <code>shadcn-vue</code> components like
+      <a
+        href="https://www.shadcn-vue.com/docs/components/popover.html"
+        rel="noreferrer"
+        target="_blank"
+      >
+        Popover
+      </a>
+      .
+    </p>
 
-            <EmojiPickerEmpty>
-              <template #default="{ search }">
-                <div class="p-6 text-center text-neutral-500 dark:text-neutral-400 text-sm">
-                  😕 No emojis found for "{{ search }}"
-                </div>
-              </template>
-            </EmojiPickerEmpty>
-
-            <EmojiPickerViewport>
-              <EmojiPickerList />
-            </EmojiPickerViewport>
-          </EmojiPickerRoot>
-        </div>
-      </div>
-    </div>
+    <EmojiPickerPopover />
 
     <PermalinkHeading as="h2">Styling</PermalinkHeading>
     <p>Various styling-related details and examples.</p>
@@ -250,53 +223,124 @@
       .
     </p>
 
+    <PermalinkHeading as="h2">API Reference</PermalinkHeading>
+    <p>All parts and hooks, along their usage and options.</p>
+
+    <PermalinkHeading as="h3">EmojiPicker.Root</PermalinkHeading>
+    <p>Surrounds all the emoji picker parts.</p>
+
+    <CodeBlock lang="vue" :code="emojiPickerRootCode" />
+    <p>
+      Options affecting the entire emoji picker are available on this
+      component as props.
+    </p>
+
+    <PermalinkHeading as="h3">EmojiPicker.Search</PermalinkHeading>
+    <p>A search input to filter the list of emojis.</p>
+
+    <CodeBlock lang="vue" :code="emojiPickerRootCode" />
+
+    <PermalinkHeading as="h2">Miscellaneous</PermalinkHeading>
+      <p>
+        The name
+        <a
+          href="https://en.wiktionary.org/wiki/frimousse"
+          rel="noreferrer"
+          target="_blank"
+        >
+          “frimousse”
+        </a>
+        means “little face” in French, and it can also refer to smileys and
+        emoticons.
+      </p>
+      <p>
+        The emoji picker component was originally created for the
+        <a
+          href="https://liveblocks.io/comments"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Liveblocks Comments
+        </a>
+        default components, within
+        <a
+          href="https://github.com/liveblocks/liveblocks/tree/main/packages/liveblocks-react-ui"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <code>@liveblocks/react-ui</code>
+        </a>
+        .
+      </p>
+      <p>
+        This project is a Vue port of the
+        <a
+          href="https://github.com/liveblocks/frimousse"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <code>frimousse</code>
+        </a>
+        .
+      </p>
+
+      <PermalinkHeading as="h2">Credits</PermalinkHeading>
+      <p>
+        The emoji data is based on
+        <a href="https://emojibase.dev/" rel="noreferrer" target="_blank">
+          Emojibase
+        </a>
+        .
+      </p>
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import EmojiPickerRoot from '@/packages/EmojiPicker.vue'
-import EmojiPickerSearch from '@/packages/components/EmojiPickerSearch.vue'
-import EmojiPickerViewport from '@/packages/components/EmojiPickerViewport.vue'
-import EmojiPickerList from '@/packages/components/EmojiPickerList.vue'
-import EmojiPickerLoading from '@/packages/components/EmojiPickerLoading.vue'
-import EmojiPickerEmpty from '@/packages/components/EmojiPickerEmpty.vue'
 import type { EmojiPickerEmoji } from '@/packages/types'
 import { toast } from 'vue-sonner'
 import { CodeBlock } from '~/components/ui/code-block/index'
 import PermalinkHeading from '~/components/PermalinkHeading.vue'
+import EmojiPickerPopover from './EmojiPickerPopover.vue'
+import EmojiPickerBasicDemo from './EmojiPickerBasicDemo.vue'
+import EmojiPickerShadcnVueDemo from './EmojiPickerShadcnVueDemo.vue'
 
 const selectedEmoji = ref<EmojiPickerEmoji | null>(null)
 
-const installCode = 'npm i vue-frimousse'
-const shadcnCode = 'npx shadcn@latest add https://frimousse.liveblocks.io/r/emoji-picker'
+const installCode = 'nppm i vue-frimousse'
+const shadcnCode = 'npx shadcn@latest add https://vue-frimousse.vercel.app'
 
-// const exampleCode = `
-// <template>
-//   <EmojiPickerRoot :onEmojiSelect="onEmojiClick">
-//     <EmojiPickerSearch placeholder="Search emojis..." />
-//     <EmojiPickerViewport>
-//       <EmojiPickerList />
-//     </EmojiPickerViewport>
-//     <EmojiPickerFooter />
-//   </EmojiPickerRoot>
-// </template>
+const exampleCode = `
+  <template>
+    <EmojiPicker.Root :onEmojiSelect="onEmojiClick">
+      <EmojiPicker.Search placeholder="Search..." />
+      <EmojiPicker.Viewport>
+        <EmojiPicker.List />
+      </EmojiPicker.Viewport>
+    </EmojiPicker.Root>
+  </template>
 
-// <script setup lang="ts">
-// import { ref } from 'vue'
-// import {
-//   EmojiPickerRoot,
-//   EmojiPickerSearch,
-//   EmojiPickerViewport,
-//   EmojiPickerList,
-//   EmojiPickerFooter
-// } from 'vue-frimousse'
-// import type { EmojiPickerEmoji } from 'vue-frimousse'
+  <script setup lang="ts">
+  import { ref } from 'vue'
+  import * as EmojiPicker from 'vue-frimousse'
+  import type { EmojiPickerEmoji } from 'vue-frimousse'
 
-// const onEmojiClick = (emoji: EmojiPickerEmoji) => {
-//   console.log('Selected emoji:', emoji)
-// }
-// <\/script>`
+  const onEmojiClick = (emoji: EmojiPickerEmoji) => {
+    console.log('Selected emoji:', emoji)
+  }
+  <\/script>
+`
+
+const emojiPickerRootCode = `
+  <template>
+    <EmojiPicker.Root :onEmojiSelect="onEmojiClick">
+      <EmojiPicker.Search placeholder="Search..." />
+      <EmojiPicker.Viewport>
+        <EmojiPicker.List />
+      </EmojiPicker.Viewport>
+    </EmojiPicker.Root>
+  <\/template>
+`
 
 const onEmojiClick = (emoji: EmojiPickerEmoji) => {
   selectedEmoji.value = emoji

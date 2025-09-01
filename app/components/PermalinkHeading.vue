@@ -2,10 +2,10 @@
   <component
     :is="as"
     :id="slug"
-    :class="cn('link scroll-mt-18 md:scroll-mt-24', ($attrs.class as string) || '')"
+    :class="cn('link underline decoration-neutral-200 hover:decoration-primary-foreground scroll-mt-18 md:scroll-mt-24 text-base text-primary decoration-dotted', ($attrs.class as string) || '')"
     v-bind="$attrs"
   >
-    <a :href="`#${slug}`">
+    <a :href="`#${slug}`" class="no-underline">
       <slot />
     </a>
   </component>
@@ -38,11 +38,4 @@ const slug = computed(() => {
 </script>
 
 <style scoped>
-.link {
-  text-decoration: none;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
 </style>

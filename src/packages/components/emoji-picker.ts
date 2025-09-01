@@ -19,5 +19,5 @@ export {
   EmojiPickerSkinToneSelector as SkinToneSelector, // <EmojiPicker.SkinToneSelector />
   EmojiPickerActiveEmoji as ActiveEmoji, //           <EmojiPicker.ActiveEmoji />
   EmojiPickerSkinTone as SkinTone, //                 <EmojiPicker.SkinTone />
-  EmojiPickerFooter as Footer //                     <EmojiPicker.Footer />
+  EmojiPickerFooter as Footer //                      <EmojiPicker.Footer />
 }

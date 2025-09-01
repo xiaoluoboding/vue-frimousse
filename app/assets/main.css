@@ -115,6 +115,9 @@
 }
 
 @layer base {
+  :root {
+    color-scheme: light dark;
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -128,14 +131,19 @@
     p {
       @apply text-muted-foreground;
     }
+    a {
+      @apply !text-primary text-sm hover:!text-emerald-500;
+    }
     code {
-      @apply bg-muted !text-muted-foreground py-1 px-1 !font-normal rounded;
+      @apply bg-muted !text-muted-foreground py-[3px] px-[6px] !font-normal rounded;
     }
     code:where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
       content: " " !important;
+      display: none;
     }
     code:where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
       content: " " !important;
+      display: none;
     }
   }
 }
