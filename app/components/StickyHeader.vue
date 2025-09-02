@@ -16,9 +16,12 @@
     <div class="container max-w-screen-sm mx-auto relative h-full">
       <div class="pointer-events-auto absolute inset-x-4 inset-y-0 md:inset-x-0">
         <div class="absolute top-3 right-4 md:top-5 md:right-8">
-          <Button
-            variant="outline"
-            size="sm"
+          <a
+            href="https://github.com/xiaoluoboding/vue-frimousse"
+            rel="noreferrer"
+            target="_blank"
+            :class="cn(buttonVariants({ variant: 'outline', size: 'sm' }),
+          )"
           >
             <svg
               aria-hidden="true"
@@ -32,7 +35,7 @@
             </svg>
             xiaoluoboding/vue-frimousse
             <span class="xs:inline hidden">xiaoluoboding/vue-frimousse</span>
-          </Button>
+          </a>
         </div>
       </div>
     </div>
@@ -68,7 +71,7 @@ import { ref, computed } from 'vue'
 import { cn, getPackageVersion } from '~/utils'
 import { useIsMounted } from '~/composables/useIsMounted'
 import { useIsSticky } from '~/composables/useIsSticky'
-import { Button } from '~/components/ui/button'
+import { Button, buttonVariants } from '~/components/ui/button'
 import Logo from './Logo.vue'
 
 const stickyRef = ref<HTMLDivElement>()
