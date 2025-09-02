@@ -238,7 +238,7 @@
     <PermalinkHeading as="h3">EmojiPicker.Search</PermalinkHeading>
     <p>A search input to filter the list of emojis.</p>
 
-    <CodeBlock lang="vue" :code="emojiPickerRootCode" />
+    <CodeBlock lang="vue" :code="emojiPickerSearchCode" />
 
     <PermalinkHeading as="h2">Miscellaneous</PermalinkHeading>
       <p>
@@ -296,18 +296,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { EmojiPickerEmoji } from '@/packages/types'
-import { toast } from 'vue-sonner'
 import { CodeBlock } from '~/components/ui/code-block/index'
 import PermalinkHeading from '~/components/PermalinkHeading.vue'
 import EmojiPickerPopover from './EmojiPickerPopover.vue'
 import EmojiPickerBasicDemo from './EmojiPickerBasicDemo.vue'
 import EmojiPickerShadcnVueDemo from './EmojiPickerShadcnVueDemo.vue'
 
-const selectedEmoji = ref<EmojiPickerEmoji | null>(null)
 
-const installCode = 'nppm i vue-frimousse'
+const installCode = 'pnpm i vue-frimousse'
 const shadcnCode = 'npx shadcn@latest add https://vue-frimousse.vercel.app'
 
 const exampleCode = `
@@ -322,7 +318,7 @@ const exampleCode = `
 
   <script setup lang="ts">
   import { ref } from 'vue'
-  import * as EmojiPicker from 'vue-frimousse'
+  import { default as EmojiPicker } from 'vue-frimousse'
   import type { EmojiPickerEmoji } from 'vue-frimousse'
 
   const onEmojiClick = (emoji: EmojiPickerEmoji) => {
@@ -333,7 +329,21 @@ const exampleCode = `
 
 const emojiPickerRootCode = `
   <template>
+    // [!code highlight:1]
     <EmojiPicker.Root :onEmojiSelect="onEmojiClick">
+      <EmojiPicker.Search placeholder="Search..." />
+      <EmojiPicker.Viewport>
+        <EmojiPicker.List />
+      </EmojiPicker.Viewport>
+    // [!code highlight:1]
+    </EmojiPicker.Root>
+  <\/template>
+`
+
+const emojiPickerSearchCode = `
+  <template>
+    <EmojiPicker.Root :onEmojiSelect="onEmojiClick">
+    // [!code highlight:1]
       <EmojiPicker.Search placeholder="Search..." />
       <EmojiPicker.Viewport>
         <EmojiPicker.List />
@@ -341,10 +351,4 @@ const emojiPickerRootCode = `
     </EmojiPicker.Root>
   <\/template>
 `
-
-const onEmojiClick = (emoji: EmojiPickerEmoji) => {
-  selectedEmoji.value = emoji
-  console.log('Selected emoji:', emoji)
-  toast(`${emoji.emoji} ${emoji.label}`)
-}
 </script>

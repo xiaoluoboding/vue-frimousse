@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 @plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
@@ -118,11 +118,60 @@
   :root {
     color-scheme: light dark;
   }
-  * {
-    @apply border-border outline-ring/50;
-  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased text-base overflow-x-hidden;
+  }
+
+  * {
+    scrollbar-width: thin;
+    @apply selection:bg-foreground/15;
+  }
+
+  *:where(:not(.not-base, .not-base *)) {
+    &,
+    &::before,
+    &::after {
+      @apply border-border outline-ring;
+    }
+
+    &:focus-visible {
+      @apply outline-2 outline-offset-0;
+    }
+  }
+
+  :where(:not(.not-base, .not-base *)) {
+    strong {
+      @apply font-medium text-foreground;
+    }
+
+    a,
+    option,
+    label,
+    *[role='button'],
+    button:not([disabled]),
+    input:not([disabled]),
+    textarea:not([disabled]),
+    select:not([disabled]) {
+      @apply touch-manipulation;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      @apply text-muted-foreground;
+    }
+
+    input[type='search']::-webkit-search-cancel-button,
+    input[type='search']::-webkit-search-decoration,
+    input[type='search']::-webkit-search-results-button,
+    input[type='search']::-webkit-search-results-decoration {
+      @apply hidden;
+    }
+
+    button:not(:disabled),
+    [role='button']:not(:disabled) {
+      @apply cursor-pointer;
+    }
   }
 }
 
@@ -135,14 +184,14 @@
       @apply !text-primary text-sm hover:!text-emerald-500;
     }
     code {
-      @apply bg-muted !text-muted-foreground py-[3px] px-[6px] !font-normal rounded;
+      @apply bg-muted !text-primary !text-xs px-2 py-1 rounded;
     }
-    code:where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
-      content: " " !important;
+    code:where(code):not(:where([class~='not-prose'], [class~='not-prose'] *))::before {
+      content: ' ' !important;
       display: none;
     }
-    code:where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
-      content: " " !important;
+    code:where(code):not(:where([class~='not-prose'], [class~='not-prose'] *))::after {
+      content: ' ' !important;
       display: none;
     }
   }

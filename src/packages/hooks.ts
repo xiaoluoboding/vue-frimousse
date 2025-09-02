@@ -1,10 +1,10 @@
-import { computed, type Ref } from 'vue';
-import { getSkinToneVariations } from './utils/get-skin-tone-variations';
-import { useSelector, useSelectorKey } from './utils/store';
-import { $activeEmoji, sameEmojiPickerEmoji, useEmojiPickerStore } from './store';
-import type { Emoji, SkinTone, SkinToneVariation } from './types';
+import { computed, type Ref } from 'vue'
+import { getSkinToneVariations } from './utils/get-skin-tone-variations'
+import { useSelector, useSelectorKey } from './utils/store'
+import { $activeEmoji, sameEmojiPickerEmoji, useEmojiPickerStore } from './store'
+import type { Emoji, SkinTone, SkinToneVariation } from './types'
 
-export { useEmojiPickerData, type UseEmojiPickerDataOptions } from './hooks/useEmojiPickerData';
+export { useEmojiPickerData, type UseEmojiPickerDataOptions } from './hooks/useEmojiPickerData'
 
 /**
  * Returns the currently active emoji (either hovered or selected
@@ -27,7 +27,7 @@ export { useEmojiPickerData, type UseEmojiPickerDataOptions } from './hooks/useE
  *     <span v-else>Select an emoji…</span>
  *   </div>
  * </template>
- * 
+ *
  * <script setup>
  * const activeEmoji = useActiveEmoji();
  * </script>
@@ -38,10 +38,10 @@ export { useEmojiPickerData, type UseEmojiPickerDataOptions } from './hooks/useE
  * `<EmojiPicker.ActiveEmoji />` is also available.
  */
 export function useActiveEmoji(): Ref<Emoji | undefined> {
-  const store = useEmojiPickerStore();
-  const activeEmoji = useSelector(store, $activeEmoji, sameEmojiPickerEmoji);
+  const store = useEmojiPickerStore()
+  const activeEmoji = useSelector(store, $activeEmoji, sameEmojiPickerEmoji)
 
-  return activeEmoji;
+  return activeEmoji
 }
 
 /**
@@ -61,15 +61,15 @@ export function useActiveEmoji(): Ref<Emoji | undefined> {
  * @example
  * ```vue
  * <template>
- *   <button 
- *     v-for="variation in skinToneVariations" 
+ *   <button
+ *     v-for="variation in skinToneVariations"
  *     :key="variation.skinTone"
  *     @click="setSkinTone(variation.skinTone)"
  *   >
  *     {{ variation.emoji }}
  *   </button>
  * </template>
- * 
+ *
  * <script setup>
  * const [skinTone, setSkinTone, skinToneVariations] = useSkinTone("👋");
  * </script>
@@ -84,15 +84,15 @@ export function useActiveEmoji(): Ref<Emoji | undefined> {
  * `<EmojiPicker.SkinToneSelector />`.
  */
 export function useSkinTone(
-  emoji = "✋",
+  emoji = '✋'
 ): [Ref<SkinTone>, (skinTone: SkinTone) => void, SkinToneVariation[]] {
-  const store = useEmojiPickerStore();
-  const skinTone = useSelectorKey(store, "skinTone");
-  const skinToneVariations = computed(() => getSkinToneVariations(emoji));
+  const store = useEmojiPickerStore()
+  const skinTone = useSelectorKey(store, 'skinTone')
+  const skinToneVariations = computed(() => getSkinToneVariations(emoji))
 
   const setSkinTone = (newSkinTone: SkinTone) => {
-    store.set({ skinTone: newSkinTone });
-  };
+    store.set({ skinTone: newSkinTone })
+  }
 
-  return [skinTone, setSkinTone, skinToneVariations.value];
+  return [skinTone, setSkinTone, skinToneVariations.value]
 }

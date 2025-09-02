@@ -47,8 +47,7 @@ yarn add vue-frimousse
 </template>
 
 <script setup lang="ts">
-import * as EmojiPicker from 'vue-frimousse'
-import 'vue-frimousse/style.css'
+import { default as EmojiPicker } from 'vue-frimousse'
 
 const onEmojiClick = (emoji: any) => {
   console.log('Selected emoji:', emoji)

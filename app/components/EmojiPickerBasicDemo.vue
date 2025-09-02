@@ -74,7 +74,7 @@ const exampleCode = `
 
   <script setup lang="ts">
   import { ref } from 'vue'
-  import * as EmojiPicker from 'vue-frimousse'
+  import { default as EmojiPicker } from 'vue-frimousse'
   import type { EmojiPickerEmoji } from 'vue-frimousse'
 
   const onEmojiClick = (emoji: EmojiPickerEmoji) => {
