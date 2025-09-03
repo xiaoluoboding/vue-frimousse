@@ -40,7 +40,3 @@ import StickyHeader from '~/components/StickyHeader.vue'
 import Docs from '~/components/Docs.vue'
 import SiteFooter from '~/components/SiteFooter.vue'
 </script>
-
-<style lang="css">
-@import '../assets/frimousse.css'
-</style>

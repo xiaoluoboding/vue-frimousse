@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin '@tailwindcss/typography';
+@import '../assets/frimousse-tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -177,14 +178,32 @@
 
 @layer base {
   .prose {
+    h2 {
+      @apply !text-base;
+    }
+    h3 {
+      @apply !text-base;
+    }
+    h4 {
+      @apply !text-sm;
+    }
+
     p {
       @apply text-muted-foreground;
+      a {
+        @apply !text-primary text-sm hover:!text-emerald-500;
+      }
     }
+
     a {
-      @apply !text-primary text-sm hover:!text-emerald-500;
+      @apply !text-primary;
     }
+   
     code {
       @apply bg-muted !text-primary !text-xs px-2 py-1 rounded;
+    }
+    pre.shiki code {
+      @apply !px-0;
     }
     code:where(code):not(:where([class~='not-prose'], [class~='not-prose'] *))::before {
       content: ' ' !important;

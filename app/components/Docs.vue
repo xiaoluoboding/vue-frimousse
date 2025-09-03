@@ -8,16 +8,16 @@
 
     <p>
       If you are using
-      <a href="https://ui.shadcn.com/" rel="noreferrer" target="_blank">
-        shadcn/ui
+      <a href="https://www.shadcn-vue.com" rel="noreferrer" target="_blank">
+        shadcn/vue
       </a>
       , you can also install it as a pre-built component via the
       <a
-        href="https://ui.shadcn.com/docs/cli"
+        href="https://www.shadcn-vue.com/docs/cli.html"
         rel="noreferrer"
         target="_blank"
       >
-        shadcn CLI
+        shadcn/vue CLI
       </a>
       .
     </p>
@@ -25,7 +25,7 @@
     <CodeBlock lang="bash" :code="shadcnCode"/>
 
     <p>
-      Learn more in the shadcn/ui <a href="#shadcnui">section</a>.
+      Learn more in the shadcn/vue <a href="#shadcnvue">section</a>.
     </p>
 
     <PermalinkHeading as="h2">Usage</PermalinkHeading>
@@ -54,59 +54,51 @@
       only provides the emoji picker itself so if you don’t have a popover
       component in your app yet, there are several libraries available:
       <a
-        href="https://www.radix-ui.com/primitives/docs/components/popover"
+        href="https://reka-ui.com/docs/components/popover"
         rel="noreferrer"
         target="_blank"
       >
-        Radix UI
+        Reka UI
       </a>
       ,
       <a
-        href="https://base-ui.com/react/components/popover"
+        href="https://www.shadcn-vue.com/docs/components/popover.html"
         rel="noreferrer"
         target="_blank"
       >
-        Base UI
-      </a>
-      ,
-      <a
-        href="https://headlessui.com/react/popover"
-        rel="noreferrer"
-        target="_blank"
-      >
-        Headless UI
+        shadcn/vue
       </a>
       , and
       <a
-        href="https://react-spectrum.adobe.com/react-aria/Popover.html"
+        href="https://ui.nuxt.com/components/popover"
         rel="noreferrer"
         target="_blank"
       >
-        React Aria
+        Nuxt UI
       </a>
       , to name a few.
     </p>
 
-    <PermalinkHeading as="h3">shadcn-vue</PermalinkHeading>
+    <PermalinkHeading as="h3">shadcn/vue</PermalinkHeading>
 
     <p>
       If you are using
-      <a href="https://ui.shadcn.com/" rel="noreferrer" target="_blank">
-        shadcn/ui
+      <a href="https://www.shadcn-vue.com" rel="noreferrer" target="_blank">
+        shadcn/vue
       </a>
       , you can install a pre-built version of the component which integrates
-      with the existing shadcn/ui variables via the
+      with the existing shadcn/vue variables via the
       <a
-        href="https://ui.shadcn.com/docs/cli"
+        href="https://www.shadcn-vue.com/docs/cli.html"
         rel="noreferrer"
         target="_blank"
       >
-        shadcn CLI
+        shadcn/vue CLI
       </a>
       .
     </p>
 
-    <CodeBlock lang="bash" code="npx shadcn@latest add https://vue-frimousse.vercel.app"/>
+    <CodeBlock lang="bash" code="npx shadcn-vue@latest add https://vue-frimousse.vercel.app"/>
 
     <EmojiPickerShadcnVueDemo />
 
@@ -235,10 +227,575 @@
       component as props.
     </p>
 
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Root">
+      Props
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="onEmojiSelect" type="(emoji: Emoji) => void">
+        <p>A callback invoked when an emoji is selected.</p>
+      </PropertiesListRow>
+      <PropertiesListRow defaultValue="en" name="locale" type="Locale">
+        <p>The locale of the emoji picker.</p>
+      </PropertiesListRow>
+      <PropertiesListRow
+        defaultValue="none"
+        name="skinTone"
+        type="SkinTone"
+      >
+        <p>The skin tone of the emoji picker.</p>
+      </PropertiesListRow>
+      <PropertiesListRow defaultValue="10" name="columns" type="number">
+        <p>The number of columns in the list.</p>
+      </PropertiesListRow>
+      <PropertiesListRow defaultValue="true" name="sticky" type="boolean">
+        <p>Whether the category headers should be sticky.</p>
+      </PropertiesListRow>
+      <PropertiesListRow
+        defaultValue="the most recent version supported by the current browser"
+        name="emojiVersion"
+        type="number"
+      >
+        <p>
+          Which
+          <a
+            href="https://emojipedia.org/emoji-versions"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Emoji version
+          </a>
+          to use, to manually control which emojis are visible regardless of
+          the current browser’s supported Emoji versions.
+        </p>
+      </PropertiesListRow>
+      <PropertiesListRow
+        defaultValue="https://cdn.jsdelivr.net/npm/emojibase-data"
+        name="emojibaseUrl"
+        type="string"
+      >
+        <p>
+          The base URL of where the
+          <a
+            href="https://emojibase.dev/docs/datasets/"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Emojibase data
+          </a>
+          should be fetched from, used as follows:
+          <code>
+            ${emojibaseUrl}/{locale}/{file}.json
+          </code>
+          . (e.g.
+          <code>
+            ${emojibaseUrl}/en/data.json
+          </code>
+          ).
+        </p>
+        <p>
+          The URL can be set to another CDN hosting the
+          <a
+            href="https://www.npmjs.com/package/emojibase-data"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <code>emojibase-data</code>
+          </a>
+          package and its raw JSON files, or to a self-hosted location. When
+          self-hosting with a single locale (e.g. <code>en</code>), only that
+          locale’s directory needs to be hosted instead of the entire package.
+        </p>
+      </PropertiesListRow>
+      <PropertiesListBasicRow>
+        <p>
+          All built-in <code>div</code> props.
+        </p>
+      </PropertiesListBasicRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Root">
+      Attributes
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="[frimousse-root]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+      <PropertiesListRow name="[data-focused]">
+        <p>
+          Present when the emoji picker or its inner elements are focused.
+        </p>
+      </PropertiesListRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Root">
+      CSS Variables
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="--frimousse-emoji-font" type="<string>">
+        <p>A list of font families to use when rendering emojis.</p>
+      </PropertiesListRow>
+      <PropertiesListRow name="--frimousse-viewport-width" type="<length>">
+        <p>The measured width of the viewport.</p>
+      </PropertiesListRow>
+      <PropertiesListRow name="--frimousse-viewport-height" type="<length>">
+        <p>The measured height of the viewport.</p>
+      </PropertiesListRow>
+      <PropertiesListRow name="--frimousse-row-height" type="<length>">
+        <p>The measured height of a row in the list.</p>
+      </PropertiesListRow>
+      <PropertiesListRow
+        name="--frimousse-category-header-height"
+        type="<length>"
+      >
+        <p>The measured height of a category header in the list.</p>
+      </PropertiesListRow>
+    </PropertiesList>
+
     <PermalinkHeading as="h3">EmojiPicker.Search</PermalinkHeading>
     <p>A search input to filter the list of emojis.</p>
 
     <CodeBlock lang="vue" :code="emojiPickerSearchCode" />
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Search">
+      Props
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListBasicRow>
+        <p>
+          All built-in <code>input</code> props.
+        </p>
+      </PropertiesListBasicRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Search">
+      Attributes
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="[frimousse-search]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h3">EmojiPicker.Viewport</PermalinkHeading>
+    <p>The scrolling container of the emoji picker.</p>
+
+    <CodeBlock lang="vue" :code="`
+      <template>
+        <EmojiPicker.Root>
+          <EmojiPicker.Search />
+          // [!code highlight:1]
+          <EmojiPicker.Viewport>
+            <EmojiPicker.Loading>Loading…</EmojiPicker.Loading>
+            <EmojiPicker.Empty>No emoji found.</EmojiPicker.Empty>
+            <EmojiPicker.List />
+          // [!code highlight:1]
+          </EmojiPicker.Viewport>
+        </EmojiPicker.Root>
+      <\/template>
+    `" />
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Viewport">
+      Props
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListBasicRow>
+        <p>
+          All built-in <code>div</code> props.
+        </p>
+      </PropertiesListBasicRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Viewport">
+      Attributes
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="[frimousse-viewport]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h3">EmojiPicker.List</PermalinkHeading>
+    <p>The list of emojis.</p>
+    <CodeBlock lang="vue" :code="`
+      <template>
+        <EmojiPicker.Root>
+          <EmojiPicker.Search />
+          <EmojiPicker.Viewport>
+            // [!code highlight:1]
+            <EmojiPicker.List />
+          </EmojiPicker.Viewport>
+        </EmojiPicker.Root>
+      <\/template>
+    `" />
+
+    <p>
+      Inner components within the list can be customized via the
+      <code>components</code> prop.
+    </p>
+    <CodeBlock lang="vue" :code="emojiPickerListComponentsCode" />
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.List">
+      Props
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow
+        name="components"
+        type="Partial<EmojiPickerListComponents>"
+      >
+        <p>The inner components of the list.</p>
+      </PropertiesListRow>
+      <PropertiesListBasicRow>
+        <p>
+          All built-in <code>div</code> props.
+        </p>
+      </PropertiesListBasicRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.List">
+      Attributes
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="[frimousse-list]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.List">
+      Inner Components
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow
+        name="CategoryHeader"
+        type="EmojiPickerListCategoryHeaderProps"
+      >
+        <p>
+          The component used to render a sticky category header in the list.
+        </p>
+        <p className="mt-2 text-secondary-foreground/60!">
+          <CircleHelp
+            aria-hidden
+            className="-mt-0.5 mr-1.5 inline-block size-3.5"
+          />
+          <span>All category headers should be of the same size.</span>
+        </p>
+      </PropertiesListRow>
+      <PropertiesListRow className="pl-8!" name="[frimousse-category-header]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+      <PropertiesListRow className="pl-8!" name="category" type="Category">
+        <p>The category for this sticky header.</p>
+      </PropertiesListRow>
+      <PropertiesListBasicRow className="pl-8!">
+        <p>
+          All built-in <code>div</code> props.
+        </p>
+      </PropertiesListBasicRow>
+      <PropertiesListRow name="Row" type="EmojiPickerListRowProps">
+        <p>The component used to render a row of emojis in the list.</p>
+        <p className="mt-2 text-secondary-foreground/60!">
+          <CircleHelp
+            aria-hidden
+            className="-mt-0.5 mr-1.5 inline-block size-3.5"
+          />
+          <span>All rows should be of the same size.</span>
+        </p>
+      </PropertiesListRow>
+      <PropertiesListRow className="pl-8!" name="[frimousse-row]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+      <PropertiesListBasicRow className="pl-8!">
+        <p>
+          All built-in <code>div</code> props.
+        </p>
+      </PropertiesListBasicRow>
+      <PropertiesListRow name="Emoji" type="EmojiPickerListEmojiProps">
+        <p>The component used to render an emoji button in the list.</p>
+        <p className="mt-2 text-secondary-foreground/60!">
+          <CircleHelp
+            aria-hidden
+            className="-mt-0.5 mr-1.5 inline-block size-3.5"
+          />
+          <span>All emojis should be of the same size.</span>
+        </p>
+      </PropertiesListRow>
+      <PropertiesListRow className="pl-8!" name="[frimousse-emoji]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+      <PropertiesListRow className="pl-8!" name="[data-active]">
+        <p>
+          Present when the emoji is currently active (either hovered or
+          selected via keyboard navigation).
+        </p>
+      </PropertiesListRow>
+      <PropertiesListRow
+        className="pl-8!"
+        name="emoji"
+        type="Emoji & { isActive: boolean }"
+      >
+        <p>
+          The emoji for this button, its label, and whether the emoji is
+          currently active (either hovered or selected via keyboard
+          navigation).
+        </p>
+      </PropertiesListRow>
+      <PropertiesListBasicRow className="pl-8!">
+        <p>
+          All built-in <code>button</code> props.
+        </p>
+      </PropertiesListBasicRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h3">EmojiPicker.Loading</PermalinkHeading>
+    <p>Only renders when the emoji data is loading.</p>
+    <CodeBlock lang="vue" :code="`
+      <template>
+        <EmojiPicker.Root>
+          <EmojiPicker.Search />
+          <EmojiPicker.Viewport>
+            // [!code highlight:1]
+            <EmojiPicker.Loading>Loading…</EmojiPicker.Loading>
+          </EmojiPicker.Viewport>
+        </EmojiPicker.Root>
+      <\/template>
+    `" />
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Loading">
+      Props
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="children" type="ReactNode">
+        <p>The content to render when the emoji data is loading.</p>
+      </PropertiesListRow>
+      <PropertiesListBasicRow>
+        <p>
+          All built-in <code>span</code> props.
+        </p>
+      </PropertiesListBasicRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Loading">
+      Attributes
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="[frimousse-loading]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h3">EmojiPicker.Empty</PermalinkHeading>
+    <p>Only renders when no emoji is found for the current search.</p>
+    <CodeBlock lang="vue" :code="`
+      <template>
+        <EmojiPicker.Root>
+          <EmojiPicker.Search />
+          <EmojiPicker.Viewport>
+            // [!code highlight:1]
+            <EmojiPicker.Empty>No emoji found.</EmojiPicker.Empty>
+            <EmojiPicker.List />
+          </EmojiPicker.Viewport>
+        </EmojiPicker.Root>
+      <\/template>
+    `" />
+
+    <p>
+      It can also expose the current search via a render callback to build a
+      more detailed empty state.
+    </p>
+    <CodeBlock lang="vue" :code="emojiPickerEmptyRenderCallbackCode" />
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Empty">
+      Props
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow
+        name="children"
+        type="ReactNode | ((props: EmojiPickerEmptyRenderProps) => ReactNode)"
+      >
+        <p>
+          The content to render when no emoji is found for the current search,
+          or a render callback which receives the current search value.
+        </p>
+      </PropertiesListRow>
+      <PropertiesListBasicRow>
+        <p>
+          All built-in <code>span</code> props.
+        </p>
+      </PropertiesListBasicRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.Empty">
+      Attributes
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="[frimousse-empty]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h3">EmojiPicker.SkinToneSelector</PermalinkHeading>
+    <p>
+      A button to change the current skin tone by cycling through the
+      available skin tones.
+    </p>
+    <CodeBlock lang="vue" :code="`
+      <template>
+        <EmojiPicker.SkinToneSelector />
+      <\/template>
+    `" />
+    <p>The emoji used as visual can be customized.</p>
+    <CodeBlock lang="vue" :code="skinToneSelectorCode" />
+
+    <p>
+      If you want to build a custom skin tone selector, you can use the
+      <a href="#emojipicker.skintone">
+        <code>EmojiPicker.SkinTone</code>
+      </a>
+      component or the
+      <a href="#useskintone">
+        <code>useSkinTone</code>
+      </a>
+      hook.
+    </p>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.SkinToneSelector">
+      Props
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow defaultValue="✋" name="emoji" type="string">
+        <p>The emoji to use as visual for the skin tone variations.</p>
+      </PropertiesListRow>
+      <PropertiesListBasicRow>
+        <p>
+          All built-in <code>button</code> props.
+        </p>
+      </PropertiesListBasicRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.SkinToneSelector">
+      Attributes
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow name="[frimousse-skin-tone-selector]">
+        <p>Can be targeted in CSS for styling.</p>
+      </PropertiesListRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h3">EmojiPicker.SkinTone</PermalinkHeading>
+    <p>
+      Exposes the current skin tone and a function to change it via a render
+      callback.
+    </p>
+    <CodeBlock lang="vue" :code="skinToneCode" />
+
+    <p>
+      It can be used to build a custom skin tone selector: pass an emoji you
+      want to use as visual and it will return its skin tone variations.
+    </p>
+    <CodeBlock lang="vue" :code="useSkinToneCode" />
+    <p>
+      If you prefer to use a hook rather than a component,
+      <a href="#useskintone">
+        <code>useSkinTone</code>
+      </a>
+      is also available.
+    </p>
+    <p>
+      An already-built skin tone selector is also available,
+      <a href="#emojipicker.skintoneselector">
+        <code>EmojiPicker.SkinToneSelector</code>
+      </a>
+      .
+    </p>
+
+    <PermalinkHeading as="h4" slugPrefix="EmojiPicker.SkinTone">
+      Props
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow defaultValue="✋" name="emoji" type="string">
+        <p>The emoji to use as visual for the skin tone variations.</p>
+      </PropertiesListRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h3">EmojiPicker.ActiveEmoji</PermalinkHeading>
+    <p>
+      Exposes the currently active emoji (either hovered or selected via
+      keyboard navigation) via a render callback.
+    </p>
+    <CodeBlock lang="vue" :code="`
+      <template>
+        <EmojiPicker.ActiveEmoji>
+          <span>{{ emoji }}</span>
+        </EmojiPicker.ActiveEmoji>
+      <\/template>
+    `" />
+    <p>It can be used to build a preview area next to the list.</p>
+
+    <CodeBlock lang="vue" :code="activeEmojiCode" />
+
+    <p>
+      If you prefer to use a hook rather than a component,
+      <a href="#useactiveemoji">
+        <code>useActiveEmoji</code>
+      </a>
+      is also available.
+    </p>
+
+    <PermalinkHeading as="h3">useSkinTone</PermalinkHeading>
+    <p>Returns the current skin tone and a function to change it.</p>
+    <CodeBlock lang="ts" :code="`
+      const skinTone = useSkinTone();
+    `" />
+    <p>
+      It can be used to build a custom skin tone selector: pass an emoji you
+      want to use as visual and it will return its skin tone variations.
+    </p>
+
+    <CodeBlock lang="vue" :code="useSkinToneVariationsCode" />
+
+    <p>
+      If you prefer to use a component rather than a hook,
+      <a href="#emojipicker.skintone">
+        <code>EmojiPicker.SkinTone</code>
+      </a>
+      is also available.
+    </p>
+    <p>
+      An already-built skin tone selector is also available,
+      <a href="#emojipicker.skintoneselector">
+        <code>EmojiPicker.SkinToneSelector</code>
+      </a>
+      .
+    </p>
+
+    <PermalinkHeading as="h4" slugPrefix="useSkinTone">
+      Parameters
+    </PermalinkHeading>
+    <PropertiesList>
+      <PropertiesListRow defaultValue="✋" name="emoji" type="string">
+        <p>The emoji to use as visual for the skin tone variations.</p>
+      </PropertiesListRow>
+    </PropertiesList>
+
+    <PermalinkHeading as="h3">useActiveEmoji</PermalinkHeading>
+    <p>
+      Returns the currently active emoji (either hovered or selected via
+      keyboard navigation).
+    </p>
+    <CodeBlock lang="ts" :code="`
+      const activeEmoji = useActiveEmoji();
+    `" />
+
+    <p>It can be used to build a preview area next to the list.</p>
+    <CodeBlock lang="vue" :code="useActiveEmojiCode" />
+
+    <p>
+      If you prefer to use a component rather than a hook,
+      <a href="#emojipicker.activeemoji">
+        <code>EmojiPicker.ActiveEmoji</code>
+      </a>
+      is also available.
+    </p>
+
 
     <PermalinkHeading as="h2">Miscellaneous</PermalinkHeading>
       <p>
@@ -301,10 +858,14 @@ import PermalinkHeading from '~/components/PermalinkHeading.vue'
 import EmojiPickerPopover from './EmojiPickerPopover.vue'
 import EmojiPickerBasicDemo from './EmojiPickerBasicDemo.vue'
 import EmojiPickerShadcnVueDemo from './EmojiPickerShadcnVueDemo.vue'
+import PropertiesList from './PropertiesList.vue'
+import PropertiesListBasicRow from './PropertiesListBasicRow.vue'
+import PropertiesListRow from './PropertiesListRow.vue'
+// import EmojiPicker from '@/packages'
 
 
 const installCode = 'pnpm i vue-frimousse'
-const shadcnCode = 'npx shadcn@latest add https://vue-frimousse.vercel.app'
+const shadcnCode = 'npx shadcn-vue@latest add https://vue-frimousse.vercel.app'
 
 const exampleCode = `
   <template>
@@ -351,4 +912,126 @@ const emojiPickerSearchCode = `
     </EmojiPicker.Root>
   <\/template>
 `
+
+const skinToneSelectorCode = `
+  <template>
+    // [!code highlight:1]
+    <EmojiPicker.SkinToneSelector emoji="👋" />
+  <\/template>
+`
+
+const emojiPickerListComponentsCode = `
+  <template>
+    <EmojiPicker.Root :onEmojiSelect="onEmojiClick">
+      <EmojiPicker.Search placeholder="Search..." />
+      <EmojiPicker.Viewport>
+        <EmojiPicker.List>
+          // [!code highlight:1]
+          components={{
+            CategoryHeader: ({ category, ...props }) => (
+              <div {...props}>{category.label}</div>
+            ),
+            Emoji: ({ emoji, ...props }) => (
+              <button {...props}>
+                {emoji.emoji}
+              </button>
+            ),
+            Row: ({ children, ...props }) => <div {...props}>{children}</div>,
+          }}
+        />
+      </EmojiPicker.Viewport>
+    </EmojiPicker.Root>
+  <\/template>
+`
+
+const emojiPickerEmptyRenderCallbackCode = `
+  <template>
+    <EmojiPicker.Empty>
+      <template #default="{ search }">
+        No emoji found for "{{ search }}"
+      </template>
+    </EmojiPicker.Empty>
+  <\/template>
+`
+
+const skinToneCode = `
+  <template>
+    <EmojiPicker.SkinTone>
+      <template #default="{ skinTone, setSkinTone }">
+        <div>
+          <span>{skinTone}</span>
+          <button @click="() => setSkinTone('none')">Reset skin tone</button>
+        </div>
+      </template>
+    </EmojiPicker.SkinTone>
+  <\/template>
+`
+
+const useSkinToneCode = `
+  <template>
+    // (👋) (👋🏻) (👋🏼) (👋🏽) (👋🏾) (👋🏿)
+    <EmojiPicker.SkinTone emoji="👋">
+      <template #default="{ skinTone, setSkinTone, skinToneVariations }">
+        skinToneVariations.map(({ skinTone, emoji }) => (
+          <button key={skinTone} @click="() => setSkinTone(skinTone)">
+            {emoji}
+          </button>
+        ))
+      </template>
+    </EmojiPicker.SkinTone>
+  <\/template>
+
+  <script setup lang="ts">
+  import { useSkinTone } from 'vue-frimousse'
+
+   const { skinTone, skinToneVariations } = useSkinTone("👋");
+  <\/script>
+`;
+
+const useSkinToneVariationsCode = `
+  <template>
+    // (👋) (👋🏻) (👋🏼) (👋🏽) (👋🏾) (👋🏿)
+    {({ skinToneVariations }) => (
+      skinToneVariations.map(({ skinTone, emoji }) => (
+        <button key={skinTone} onClick={() => setSkinTone(skinTone)}>
+          {emoji}
+        </button>
+      ))
+      )}
+  <\/template>
+
+  <script setup lang="ts">
+  import { useSkinTone } from 'vue-frimousse'
+
+  const { skinTone, skinToneVariations } = useSkinTone("👋");
+  <\/script>
+`;
+
+const activeEmojiCode = `
+  <template>
+    <EmojiPicker.ActiveEmoji>
+      <template #default="{ emoji }">
+        <div>
+          <span v-if="emoji">{{ emoji.emoji }} {{ emoji.label }}</span>
+          <span v-else>Select an emoji…</span>
+        </div>
+      </template>
+    </EmojiPicker.ActiveEmoji>
+  <\/template>
+`
+
+const useActiveEmojiCode = `
+  <template>
+    <div>
+      <span v-if="activeEmoji">{{ activeEmoji.emoji }} {{ activeEmoji.label }}</span>
+      <span v-else>Select an emoji…</span>
+    </div>
+  <\/template>
+
+  <script setup lang="ts">
+  import { useActiveEmoji } from 'vue-frimousse'
+
+  const activeEmoji = useActiveEmoji();
+  <\/script>
+`;
 </script>

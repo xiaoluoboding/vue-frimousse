@@ -50,7 +50,7 @@
   >
     <span class="pointer-events-auto flex w-fit items-center gap-2 pt-px">
       <a
-        class="flex items-center gap-2 rounded-sm outline-offset-2 transition duration-200 ease-out hover:opacity-60 focus-visible:opacity-60"
+        class="flex items-center gap-2 rounded-sm outline-offset-2 transition duration-200 ease-out hover:text-emerald-500 focus-visible:text-emerald-500"
         href="#"
       >
         <Logo class="flex-none" />

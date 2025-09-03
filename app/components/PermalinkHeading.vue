@@ -2,7 +2,7 @@
   <component
     :is="as"
     :id="slug"
-    :class="cn('link underline decoration-neutral-200 hover:decoration-primary-foreground scroll-mt-18 md:scroll-mt-24 text-base text-primary decoration-dotted', ($attrs.class as string) || '')"
+    :class="cn('link underline decoration-neutral-200 hover:decoration-primary-foreground scroll-mt-18 md:scroll-mt-24 text-primary decoration-dotted', ($attrs.class as string) || '')"
     v-bind="$attrs"
   >
     <a :href="`#${slug}`" class="no-underline">

@@ -1,0 +1,65 @@
+[frimousse-root] {
+  @apply flex flex-col w-fit h-[380px] bg-white dark:bg-neutral-900 rounded-xl isolate dark:border-neutral-800 border border-transparent;
+  box-shadow:
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.04) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 12px 0px,
+    rgba(0, 0, 0, 0.06) 0px 8px 36px 0px;
+}
+
+[frimousse-search] {
+  @apply relative z-10 appearance-none mt-2 mx-2 px-2.5 py-2 bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-400 rounded-md text-sm;
+}
+
+[frimousse-search]::placeholder {
+  @apply text-neutral-500 dark:text-neutral-500 opacity-100;
+}
+
+[frimousse-viewport] {
+  @apply relative flex-1 outline-none;
+}
+
+[frimousse-loading],
+[frimousse-empty] {
+  @apply absolute inset-0 flex items-center justify-center text-neutral-500 dark:text-neutral-500 text-sm;
+}
+
+[frimousse-list] {
+  @apply pb-3 select-none;
+}
+
+[frimousse-category-header] {
+  @apply px-3 pt-3 pb-1.5 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-500 text-xs font-medium;
+}
+
+[frimousse-row] {
+  @apply px-2 scroll-my-3;
+}
+
+[frimousse-emoji] {
+  @apply flex items-center justify-center w-8 h-8 rounded-md bg-transparent text-lg border-transparent;
+
+  &[data-active] {
+    @apply bg-neutral-100 dark:bg-neutral-800;
+  }
+}
+
+[frimousse-footer] {
+  @apply flex w-full min-w-0 items-center gap-1 border-t border-neutral-200 dark:border-neutral-800 p-2;
+  max-width: var(--frimousse-viewport-width);
+}
+
+[frimousse-footer-emoji] {
+   @apply flex flex-shrink-0 items-center justify-center w-7 h-7 text-lg;
+}
+
+[frimousse-footer-emoji-label] {
+  @apply overflow-hidden text-ellipsis whitespace-nowrap text-neutral-600 dark:text-neutral-500 text-xs;
+}
+
+[frimousse-footer-placeholder] {
+  @apply ml-1.5 flex h-7 items-center overflow-hidden text-ellipsis whitespace-nowrap text-neutral-500 dark:text-neutral-600 text-xs;
+}

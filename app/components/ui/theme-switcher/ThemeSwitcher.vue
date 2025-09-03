@@ -34,8 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watchEffect, ref, onMounted, type Component } from 'vue'
+import { computed, watchEffect, onMounted, type Component } from 'vue'
 import { Monitor, Moon, Sun } from 'lucide-vue-next'
+import { useLocalStorage } from '@vueuse/core'
 import { cn } from '~/lib/utils'
 
 const THEMES = [
@@ -73,30 +74,33 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 
-// Theme state management
-const currentTheme = ref<Theme>(props.value || props.defaultValue)
+// Use localStorage to persist theme selection
+const storedTheme = useLocalStorage<Theme>('theme', props.defaultValue)
+
+// Theme state management - use stored theme if not controlled by props
+const currentTheme = computed(() => props.value || storedTheme.value)
 
 // Vue equivalent of useDeferredValue - using a computed with delay
 const deferredTheme = computed(() => currentTheme.value)
 
 // Watch for external value changes
 watchEffect(() => {
-  if (props.value && props.value !== currentTheme.value) {
-    currentTheme.value = props.value
+  if (props.value && props.value !== storedTheme.value) {
+    storedTheme.value = props.value
   }
 })
 
 const setTheme = (theme: Theme) => {
-  currentTheme.value = theme
-  emit('change', theme)
-  
-  // Apply theme to document if not controlled
+  // Update stored theme if not controlled by props
   if (!props.value) {
-    applyTheme(theme)
+    storedTheme.value = theme
   }
+  
+  emit('change', theme)
+  applyTheme(theme)
 }
 
-// Simple theme application (you might want to use a proper theme composable)
+// Theme application with system preference detection
 const applyTheme = (theme: Theme) => {
   const root = document.documentElement
   
@@ -108,10 +112,23 @@ const applyTheme = (theme: Theme) => {
   }
 }
 
+// Listen for system theme changes when using 'system' theme
+const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+const handleSystemThemeChange = () => {
+  if (currentTheme.value === 'system') {
+    applyTheme('system')
+  }
+}
+
 // Initialize theme on mount
 onMounted(() => {
-  if (!props.value) {
-    applyTheme(currentTheme.value)
-  }
+  applyTheme(currentTheme.value)
+  mediaQuery.addEventListener('change', handleSystemThemeChange)
+})
+
+// Cleanup listener on unmount
+import { onUnmounted } from 'vue'
+onUnmounted(() => {
+  mediaQuery.removeEventListener('change', handleSystemThemeChange)
 })
 </script>
