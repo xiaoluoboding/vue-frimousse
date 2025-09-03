@@ -1,22 +1,22 @@
 <template>
-  <component
-    :is="Emoji"
+  <div
     :role="'gridcell'"
     :aria-colindex="columnIndex"
     :aria-selected="isActive || undefined"
-    :aria-label="emoji.label"
+    :aria-label="emojiMeta.label"
     :data-active="isActive ? '' : undefined"
     frimousse-emoji=""
     :style="{
       fontFamily: 'var(--frimousse-emoji-font)',
     }"
     :tabindex="-1"
-    :emoji="{ ...emoji, isActive }"
     @click="handleSelect"
     @pointerdown="preventDefault"
     @pointerenter="handlePointerEnter"
     @pointerleave="handlePointerLeave"
-  />
+  >
+    <slot name="emoji" :emoji="{ ...emojiMeta, isActive }" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -24,13 +24,12 @@ import { computed } from 'vue';
 import { useEmojiPickerStore } from '../store';
 import { useSelector } from '../utils/store';
 import { $activeEmoji } from '../store';
-import type { EmojiPickerEmoji, EmojiPickerListComponents } from '../types';
+import type { EmojiPickerEmoji } from '../types';
 
 interface Props {
-  emoji: EmojiPickerEmoji;
+  emojiMeta: EmojiPickerEmoji;
   columnIndex: number;
   rowIndex: number;
-  Emoji: EmojiPickerListComponents['Emoji'];
 }
 
 const props = defineProps<Props>();
@@ -38,10 +37,10 @@ const props = defineProps<Props>();
 const store = useEmojiPickerStore();
 const activeEmoji = useSelector(store, $activeEmoji);
 
-const isActive = computed(() => activeEmoji.value?.emoji === props.emoji.emoji);
+const isActive = computed(() => activeEmoji.value?.emoji === props.emojiMeta.emoji);
 
 const handleSelect = () => {
-  store.get().onEmojiSelect(props.emoji);
+  store.get().onEmojiSelect(props.emojiMeta);
 };
 
 const handlePointerEnter = () => {

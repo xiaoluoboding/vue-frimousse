@@ -8,8 +8,7 @@
     }"
   >
     <div ref="rowRef" frimousse-row-sizer="">
-      <component
-        :is="Row"
+      <div
         :role="undefined"
         :aria-rowindex="undefined"
         frimousse-row=""
@@ -19,10 +18,9 @@
           display: 'flex',
         }"
       >
-        <component
+        <div
           v-for="(emoji, index) in emojis"
           :key="index"
-          :is="Emoji"
           :role="'gridcell'"
           :aria-colindex="index"
           :aria-selected="undefined"
@@ -33,9 +31,10 @@
             fontFamily: 'var(--frimousse-emoji-font)',
           }"
           :tabindex="-1"
-          :emoji="{ ...emoji, isActive: false }"
-        />
-      </component>
+        >
+          <slot name="emoji" :emoji="{ ...emoji, isActive: false }" />
+        </div>
+      </div>
     </div>
     <div
       frimousse-category=""
@@ -49,8 +48,7 @@
       }"
     >
       <div ref="categoryHeaderRef" frimousse-category-header-sizer="">
-        <component
-          :is="CategoryHeader"
+        <div
           frimousse-category-header=""
           :style="{
             contain: undefined,
@@ -59,8 +57,9 @@
             position: undefined,
             top: 0,
           }"
-          :category="category"
-        />
+        >
+          <slot name="category-header" :category="category" />
+        </div>
       </div>
     </div>
   </div>
@@ -70,15 +69,8 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useEmojiPickerStore } from '../store';
 import { useSelectorKey } from '../utils/store';
-import type { EmojiPickerEmoji, EmojiPickerCategory, EmojiPickerListComponents } from '../types';
+import type { EmojiPickerEmoji, EmojiPickerCategory } from '../types';
 
-interface Props {
-  CategoryHeader: EmojiPickerListComponents['CategoryHeader'];
-  Row: EmojiPickerListComponents['Row'];
-  Emoji: EmojiPickerListComponents['Emoji'];
-}
-
-defineProps<Props>();
 
 const sizersRef = ref<HTMLDivElement | null>(null);
 const rowRef = ref<HTMLDivElement | null>(null);

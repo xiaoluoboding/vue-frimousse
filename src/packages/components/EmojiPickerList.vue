@@ -15,11 +15,23 @@
       v-if="!rowsCount || !categoriesRowsStartIndices || categoriesCount === 0"
       :style="listSizerStyle(0, 0, 0, 0)"
     >
-      <EmojiPickerListSizers
-        :CategoryHeader="CategoryHeader"
-        :Emoji="Emoji"
-        :Row="Row"
-      />
+      <EmojiPickerListSizers>
+        <template #category-header="{ category }">
+          <slot name="category-header" :category="category">
+            <DefaultEmojiPickerListCategoryHeader :category="category" />
+          </slot>
+        </template>
+        <template #emoji="{ emoji }">
+          <slot name="emoji" :emoji="emoji">
+            <DefaultEmojiPickerListEmoji :emoji="emoji" />
+          </slot>
+        </template>
+        <template #row="{ rowProps }">
+          <slot name="row" v-bind="rowProps">
+            <DefaultEmojiPickerListRow v-bind="rowProps" />
+          </slot>
+        </template>
+      </EmojiPickerListSizers>
     </div>
     <div
       v-else
@@ -30,11 +42,23 @@
         previousHeadersCount,
       )"
     >
-      <EmojiPickerListSizers
-        :CategoryHeader="CategoryHeader"
-        :Emoji="Emoji"
-        :Row="Row"
-      />
+      <EmojiPickerListSizers>
+        <template #category-header="{ category }">
+          <slot name="category-header" :category="category">
+            <DefaultEmojiPickerListCategoryHeader :category="category" />
+          </slot>
+        </template>
+        <template #emoji="{ emoji }">
+          <slot name="emoji" :emoji="emoji">
+            <DefaultEmojiPickerListEmoji :emoji="emoji" />
+          </slot>
+        </template>
+        <template #row="{ rowProps }">
+          <slot name="row" v-bind="rowProps">
+            <DefaultEmojiPickerListRow v-bind="rowProps" />
+          </slot>
+        </template>
+      </EmojiPickerListSizers>
       <template
         v-for="index in viewportEndRowIndex - viewportStartRowIndex + 1"
         :key="viewportStartRowIndex + index - 1"
@@ -47,17 +71,41 @@
           />
         </template>
         <EmojiPickerListRow
-          :Emoji="Emoji"
-          :Row="Row"
           :row-index="viewportStartRowIndex + index - 1"
-        />
+        >
+          <template #emoji="{ emoji }">
+            <slot name="emoji" :emoji="emoji">
+              <DefaultEmojiPickerListEmoji :emoji="emoji" />
+            </slot>
+          </template>
+          <template #row="{ rowProps }">
+            <slot name="row" v-bind="rowProps">
+              <DefaultEmojiPickerListRow v-bind="rowProps" />
+            </slot>
+          </template>
+        </EmojiPickerListRow>
       </template>
       <EmojiPickerListCategory
         v-for="index in categoriesCount"
         :key="index - 1"
-        :CategoryHeader="CategoryHeader"
         :category-index="index - 1"
-      />
+      >
+        <template #category-header="{ category }">
+          <slot name="category-header" :category="category">
+            <DefaultEmojiPickerListCategoryHeader :category="category" />
+          </slot>
+        </template>
+        <template #emoji="{ emoji }">
+          <slot name="emoji" :emoji="emoji">
+            <DefaultEmojiPickerListEmoji :emoji="emoji" />
+          </slot>
+        </template>
+        <template #row="{ rowProps }">
+          <slot name="row" v-bind="rowProps">
+            <DefaultEmojiPickerListRow v-bind="rowProps" />
+          </slot>
+        </template>
+      </EmojiPickerListCategory>
     </div>
   </div>
 </template>
@@ -85,15 +133,6 @@ const props = defineProps<Props>();
 const listRef = ref<HTMLDivElement | null>(null);
 const store = useEmojiPickerStore();
 
-const CategoryHeader = computed(() => 
-  props.components?.CategoryHeader ?? DefaultEmojiPickerListCategoryHeader
-);
-const Emoji = computed(() => 
-  props.components?.Emoji ?? DefaultEmojiPickerListEmoji
-);
-const Row = computed(() => 
-  props.components?.Row ?? DefaultEmojiPickerListRow
-);
 
 const columns = useSelectorKey(store, "columns");
 const viewportStartRowIndex = useSelectorKey(store, "viewportStartRowIndex");

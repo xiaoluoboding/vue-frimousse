@@ -1,93 +1,91 @@
-import { ref, computed, watch, onUnmounted, type Ref } from 'vue';
+import { ref, computed, watch, onUnmounted, type Ref } from 'vue'
 
 // A tiny store with batched updates and selectors for Vue
 
 export type Store<T> = {
-  get: () => T;
-  set: (partial: Partial<T> | ((state: T) => Partial<T>)) => void;
-  subscribe: (subscriber: (state: T) => void) => () => void;
-};
+  get: () => T
+  set: (partial: Partial<T> | ((state: T) => Partial<T>)) => void
+  subscribe: (subscriber: (state: T) => void) => () => void
+}
 
 export function createStore<T extends object>(
-  createInitialState: (set: Store<T>["set"], get: Store<T>["get"]) => T,
+  createInitialState: (set: Store<T>['set'], get: Store<T>['get']) => T
 ): Store<T> {
-  let state = {} as T;
-  let pending: T | null = null;
-  let frameId: number | null = null;
-  const subscribers = new Set<(store: T) => void>();
+  let state = {} as T
+  let pending: T | null = null
+  let frameId: number | null = null
+  const subscribers = new Set<(store: T) => void>()
 
   const flush = () => {
     if (pending) {
-      state = pending;
-      pending = null;
+      state = pending
+      pending = null
 
       for (const subscriber of subscribers) {
-        subscriber(state);
+        subscriber(state)
       }
     }
 
-    frameId = null;
-  };
+    frameId = null
+  }
 
-  const get = () => pending ?? state;
+  const get = () => pending ?? state
 
-  const set: Store<T>["set"] = (partial) => {
-    pending ??= state;
+  const set: Store<T>['set'] = (partial) => {
+    pending ??= state
     Object.assign(
       pending as T,
-      typeof partial === "function"
-        ? (partial as (state: T) => Partial<T>)(get())
-        : partial,
-    );
+      typeof partial === 'function' ? (partial as (state: T) => Partial<T>)(get()) : partial
+    )
 
     if (!frameId) {
-      frameId = requestAnimationFrame(flush);
+      frameId = requestAnimationFrame(flush)
     }
-  };
+  }
 
   const subscribe = (subscriber: (state: T) => void) => {
-    subscribers.add(subscriber);
+    subscribers.add(subscriber)
 
-    return () => subscribers.delete(subscriber);
-  };
+    return () => subscribers.delete(subscriber)
+  }
 
-  state = createInitialState(set, get);
+  state = createInitialState(set, get)
 
-  return { get, set, subscribe };
+  return { get, set, subscribe }
 }
 
 export function useCreateStore<T>(createStore: () => Store<T>) {
-  const store = ref(createStore());
-  return store.value;
+  const store = ref(createStore())
+  return store.value
 }
 
 export function useSelector<T, S>(
   store: Store<T>,
   selector: (state: T) => S,
-  compare: (a: S, b: S) => boolean = Object.is,
+  compare: (a: S, b: S) => boolean = Object.is
 ): Ref<S> {
-  const slice = ref(selector(store.get())) as Ref<S>;
+  const slice = ref(selector(store.get())) as Ref<S>
 
   const unsubscribe = store.subscribe(() => {
-    const nextSlice = selector(store.get());
-    
+    const nextSlice = selector(store.get())
+
     if (!compare(slice.value, nextSlice)) {
-      slice.value = nextSlice;
+      slice.value = nextSlice
     }
-  });
+  })
 
   onUnmounted(() => {
-    unsubscribe();
-  });
+    unsubscribe()
+  })
 
-  return slice;
+  return slice
 }
 
 export function useSelectorKey<T, K extends keyof T>(
   store: Store<T>,
   key: K,
-  compare?: (a: T[K], b: T[K]) => boolean,
+  compare?: (a: T[K], b: T[K]) => boolean
 ): Ref<T[K]> {
-  const selector = (state: T) => state[key];
-  return useSelector(store, selector, compare);
+  const selector = (state: T) => state[key]
+  return useSelector(store, selector, compare)
 }

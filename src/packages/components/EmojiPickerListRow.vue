@@ -1,6 +1,5 @@
 <template>
-  <component
-    :is="Row"
+  <div
     :role="'row'"
     :aria-rowindex="rowIndex"
     frimousse-row=""
@@ -14,11 +13,14 @@
       v-for="(emoji, columnIndex) in row?.emojis || []"
       :key="emoji.label"
       :columnIndex="columnIndex"
-      :Emoji="Emoji"
-      :emoji="emoji"
+      :emoji-meta="emoji"
       :rowIndex="rowIndex"
-    />
-  </component>
+    >
+      <template #emoji="{ emoji: emojiData }">
+        <slot name="emoji" :emoji="emojiData" />
+      </template>
+    </EmojiPickerListEmoji>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -26,12 +28,9 @@ import { useEmojiPickerStore } from '../store';
 import { useSelector } from '../utils/store';
 import { sameEmojiPickerRow } from '../store';
 import EmojiPickerListEmoji from './EmojiPickerListEmoji.vue';
-import type { EmojiPickerListComponents } from '../types';
 
 interface Props {
   rowIndex: number;
-  Emoji: EmojiPickerListComponents['Emoji'];
-  Row: EmojiPickerListComponents['Row'];
 }
 
 const props = defineProps<Props>();

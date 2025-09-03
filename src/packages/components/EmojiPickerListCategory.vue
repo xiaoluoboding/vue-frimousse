@@ -15,8 +15,7 @@
       position: 'absolute',
     }"
   >
-    <component
-      :is="CategoryHeader"
+    <div
       frimousse-category-header=""
       :style="{
         contain: 'layout paint',
@@ -25,8 +24,9 @@
         position: sticky ? 'sticky' : undefined,
         top: 0,
       }"
-      :category="{ label: category.label }"
-    />
+    >
+      <slot name="category-header" :category="{ label: category.label }" />
+    </div>
   </div>
 </template>
 
@@ -34,11 +34,9 @@
 import { useEmojiPickerStore } from '../store';
 import { useSelector, useSelectorKey } from '../utils/store';
 import { shallow } from '../utils/compare';
-import type { EmojiPickerListComponents } from '../types';
 
 interface Props {
   categoryIndex: number;
-  CategoryHeader: EmojiPickerListComponents['CategoryHeader'];
 }
 
 const props = defineProps<Props>();

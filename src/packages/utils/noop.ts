@@ -1,7 +1,7 @@
 export function noop(..._: unknown[]) {
-  return;
+  return
 }
 
 export async function noopAsync(..._: unknown[]) {
-  return;
+  return
 }

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
   Emoji as EmojibaseEmoji,
   Group as EmojibaseGroup,
   Locale as EmojibaseLocale,
   SkinToneKey as EmojibaseSkinToneKey
 } from 'emojibase/lib/types'
-import type { ComponentPublicInstance, VNode } from 'vue'
+import type { ComponentPublicInstance, DefineComponent, VNode } from 'vue'
 
 type Resolve<T> = T extends (...args: unknown[]) => unknown ? T : { [K in keyof T]: T[K] }
 
@@ -85,31 +86,7 @@ export type EmojiPickerData = {
   skinTones: Record<Exclude<SkinTone, 'none'>, string>
 }
 
-export type EmojiPickerListComponents = {
-  /**
-   * The component used to render a sticky category header in the list.
-   *
-   * @details
-   * All category headers should be of the same size.
-   */
-  CategoryHeader: any
-
-  /**
-   * The component used to render a row of emojis in the list.
-   *
-   * @details
-   * All rows should be of the same size.
-   */
-  Row: any
-
-  /**
-   * The component used to render an emoji button in the list.
-   *
-   * @details
-   * All emojis should be of the same size.
-   */
-  Emoji: any
-}
+export type EmojiPickerListComponents = Record<string, never>
 
 export interface EmojiPickerListRowProps {
   [key: string]: any
