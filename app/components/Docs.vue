@@ -215,6 +215,17 @@
       .
     </p>
 
+    <ColorfulButtonsAlternate />
+    <p>
+      Some other emoji pickers like Linear’s use the main color from the
+      button’s emoji as background color instead. Extracting colors from
+      emojis isn’t trivial, but a similar visual result can be achieved more
+      easily by duplicating the emoji and scaling it to fill the background,
+      then blurring it. In the example below, the blurred and duplicated emoji
+      is built as a <code>::before</code> pseudo-element.
+    </p>
+    <ColorfulButtonsBlur />
+
     <PermalinkHeading as="h2">API Reference</PermalinkHeading>
     <p>All parts and hooks, along their usage and options.</p>
 
@@ -861,6 +872,8 @@ import EmojiPickerShadcnVueDemo from './EmojiPickerShadcnVueDemo.vue'
 import PropertiesList from './PropertiesList.vue'
 import PropertiesListBasicRow from './PropertiesListBasicRow.vue'
 import PropertiesListRow from './PropertiesListRow.vue'
+import ColorfulButtonsAlternate from './ColorfulButtonsAlternate.vue'
+import ColorfulButtonsBlur from './ColorfulButtonsBlur.vue'
 // import EmojiPicker from '@/packages'
 
 

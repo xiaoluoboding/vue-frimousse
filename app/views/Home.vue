@@ -10,29 +10,6 @@
   </div>
 
   <SiteFooter />
-
-<!--
-  <div class="">
-    <h2>With Skin Tone Selector</h2>
-    <div class="w-full flex justify-center items-center my-4">
-      <EmojiPickerRoot :onEmojiSelect="onEmojiClick">
-        <div
-          class="flex gap-3 items-center p-3 border-b border-neutral-200 dark:border-neutral-700"
-        >
-          <EmojiPickerSearch />
-          <EmojiPickerSkinTone>
-            <template #default="{ skinTone, setSkinTone }">
-              <EmojiPickerSkinToneSelector :skin-tone="skinTone" @skin-tone-change="setSkinTone" />
-            </template>
-          </EmojiPickerSkinTone>
-        </div>
-
-        <EmojiPickerViewport>
-          <EmojiPickerList />
-        </EmojiPickerViewport>
-      </EmojiPickerRoot>
-    </div>
-  </div> -->
 </template>
 
 <script setup lang="ts">
