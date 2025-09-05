@@ -938,20 +938,20 @@ const emojiPickerListComponentsCode = `
     <EmojiPicker.Root :onEmojiSelect="onEmojiClick">
       <EmojiPicker.Search placeholder="Search..." />
       <EmojiPicker.Viewport>
+        // [!code highlight:1]
         <EmojiPicker.List>
-          // [!code highlight:1]
-          components={{
-            CategoryHeader: ({ category, ...props }) => (
-              <div {...props}>{category.label}</div>
-            ),
-            Emoji: ({ emoji, ...props }) => (
-              <button {...props}>
-                {emoji.emoji}
-              </button>
-            ),
-            Row: ({ children, ...props }) => <div {...props}>{children}</div>,
-          }}
-        />
+          <template #CategoryHeader="{ category }">
+            <div>{{ category.label }}</div>
+          </template>
+          <template #Emoji="{ emoji }">
+            <button>
+              {{ emoji.emoji }}
+            </button>
+          </template>
+          <template #Row="{ children }">
+            <div>{{ children }}</div>
+          </template>
+        </EmojiPicker.List>
       </EmojiPicker.Viewport>
     </EmojiPicker.Root>
   <\/template>
@@ -985,11 +985,13 @@ const useSkinToneCode = `
     // (👋) (👋🏻) (👋🏼) (👋🏽) (👋🏾) (👋🏿)
     <EmojiPicker.SkinTone emoji="👋">
       <template #default="{ skinTone, setSkinTone, skinToneVariations }">
-        skinToneVariations.map(({ skinTone, emoji }) => (
-          <button key={skinTone} @click="() => setSkinTone(skinTone)">
-            {emoji}
-          </button>
-        ))
+        <button 
+          v-for="{ skinTone, emoji } in skinToneVariations" 
+          :key="skinTone" 
+          @click="() => setSkinTone(skinTone)"
+        >
+          {{ emoji }}
+        </button>
       </template>
     </EmojiPicker.SkinTone>
   <\/template>
@@ -1004,13 +1006,15 @@ const useSkinToneCode = `
 const useSkinToneVariationsCode = `
   <template>
     // (👋) (👋🏻) (👋🏼) (👋🏽) (👋🏾) (👋🏿)
-    {({ skinToneVariations }) => (
-      skinToneVariations.map(({ skinTone, emoji }) => (
-        <button key={skinTone} onClick={() => setSkinTone(skinTone)}>
-          {emoji}
-        </button>
-      ))
-      )}
+    <template #default="{ skinToneVariations }">
+      <button 
+        v-for="{ skinTone, emoji } in skinToneVariations" 
+        :key="skinTone" 
+        @click="() => setSkinTone(skinTone)"
+      >
+        {{ emoji }}
+      </button>
+    </template>
   <\/template>
 
   <script setup lang="ts">

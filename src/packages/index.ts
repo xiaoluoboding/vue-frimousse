@@ -20,5 +20,5 @@ export type {
   Locale,
   SkinTone
 } from './types'
-
+export { EmojiPicker }
 export default EmojiPicker
