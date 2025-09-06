@@ -261,17 +261,12 @@ export type EmojiPickerSkinToneRenderProps = {
   skinToneVariations: SkinToneVariation[]
 }
 
-export type EmojiPickerSkinToneProps = {
+export interface EmojiPickerSkinToneProps {
   /**
    * The emoji to use as visual for the skin tone variations.
    *
    * @default "✋"
    */
   emoji?: string
-
-  /**
-   * A render callback which receives the current skin tone and a function
-   * to change it, as well as the skin tone variations of the specified emoji.
-   */
-  children: (props: EmojiPickerSkinToneRenderProps) => VNode
+  [key: string]: any
 }
