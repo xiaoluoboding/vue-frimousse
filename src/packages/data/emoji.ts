@@ -1,4 +1,4 @@
-import { SKIN_TONES } from "../constants";
+import { SKIN_TONES } from '../constants'
 import type {
   EmojibaseEmoji,
   EmojibaseEmojiWithGroup,
@@ -6,197 +6,184 @@ import type {
   EmojiData,
   EmojiDataEmoji,
   Locale,
-  SkinTone,
-} from "../types";
-import { capitalize } from "../utils/capitalize";
-import { isEmojiSupported } from "../utils/is-emoji-supported";
-import { getStorage, setStorage } from "../utils/storage";
-import * as $ from "../utils/validate";
+  SkinTone
+} from '../types'
+import { capitalize } from '../utils/capitalize'
+import { isEmojiSupported } from '../utils/is-emoji-supported'
+import { getStorage, setStorage } from '../utils/storage'
+import * as $ from '../utils/validate'
 
-const EMOJIBASE_EMOJIS_URL = (baseUrl: string, locale: Locale) =>
-  `${baseUrl}/${locale}/data.json`;
+const EMOJIBASE_EMOJIS_URL = (baseUrl: string, locale: Locale) => `${baseUrl}/${locale}/data.json`
 const EMOJIBASE_MESSAGES_URL = (baseUrl: string, locale: Locale) =>
-  `${baseUrl}/${locale}/messages.json`;
+  `${baseUrl}/${locale}/messages.json`
 
 const EMOJIBASE_LOCALES = [
-  "bn",
-  "da",
-  "de",
-  "en-gb",
-  "en",
-  "es-mx",
-  "es",
-  "et",
-  "fi",
-  "fr",
-  "hi",
-  "hu",
-  "it",
-  "ja",
-  "ko",
-  "lt",
-  "ms",
-  "nb",
-  "nl",
-  "pl",
-  "pt",
-  "ru",
-  "sv",
-  "th",
-  "uk",
-  "vi",
-  "zh-hant",
-  "zh",
-] satisfies Locale[];
-const EMOJIBASE_DEFAULT_LOCALE: Locale = "en";
+  'bn',
+  'da',
+  'de',
+  'en-gb',
+  'en',
+  'es-mx',
+  'es',
+  'et',
+  'fi',
+  'fr',
+  'hi',
+  'hu',
+  'it',
+  'ja',
+  'ko',
+  'lt',
+  'ms',
+  'nb',
+  'nl',
+  'pl',
+  'pt',
+  'ru',
+  'sv',
+  'th',
+  'uk',
+  'vi',
+  'zh-hant',
+  'zh'
+] satisfies Locale[]
+const EMOJIBASE_DEFAULT_LOCALE: Locale = 'en'
 
-export const LOCAL_DATA_KEY = (locale: string) => `frimousse/data/${locale}`;
-export const SESSION_METADATA_KEY = "frimousse/metadata";
+export const LOCAL_DATA_KEY = (locale: string) => `frimousse/data/${locale}`
+export const SESSION_METADATA_KEY = 'frimousse/metadata'
 
 // Prevent EMOJIBASE_LOCALES to be out of sync with Locale
 {
-  type MissingLocales = Exclude<Locale, (typeof EMOJIBASE_LOCALES)[number]>;
-  type AllLocalesPresent = MissingLocales extends never
-    ? true
-    : `Missing locales: ${MissingLocales}`;
-  const _allLocalesPresent: AllLocalesPresent = true;
-  _allLocalesPresent;
+  type MissingLocales = Exclude<Locale, (typeof EMOJIBASE_LOCALES)[number]>
+  type ExtraLocales = Exclude<(typeof EMOJIBASE_LOCALES)[number], Locale>
+
+  // This will cause a TypeScript error if there are missing or extra locales
+  const _typeCheck: MissingLocales extends never
+    ? ExtraLocales extends never
+      ? true
+      : `Extra locales in EMOJIBASE_LOCALES: ${ExtraLocales}`
+    : `Missing locales in EMOJIBASE_LOCALES: ${MissingLocales}` = true
 }
 
 type GetEmojiDataOptions = {
-  locale: Locale;
-  emojiVersion?: number;
-  emojibaseUrl?: string;
-  signal?: AbortSignal;
-};
+  locale: Locale
+  emojiVersion?: number
+  emojibaseUrl?: string
+  signal?: AbortSignal
+}
 
 type LocalData = {
-  data: EmojiData;
+  data: EmojiData
   metadata: {
-    emojisEtag: string | null;
-    messagesEtag: string | null;
-  };
-};
-
-type SessionMetadata = {
-  emojiVersion: number;
-  countryFlags: boolean;
-};
-
-async function fetchEtag(url: string, signal?: AbortSignal) {
-  try {
-    const response = await fetch(url, { method: "HEAD", signal });
-
-    return response.headers.get("etag");
-  } catch (_) {
-    return null;
+    emojisEtag: string | null
+    messagesEtag: string | null
   }
 }
 
-async function fetchEmojibaseData(
-  baseUrl: string,
-  locale: Locale,
-  signal?: AbortSignal,
-) {
-  const [{ emojis, emojisEtag }, { messages, messagesEtag }] =
-    await Promise.all([
-      fetch(EMOJIBASE_EMOJIS_URL(baseUrl, locale), { signal }).then(
-        async (response) => {
-          return {
-            emojis: (await response.json()) as EmojibaseEmoji[],
-            emojisEtag: response.headers.get("etag"),
-          };
-        },
-      ),
-      fetch(EMOJIBASE_MESSAGES_URL(baseUrl, locale), { signal }).then(
-        async (response) => {
-          return {
-            messages: (await response.json()) as EmojibaseMessagesDataset,
-            messagesEtag: response.headers.get("etag"),
-          };
-        },
-      ),
-    ]);
+type SessionMetadata = {
+  emojiVersion: number
+  countryFlags: boolean
+}
+
+async function fetchEtag(url: string, signal?: AbortSignal) {
+  try {
+    const response = await fetch(url, { method: 'HEAD', signal })
+
+    return response.headers.get('etag')
+  } catch (_) {
+    return null
+  }
+}
+
+async function fetchEmojibaseData(baseUrl: string, locale: Locale, signal?: AbortSignal) {
+  const [{ emojis, emojisEtag }, { messages, messagesEtag }] = await Promise.all([
+    fetch(EMOJIBASE_EMOJIS_URL(baseUrl, locale), { signal }).then(async (response) => {
+      return {
+        emojis: (await response.json()) as EmojibaseEmoji[],
+        emojisEtag: response.headers.get('etag')
+      }
+    }),
+    fetch(EMOJIBASE_MESSAGES_URL(baseUrl, locale), { signal }).then(async (response) => {
+      return {
+        messages: (await response.json()) as EmojibaseMessagesDataset,
+        messagesEtag: response.headers.get('etag')
+      }
+    })
+  ])
 
   return {
     emojis,
     messages,
     emojisEtag,
-    messagesEtag,
-  };
+    messagesEtag
+  }
 }
 
-async function fetchEmojibaseEtags(
-  baseUrl: string,
-  locale: Locale,
-  signal?: AbortSignal,
-) {
+async function fetchEmojibaseEtags(baseUrl: string, locale: Locale, signal?: AbortSignal) {
   const [emojisEtag, messagesEtag] = await Promise.all([
     fetchEtag(EMOJIBASE_EMOJIS_URL(baseUrl, locale), signal),
-    fetchEtag(EMOJIBASE_MESSAGES_URL(baseUrl, locale), signal),
-  ]);
+    fetchEtag(EMOJIBASE_MESSAGES_URL(baseUrl, locale), signal)
+  ])
 
   return {
     emojisEtag,
-    messagesEtag,
-  };
+    messagesEtag
+  }
 }
 
 export function getEmojibaseSkinToneVariations(
-  emoji: EmojibaseEmojiWithGroup,
-): Record<Exclude<SkinTone, "none">, string> | undefined {
+  emoji: EmojibaseEmojiWithGroup
+): Record<Exclude<SkinTone, 'none'>, string> | undefined {
   if (!emoji.skins) {
-    return;
+    return
   }
 
-  const skinToneVariations = emoji.skins.filter(
-    (emoji) => typeof emoji.tone === "number",
-  );
+  const skinToneVariations = emoji.skins.filter((emoji) => typeof emoji.tone === 'number')
 
   return skinToneVariations.reduce(
     (result, emoji) => {
-      const skinTone = SKIN_TONES[emoji.tone as number]!;
+      const skinTone = SKIN_TONES[emoji.tone as number]!
 
-      result[skinTone as Exclude<SkinTone, "none">] = emoji.emoji;
+      result[skinTone as Exclude<SkinTone, 'none'>] = emoji.emoji
 
-      return result;
+      return result
     },
-    {} as Record<Exclude<SkinTone, "none">, string>,
-  );
+    {} as Record<Exclude<SkinTone, 'none'>, string>
+  )
 }
 
 async function fetchEmojiData(
   baseUrl: string,
   locale: Locale,
-  signal?: AbortSignal,
+  signal?: AbortSignal
 ): Promise<EmojiData> {
-  const { emojis, emojisEtag, messages, messagesEtag } =
-    await fetchEmojibaseData(baseUrl, locale, signal);
+  const { emojis, emojisEtag, messages, messagesEtag } = await fetchEmojibaseData(
+    baseUrl,
+    locale,
+    signal
+  )
   const countryFlagsSubgroup = messages.subgroups.find(
-    (subgroup) =>
-      subgroup.key === "country-flag" || subgroup.key === "subdivision-flag",
-  );
+    (subgroup) => subgroup.key === 'country-flag' || subgroup.key === 'subdivision-flag'
+  )
 
   // Filter out the component/modifier category and its emojis
-  const filteredGroups = messages.groups.filter(
-    (group) => group.key !== "component",
-  );
+  const filteredGroups = messages.groups.filter((group) => group.key !== 'component')
   const filteredEmojis = emojis.filter((emoji) => {
-    return "group" in emoji;
-  }) as EmojibaseEmojiWithGroup[];
+    return 'group' in emoji
+  }) as EmojibaseEmojiWithGroup[]
 
   const categories = filteredGroups.map((group) => ({
     index: group.order,
-    label: capitalize(group.message),
-  }));
+    label: capitalize(group.message)
+  }))
   const skinTones = messages.skinTones.reduce(
     (skinTones, skinTone) => {
-      skinTones[skinTone.key] = capitalize(skinTone.message);
+      skinTones[skinTone.key] = capitalize(skinTone.message)
 
-      return skinTones;
+      return skinTones
     },
-    {} as Record<SkinTone, string>,
-  );
+    {} as Record<SkinTone, string>
+  )
 
   const formattedEmojis = filteredEmojis.map((emoji) => {
     return {
@@ -206,76 +193,71 @@ async function fetchEmojiData(
       label: capitalize(emoji.label),
       tags: emoji.tags ?? [],
       countryFlag:
-        (countryFlagsSubgroup &&
-          emoji.subgroup === countryFlagsSubgroup.order) ||
-        undefined,
-      skins: getEmojibaseSkinToneVariations(emoji),
-    } satisfies EmojiDataEmoji;
-  });
+        (countryFlagsSubgroup && emoji.subgroup === countryFlagsSubgroup.order) || undefined,
+      skins: getEmojibaseSkinToneVariations(emoji)
+    } satisfies EmojiDataEmoji
+  })
 
   const emojiData: EmojiData = {
     locale,
     emojis: formattedEmojis,
     categories,
-    skinTones,
-  };
+    skinTones
+  }
 
   setStorage(localStorage, LOCAL_DATA_KEY(locale), {
     data: emojiData,
     metadata: {
       emojisEtag,
-      messagesEtag,
-    },
-  });
+      messagesEtag
+    }
+  })
 
-  return emojiData;
+  return emojiData
 }
 
-function getSessionMetadata(
-  emojis: EmojiDataEmoji[],
-  emojiVersion?: number,
-): SessionMetadata {
-  const versionEmojis = new Map<number, string>();
+function getSessionMetadata(emojis: EmojiDataEmoji[], emojiVersion?: number): SessionMetadata {
+  const versionEmojis = new Map<number, string>()
 
   for (const emoji of emojis) {
     if (!versionEmojis.has(emoji.version)) {
-      versionEmojis.set(emoji.version, emoji.emoji);
+      versionEmojis.set(emoji.version, emoji.emoji)
     }
   }
 
-  const descendingVersions = [...versionEmojis.keys()].sort((a, b) => b - a);
-  const highestVersion = descendingVersions[0] ?? 0;
+  const descendingVersions = [...versionEmojis.keys()].sort((a, b) => b - a)
+  const highestVersion = descendingVersions[0] ?? 0
 
-  const supportsCountryFlags = isEmojiSupported("🇪🇺");
+  const supportsCountryFlags = isEmojiSupported('🇪🇺')
 
-  if (typeof emojiVersion === "number") {
+  if (typeof emojiVersion === 'number') {
     return {
       emojiVersion,
-      countryFlags: supportsCountryFlags,
-    };
+      countryFlags: supportsCountryFlags
+    }
   }
 
   for (const version of descendingVersions) {
-    const emoji = versionEmojis.get(version)!;
+    const emoji = versionEmojis.get(version)!
 
     if (isEmojiSupported(emoji)) {
       return {
         emojiVersion: version,
-        countryFlags: supportsCountryFlags,
-      };
+        countryFlags: supportsCountryFlags
+      }
     }
   }
 
   return {
     emojiVersion: highestVersion,
-    countryFlags: supportsCountryFlags,
-  };
+    countryFlags: supportsCountryFlags
+  }
 }
 
 const validateSessionMetadata = $.object<SessionMetadata>({
   emojiVersion: $.number,
-  countryFlags: $.boolean,
-});
+  countryFlags: $.boolean
+})
 
 const validateLocalData = $.object<LocalData>({
   data: $.object({
@@ -291,74 +273,66 @@ const validateLocalData = $.object<LocalData>({
         skins: $.optional(
           $.object({
             light: $.string,
-            "medium-light": $.string,
+            'medium-light': $.string,
             medium: $.string,
-            "medium-dark": $.string,
-            dark: $.string,
-          }),
-        ),
-      }),
+            'medium-dark': $.string,
+            dark: $.string
+          })
+        )
+      })
     ),
     categories: $.naiveArray(
       $.object({
         index: $.number,
-        label: $.string,
-      }),
+        label: $.string
+      })
     ),
     skinTones: $.object({
       light: $.string,
-      "medium-light": $.string,
+      'medium-light': $.string,
       medium: $.string,
-      "medium-dark": $.string,
-      dark: $.string,
-    }),
+      'medium-dark': $.string,
+      dark: $.string
+    })
   }),
   metadata: $.object({
     emojisEtag: $.nullable($.string),
-    messagesEtag: $.nullable($.string),
-  }),
-});
+    messagesEtag: $.nullable($.string)
+  })
+})
 
 export async function getEmojiData({
   locale,
   emojiVersion,
   emojibaseUrl,
-  signal,
+  signal
 }: GetEmojiDataOptions): Promise<EmojiData> {
   const baseUrl =
-    typeof emojibaseUrl === "string"
+    typeof emojibaseUrl === 'string'
       ? emojibaseUrl
-      : `https://cdn.jsdelivr.net/npm/emojibase-data@${typeof emojiVersion === "number" ? Math.floor(emojiVersion) : "latest"}`;
+      : `https://cdn.jsdelivr.net/npm/emojibase-data@${typeof emojiVersion === 'number' ? Math.floor(emojiVersion) : 'latest'}`
   let sessionMetadata = getStorage<SessionMetadata>(
     sessionStorage,
     SESSION_METADATA_KEY,
-    validateSessionMetadata,
-  );
-  const localData = getStorage<LocalData>(
-    localStorage,
-    LOCAL_DATA_KEY(locale),
-    validateLocalData,
-  );
+    validateSessionMetadata
+  )
+  const localData = getStorage<LocalData>(localStorage, LOCAL_DATA_KEY(locale), validateLocalData)
 
-  let data: EmojiData;
+  let data: EmojiData
 
   if (!localData) {
     // No local data
-    data = await fetchEmojiData(baseUrl, locale, signal);
+    data = await fetchEmojiData(baseUrl, locale, signal)
   } else if (sessionMetadata) {
     // ETags are used to check if the data is up-to-date but only
     // once per session, so if the session metadata is already set,
     // the local data can be used
-    data = localData.data;
+    data = localData.data
   } else {
     // Check ETags to see if the local data is up-to-date,
     // but if that fails, the possibly-stale local data is used
     try {
-      const { emojisEtag, messagesEtag } = await fetchEmojibaseEtags(
-        baseUrl,
-        locale,
-        signal,
-      );
+      const { emojisEtag, messagesEtag } = await fetchEmojibaseEtags(baseUrl, locale, signal)
 
       data =
         !emojisEtag ||
@@ -366,51 +340,51 @@ export async function getEmojiData({
         emojisEtag !== localData.metadata.emojisEtag ||
         messagesEtag !== localData.metadata.messagesEtag
           ? await fetchEmojiData(baseUrl, locale, signal)
-          : localData.data;
+          : localData.data
     } catch {
-      data = localData.data;
+      data = localData.data
     }
   }
 
   // Set the session metadata if needed
-  sessionMetadata ??= getSessionMetadata(data.emojis, emojiVersion);
-  setStorage(sessionStorage, SESSION_METADATA_KEY, sessionMetadata);
+  sessionMetadata ??= getSessionMetadata(data.emojis, emojiVersion)
+  setStorage(sessionStorage, SESSION_METADATA_KEY, sessionMetadata)
 
   // Filter out unsupported emojis
   const filteredEmojis = data.emojis.filter((emoji) => {
-    const isSupportedVersion = emoji.version <= sessionMetadata.emojiVersion;
+    const isSupportedVersion = emoji.version <= sessionMetadata.emojiVersion
 
     return emoji.countryFlag
       ? isSupportedVersion && sessionMetadata.countryFlags
-      : isSupportedVersion;
-  });
+      : isSupportedVersion
+  })
 
   return {
     locale,
     emojis: filteredEmojis,
     categories: data.categories,
-    skinTones: data.skinTones,
-  };
+    skinTones: data.skinTones
+  }
 }
 
 export function validateLocale(locale: string): Locale {
   if (!EMOJIBASE_LOCALES.includes(locale as Locale)) {
     console.warn(
-      `Locale "${locale}" is not supported, using "${EMOJIBASE_DEFAULT_LOCALE}" instead.`,
-    );
+      `Locale "${locale}" is not supported, using "${EMOJIBASE_DEFAULT_LOCALE}" instead.`
+    )
 
-    return EMOJIBASE_DEFAULT_LOCALE;
+    return EMOJIBASE_DEFAULT_LOCALE
   }
 
-  return locale as Locale;
+  return locale as Locale
 }
 
 export function validateSkinTone(skinTone: string): SkinTone {
   if (!SKIN_TONES.includes(skinTone as SkinTone)) {
-    console.warn(`Skin tone "${skinTone}" is not valid, using "none" instead.`);
+    console.warn(`Skin tone "${skinTone}" is not valid, using "none" instead.`)
 
-    return "none";
+    return 'none'
   }
 
-  return skinTone as SkinTone;
+  return skinTone as SkinTone
 }
