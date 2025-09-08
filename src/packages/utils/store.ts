@@ -1,4 +1,4 @@
-import { ref, onUnmounted, type Ref } from 'vue'
+import { ref, reactive, nextTick, computed, type Ref } from 'vue'
 
 // A tiny store with batched updates and selectors for Vue
 
@@ -11,45 +11,39 @@ export type Store<T> = {
 export function createStore<T extends object>(
   createInitialState: (set: Store<T>['set'], get: Store<T>['get']) => T
 ): Store<T> {
-  let state = {} as T
-  let pending: T | null = null
-  let frameId: number | null = null
+  // Use Vue's reactive system instead of custom subscription system
+  const reactiveState = reactive({} as T)
   const subscribers = new Set<(store: T) => void>()
 
-  const flush = () => {
-    if (pending) {
-      state = pending
-      pending = null
-
-      for (const subscriber of subscribers) {
-        subscriber(state)
-      }
-    }
-
-    frameId = null
-  }
-
-  const get = () => pending ?? state
+  const get = () => reactiveState as T
 
   const set: Store<T>['set'] = (partial) => {
-    pending ??= state
-    Object.assign(
-      pending as T,
+    const changes =
       typeof partial === 'function' ? (partial as (state: T) => Partial<T>)(get()) : partial
-    )
 
-    if (!frameId) {
-      frameId = requestAnimationFrame(flush)
-    }
+    // Apply changes directly to reactive state - this will trigger Vue's reactivity
+    Object.assign(reactiveState, changes)
+
+    // Still notify custom subscribers for compatibility
+    nextTick(() => {
+      for (const subscriber of subscribers) {
+        try {
+          subscriber(reactiveState as T)
+        } catch (error) {
+          console.error('🔄 Store subscriber error:', error)
+        }
+      }
+    })
   }
 
   const subscribe = (subscriber: (state: T) => void) => {
     subscribers.add(subscriber)
-
     return () => subscribers.delete(subscriber)
   }
 
-  state = createInitialState(set, get)
+  // Initialize the reactive state
+  const initialState = createInitialState(set, get)
+  Object.assign(reactiveState, initialState)
 
   return { get, set, subscribe }
 }
@@ -64,18 +58,11 @@ export function useSelector<T, S>(
   selector: (state: T) => S,
   compare: (a: S, b: S) => boolean = Object.is
 ): Ref<S> {
-  const slice = ref(selector(store.get())) as Ref<S>
-
-  const unsubscribe = store.subscribe(() => {
-    const nextSlice = selector(store.get())
-
-    if (!compare(slice.value, nextSlice)) {
-      slice.value = nextSlice
-    }
-  })
-
-  onUnmounted(() => {
-    unsubscribe()
+  // Use Vue's computed to create a reactive ref that automatically updates
+  // when the store state changes (since store.get() returns a reactive object)
+  const slice = computed(() => {
+    const value = selector(store.get())
+    return value
   })
 
   return slice
@@ -86,6 +73,11 @@ export function useSelectorKey<T, K extends keyof T>(
   key: K,
   compare?: (a: T[K], b: T[K]) => boolean
 ): Ref<T[K]> {
-  const selector = (state: T) => state[key]
+  const selector = (state: T) => {
+    const value = state[key]
+    return value
+  }
+  // Add key name to selector for better debugging
+  ;(selector as { _keyName?: string })._keyName = key as string
   return useSelector(store, selector, compare)
 }

@@ -1,4 +1,4 @@
-import { ref, watch, onUnmounted } from 'vue'
+import { ref, watch, onUnmounted, nextTick } from 'vue'
 import { getEmojiData } from '../data/emoji'
 import { getEmojiPickerData } from '../data/emoji-picker'
 import { useEmojiPickerStore } from '../store'
@@ -57,27 +57,44 @@ export function useEmojiPickerData(
   )
 
   // Process emoji data when it changes or when picker settings change
-  const stopWatchingProcessing = watch([emojiData, columns, skinTone, search], () => {
-    if (!emojiData.value) {
-      return
-    }
+  const stopWatchingProcessing = watch(
+    [emojiData, columns, skinTone, search],
+    () => {
+      // console.log('🔄 Watch triggered - skinTone:', skinTone.value, 'search:', search.value)
+      if (!emojiData.value) {
+        return
+      }
 
-    // Cleanup previous processing
-    if (cleanupCallback) {
-      cleanupCallback()
-    }
+      // Cleanup previous processing
+      if (cleanupCallback) {
+        cleanupCallback()
+      }
 
-    cleanupCallback = requestIdleCallback(
-      () => {
-        store
-          .get()
-          .onDataChange(
-            getEmojiPickerData(emojiData.value!, columns.value, skinTone.value, search.value)
+      cleanupCallback = requestIdleCallback(
+        () => {
+          // console.log('🔄 Processing data with skinTone:', skinTone.value)
+          const newData = getEmojiPickerData(
+            emojiData.value!,
+            columns.value,
+            skinTone.value,
+            search.value
           )
-      },
-      { timeout: 100 }
-    )
-  })
+          // console.log(
+          //   '🔄 Generated data with skinTone:',
+          //   skinTone.value,
+          //   'sample emojis:',
+          //   newData.rows
+          //     .slice(0, 2)
+          //     .map((r) => r.emojis.slice(0, 3).map((e) => e.emoji))
+          //     .flat()
+          // )
+          store.get().onDataChange(newData)
+        },
+        { timeout: 100 }
+      )
+    },
+    { flush: 'sync', immediate: false }
+  )
 
   // Cleanup function
   const cleanup = () => {

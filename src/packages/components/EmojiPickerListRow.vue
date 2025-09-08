@@ -11,7 +11,7 @@
   >
     <EmojiPickerListEmoji
       v-for="(emoji, columnIndex) in row?.emojis || []"
-      :key="emoji.label"
+      :key="`${emoji.label}-${emoji.emoji}`"
       :columnIndex="columnIndex"
       :emoji-meta="emoji"
       :rowIndex="rowIndex"

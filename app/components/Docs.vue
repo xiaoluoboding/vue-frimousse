@@ -718,6 +718,8 @@
       .
     </p>
 
+    <EmojiPickerSkinToneDemo />
+
     <PermalinkHeading as="h4" slugPrefix="EmojiPicker.SkinTone">
       Props
     </PermalinkHeading>
@@ -807,7 +809,6 @@
       is also available.
     </p>
 
-
     <PermalinkHeading as="h2">Miscellaneous</PermalinkHeading>
       <p>
         The name
@@ -874,6 +875,8 @@ import PropertiesListBasicRow from './PropertiesListBasicRow.vue'
 import PropertiesListRow from './PropertiesListRow.vue'
 import ColorfulButtonsAlternate from './ColorfulButtonsAlternate.vue'
 import ColorfulButtonsBlur from './ColorfulButtonsBlur.vue'
+// import HooksWithData from './HooksWithData.vue'
+import EmojiPickerSkinToneDemo from './EmojiPickerSkinToneDemo.vue'
 // import EmojiPicker from '@/packages'
 
 
@@ -985,9 +988,9 @@ const useSkinToneCode = `
     // (👋) (👋🏻) (👋🏼) (👋🏽) (👋🏾) (👋🏿)
     <EmojiPicker.SkinTone emoji="👋">
       <template #default="{ skinTone, setSkinTone, skinToneVariations }">
-        <button 
-          v-for="{ skinTone, emoji } in skinToneVariations" 
-          :key="skinTone" 
+        <button
+          v-for="{ skinTone, emoji } in skinToneVariations"
+          :key="skinTone"
           @click="() => setSkinTone(skinTone)"
         >
           {{ emoji }}
@@ -1007,9 +1010,9 @@ const useSkinToneVariationsCode = `
   <template>
     // (👋) (👋🏻) (👋🏼) (👋🏽) (👋🏾) (👋🏿)
     <template #default="{ skinToneVariations }">
-      <button 
-        v-for="{ skinTone, emoji } in skinToneVariations" 
-        :key="skinTone" 
+      <button
+        v-for="{ skinTone, emoji } in skinToneVariations"
+        :key="skinTone"
         @click="() => setSkinTone(skinTone)"
       >
         {{ emoji }}

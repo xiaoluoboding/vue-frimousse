@@ -47,13 +47,18 @@
   }
 }
 
+[frimousse-skin-tone-selector] {
+  @apply bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center mt-2 mr-2 w-9 h-9 rounded-md text-lg border-transparent;
+  @apply hover:bg-neutral-200 dark:hover:bg-neutral-700;
+}
+
 [frimousse-footer] {
   @apply flex w-full min-w-0 items-center gap-1 border-t border-neutral-200 dark:border-neutral-800 p-2;
   max-width: var(--frimousse-viewport-width);
 }
 
 [frimousse-footer-emoji] {
-   @apply flex flex-shrink-0 items-center justify-center w-7 h-7 text-lg;
+  @apply flex flex-shrink-0 items-center justify-center w-7 h-7 text-lg;
 }
 
 [frimousse-footer-emoji-label] {
