@@ -105,7 +105,7 @@ export interface EmojiPickerListEmojiProps {
    * The emoji for this button, its label, and whether the emoji is currently
    * active (either hovered or selected via keyboard navigation).
    */
-  emoji: Emoji & { isActive: boolean }
+  emoji: Resolve<Emoji & { isActive: boolean }>
   [key: string]: any
 }
 

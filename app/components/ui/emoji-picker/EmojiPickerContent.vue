@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { EmojiPicker as EmojiPickerPrimitive } from 'vue-frimousse'
+import { EmojiPicker as EmojiPickerPrimitive } from '@/packages'
 import { LoaderIcon } from 'lucide-vue-next'
 import { cn } from '~/lib/utils'
 import EmojiPickerEmoji from './EmojiPickerEmoji.vue'

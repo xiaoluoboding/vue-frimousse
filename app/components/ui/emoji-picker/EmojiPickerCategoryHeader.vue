@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { EmojiPickerListCategoryHeaderProps } from 'vue-frimousse'
+import type { EmojiPickerListCategoryHeaderProps } from '@/packages';
+
 
 const props = defineProps<EmojiPickerListCategoryHeaderProps>()
 </script>

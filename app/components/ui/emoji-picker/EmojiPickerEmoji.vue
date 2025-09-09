@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { EmojiPickerListEmojiProps } from '@/packages';
 import type { HTMLAttributes } from 'vue'
-import type { EmojiPickerListEmojiProps } from 'vue-frimousse'
 import { cn } from '~/lib/utils'
 
 interface Props extends EmojiPickerListEmojiProps {
