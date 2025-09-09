@@ -26,11 +26,6 @@
             <DefaultEmojiPickerListEmoji :emoji="emoji" />
           </slot>
         </template>
-        <template #row="{ rowProps }">
-          <slot name="row" v-bind="rowProps">
-            <DefaultEmojiPickerListRow v-bind="rowProps" />
-          </slot>
-        </template>
       </EmojiPickerListSizers>
     </div>
     <div
@@ -53,11 +48,6 @@
             <DefaultEmojiPickerListEmoji :emoji="emoji" />
           </slot>
         </template>
-        <template #row="{ rowProps }">
-          <slot name="row" v-bind="rowProps">
-            <DefaultEmojiPickerListRow v-bind="rowProps" />
-          </slot>
-        </template>
       </EmojiPickerListSizers>
       <template
         v-for="index in viewportEndRowIndex - viewportStartRowIndex + 1"
@@ -72,15 +62,11 @@
         </template>
         <EmojiPickerListRow
           :row-index="viewportStartRowIndex + index - 1"
+          :row-class="props.rowClass"
         >
           <template #emoji="{ emoji }">
             <slot name="emoji" :emoji="emoji">
               <DefaultEmojiPickerListEmoji :emoji="emoji" />
-            </slot>
-          </template>
-          <template #row="{ rowProps }">
-            <slot name="row" v-bind="rowProps">
-              <DefaultEmojiPickerListRow v-bind="rowProps" />
             </slot>
           </template>
         </EmojiPickerListRow>
@@ -93,16 +79,6 @@
         <template #category-header="{ category }">
           <slot name="category-header" :category="category">
             <DefaultEmojiPickerListCategoryHeader :category="category" />
-          </slot>
-        </template>
-        <template #emoji="{ emoji }">
-          <slot name="emoji" :emoji="emoji">
-            <DefaultEmojiPickerListEmoji :emoji="emoji" />
-          </slot>
-        </template>
-        <template #row="{ rowProps }">
-          <slot name="row" v-bind="rowProps">
-            <DefaultEmojiPickerListRow v-bind="rowProps" />
           </slot>
         </template>
       </EmojiPickerListCategory>
@@ -122,17 +98,18 @@ import EmojiPickerListRow from './EmojiPickerListRow.vue';
 import EmojiPickerListCategory from './EmojiPickerListCategory.vue';
 import DefaultEmojiPickerListCategoryHeader from './DefaultEmojiPickerListCategoryHeader.vue';
 import DefaultEmojiPickerListEmoji from './DefaultEmojiPickerListEmoji.vue';
-import DefaultEmojiPickerListRow from './DefaultEmojiPickerListRow.vue';
+// import DefaultEmojiPickerListRow from './DefaultEmojiPickerListRow.vue';
+
 
 interface Props extends EmojiPickerListProps {
   style?: Record<string, string | number>;
+  rowClass?: string;
 }
 
 const props = defineProps<Props>();
 
 const listRef = ref<HTMLDivElement | null>(null);
 const store = useEmojiPickerStore();
-
 
 const columns = useSelectorKey(store, "columns");
 const viewportStartRowIndex = useSelectorKey(store, "viewportStartRowIndex");

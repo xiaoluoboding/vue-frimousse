@@ -1,0 +1,6 @@
+export { default as EmojiPicker } from './EmojiPicker.vue'
+export { default as EmojiPickerSearch } from './EmojiPickerSearch.vue'
+export { default as EmojiPickerContent } from './EmojiPickerContent.vue'
+export { default as EmojiPickerFooter } from './EmojiPickerFooter.vue'
+export { default as EmojiPickerEmoji } from './EmojiPickerEmoji.vue'
+export { default as EmojiPickerCategoryHeader } from './EmojiPickerCategoryHeader.vue'

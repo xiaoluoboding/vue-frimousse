@@ -1,3 +1,29 @@
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { EmojiPicker as EmojiPickerPrimitive } from 'vue-frimousse'
+import { cn } from '~/lib/utils'
+
+interface Props {
+  class?: HTMLAttributes['class']
+}
+
+const props = defineProps<Props>()
+</script>
+
+<template>
+  <EmojiPickerPrimitive.Root
+    :class="cn(
+      'isolate flex h-full w-fit flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
+      props.class
+    )"
+    data-slot="emoji-picker"
+    v-bind="$attrs"
+  >
+    <slot />
+  </EmojiPickerPrimitive.Root>
+</template>
+
+<style scoped>
 [frimousse-root] {
   display: flex;
   flex-direction: column;
@@ -95,10 +121,10 @@
 }
 
 [frimousse-row] {
-  padding-left: 6px;
-  padding-right: 6px;
-  scroll-margin-block-start: 6px;
-  scroll-margin-block-end: 6px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  scroll-margin-top: 0.75rem;
+  scroll-margin-bottom: 0.75rem;
 }
 
 [frimousse-emoji] {
@@ -204,3 +230,4 @@
 [data-theme='dark'] [frimousse-footer-placeholder] {
   color: rgb(82 82 82);
 }
+</style>

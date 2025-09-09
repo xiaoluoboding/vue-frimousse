@@ -8,14 +8,12 @@
           <PopoverTrigger as-child>
             <Button>Open emoji picker</Button>
           </PopoverTrigger>
-          <PopoverContent class="w-fit p-0 rounded-xl">
-            <EmojiPicker.Root class="h-[342px] !border-none !shadow-none" @emoji-select="handleEmojiSelect">
-              <EmojiPicker.Search />
-              <EmojiPicker.Viewport>
-                <EmojiPicker.List />
-              </EmojiPicker.Viewport>
-              <EmojiPicker.Footer />
-            </EmojiPicker.Root>
+          <PopoverContent class="w-fit p-0 rounded-lg">
+            <EmojiPicker class="!h-[342px] !border-none !shadow-none" @emoji-select="handleEmojiSelect">
+              <EmojiPickerSearch />
+              <EmojiPickerContent />
+              <EmojiPickerFooter />
+            </EmojiPicker>
           </PopoverContent>
         </Popover>
       </div>
@@ -28,7 +26,7 @@
 import { ref } from 'vue'
 import { Button } from '~/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
-import EmojiPicker from '@/packages/index'
+import { EmojiPicker, EmojiPickerSearch, EmojiPickerContent, EmojiPickerFooter } from '~/components/ui/emoji-picker'
 import CodeBlock from '~/components/ui/code-block/CodeBlock.vue'
 import type { EmojiPickerEmoji } from '@/packages/types'
 import { toast } from 'vue-sonner'

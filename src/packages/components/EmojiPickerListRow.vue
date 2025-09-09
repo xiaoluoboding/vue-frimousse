@@ -8,6 +8,7 @@
       height: 'var(--frimousse-row-height)',
       display: 'flex',
     }"
+    :class="rowClass"
   >
     <EmojiPickerListEmoji
       v-for="(emoji, columnIndex) in row?.emojis || []"
@@ -29,8 +30,11 @@ import { useSelector } from '../utils/store';
 import { sameEmojiPickerRow } from '../store';
 import EmojiPickerListEmoji from './EmojiPickerListEmoji.vue';
 
+type ClassValue = string | Record<string, boolean> | Array<string | Record<string, boolean>>;
+
 interface Props {
   rowIndex: number;
+  rowClass?: ClassValue;
 }
 
 const props = defineProps<Props>();
