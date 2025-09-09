@@ -1,3 +1,12 @@
+## [0.1.3](https://github.com/xiaoluoboding/vue-frimousse/compare/v0.1.2...v0.1.3) (2025-09-09)
+
+
+### Bug Fixes
+
+* fixed the emoji row using row class ([46611e5](https://github.com/xiaoluoboding/vue-frimousse/commit/46611e5ee9d320e0ab33d93be3c6b5d6b9026c13))
+
+
+
 ## [0.1.2](https://github.com/xiaoluoboding/vue-frimousse/compare/v0.1.1...v0.1.2) (2025-09-08)
 
 
