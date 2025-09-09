@@ -46,13 +46,11 @@ const exampleCode = `
         <Button>Open emoji picker</Button>
       </PopoverTrigger>
       <PopoverContent class="w-fit p-0 rounded-xl">
-        <EmojiPicker.Root class="h-[342px] !border-none !shadow-none">
-          <EmojiPicker.Search />
-          <EmojiPicker.Viewport>
-            <EmojiPicker.List />
-          </EmojiPicker.Viewport>
-          <EmojiPicker.Footer />
-        </EmojiPicker.Root>
+        <EmojiPicker class="h-[342px] !border-none !shadow-none" @emoji-select="handleEmojiSelect">
+          <EmojiPickerSearch />
+          <EmojiPickerContent />
+          <EmojiPickerFooter />
+        </EmojiPicker>
       </PopoverContent>
     </Popover>
   </template>
@@ -61,7 +59,17 @@ const exampleCode = `
   import { ref } from 'vue'
   import { Button } from '~/components/ui/button'
   import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
-  import { default as EmojiPicker } from 'vue-frimousse'
+  import {
+    EmojiPicker,
+    EmojiPickerSearch,
+    EmojiPickerContent,
+    EmojiPickerFooter
+  } from '~/components/ui/emoji-picker'
+
+  const handleEmojiSelect = (emoji: EmojiPickerEmoji) => {
+    isOpen.value = false
+    console.log(emoji)
+  }
 
   const isOpen = ref(false)
   <\/script>

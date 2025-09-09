@@ -48,21 +48,24 @@ const selectedEmoji = ref<EmojiPickerEmoji | null>(null)
 
 const exampleCode = `
   <template>
-    <EmojiPicker.Root class="isolate flex h-[368px] w-fit flex-col bg-white dark:bg-neutral-900">
-      <EmojiPicker.Search class="z-10 mx-2 mt-2 appearance-none rounded-md bg-neutral-100 px-2.5 py-2 text-sm dark:bg-neutral-800" />
-      <EmojiPicker.Viewport class="relative flex-1 outline-hidden">
-        <EmojiPicker.Loading class="absolute inset-0 flex items-center justify-center text-neutral-400 text-sm dark:text-neutral-500">
-          Loading…
-        </EmojiPicker.Loading>
-        <EmojiPicker.Empty class="absolute inset-0 flex items-center justify-center text-neutral-400 text-sm dark:text-neutral-500">
-          No emoji found.
-        </EmojiPicker.Empty>
-        <EmojiPicker.List
-          className="select-none pb-1.5"
-        />
-      </EmojiPicker.Viewport>
-    </EmojiPicker.Root>
+    <EmojiPicker class="h-[325px]" @emoji-select="onEmojiClick">
+      <EmojiPickerSearch />
+      <EmojiPickerContent />
+    </EmojiPicker>
   </template>
+
+  <script setup lang="ts">
+  import { ref } from 'vue'
+  import {
+    EmojiPicker,
+    EmojiPickerSearch,
+    EmojiPickerContent
+  } from '~/components/ui/emoji-picker'
+
+  const onEmojiClick = (emoji: EmojiPickerEmoji) => {
+    console.log('Selected emoji:', emoji)
+  }
+  <\/script>
 `
 
 const cssCode = `

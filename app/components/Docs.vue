@@ -98,7 +98,7 @@
       .
     </p>
 
-    <CodeBlock lang="bash" code="npx shadcn-vue@latest add https://vue-frimousse.vercel.app"/>
+    <CodeBlock lang="bash" code="npx shadcn-vue@latest add https://vue-frimousse.robertshaw.id/r/emoji-picker.json"/>
 
     <EmojiPickerShadcnVueDemo />
 

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://shadcn-vue.com/schema/registry.json",
+  "name": "vue-frimousse-registry",
+  "description": "Vue Frimousse component registry for shadcn-vue",
+  "author": "Robert Shaw",
+  "homepage": "https://vue-frimousse.robertshaw.id",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaoluoboding/vue-frimousse"
+  },
+  "components": [
+    {
+      "name": "emoji-picker",
+      "description": "A beautiful and accessible emoji picker component built with Vue 3, TypeScript and Tailwind CSS.",
+      "type": "registry:ui",
+      "files": [
+        "emoji-picker.vue",
+        "emoji-picker-search.vue",
+        "emoji-picker-content.vue",
+        "emoji-picker-footer.vue",
+        "emoji-picker-emoji.vue",
+        "emoji-picker-category-header.vue",
+        "index.ts"
+      ],
+      "dependencies": [
+        "vue-frimousse"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "tags": ["emoji", "picker", "input", "accessibility"],
+      "version": "1.0.0",
+      "url": "https://vue-frimousse.robertshaw.id/r/emoji-picker.json"
+    }
+  ]
+}
