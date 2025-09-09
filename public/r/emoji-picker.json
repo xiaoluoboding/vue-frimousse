@@ -17,37 +17,37 @@
   ],
   "files": [
     {
-      "name": "emoji-picker.vue",
+      "path": "components/ui/emoji-picker/emoji-picker.vue",
       "type": "registry:ui",
       "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from 'vue'\nimport { EmojiPicker as EmojiPickerPrimitive } from 'vue-frimousse'\nimport { cn } from '@/lib/utils'\n\ninterface Props {\n  class?: HTMLAttributes['class']\n}\n\nconst props = defineProps<Props>()\n</script>\n\n<template>\n  <EmojiPickerPrimitive.Root\n    :class=\"cn(\n      'isolate flex h-full w-fit flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',\n      props.class\n    )\"\n    data-slot=\"emoji-picker\"\n    v-bind=\"$attrs\"\n  >\n    <slot />\n  </EmojiPickerPrimitive.Root>\n</template>"
     },
     {
-      "name": "emoji-picker-search.vue",
+      "path": "components/ui/emoji-picker/emoji-picker-search.vue",
       "type": "registry:ui",
       "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from 'vue'\nimport { EmojiPicker as EmojiPickerPrimitive } from 'vue-frimousse'\nimport { SearchIcon } from 'lucide-vue-next'\nimport { cn } from '@/lib/utils'\n\ninterface Props {\n  class?: HTMLAttributes['class']\n}\n\nconst props = defineProps<Props>()\n</script>\n\n<template>\n  <div\n    :class=\"cn('flex h-9 items-center gap-2 border-b px-3', props.class)\"\n    data-slot=\"emoji-picker-search-wrapper\"\n  >\n    <SearchIcon class=\"size-4 shrink-0 opacity-50\" />\n    <EmojiPickerPrimitive.Search\n      class=\"flex !h-10 w-full rounded-md !m-0 !bg-transparent !py-3 text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50\"\n      data-slot=\"emoji-picker-search\"\n      v-bind=\"$attrs\"\n    />\n  </div>\n</template>"
     },
     {
-      "name": "emoji-picker-content.vue",
+      "path": "components/ui/emoji-picker/emoji-picker-content.vue",
       "type": "registry:ui",
       "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from 'vue'\nimport { EmojiPicker as EmojiPickerPrimitive } from 'vue-frimousse'\nimport { LoaderIcon } from 'lucide-vue-next'\nimport { cn } from '@/lib/utils'\nimport EmojiPickerEmoji from './emoji-picker-emoji.vue'\nimport EmojiPickerCategoryHeader from './emoji-picker-category-header.vue'\n\ninterface Props {\n  class?: HTMLAttributes['class']\n}\n\nconst props = defineProps<Props>()\n</script>\n\n<template>\n  <EmojiPickerPrimitive.Viewport\n    :class=\"cn('relative flex-1 outline-hidden', props.class)\"\n    data-slot=\"emoji-picker-viewport\"\n    v-bind=\"$attrs\"\n  >\n    <EmojiPickerPrimitive.Loading\n      class=\"absolute inset-0 flex items-center justify-center text-muted-foreground\"\n      data-slot=\"emoji-picker-loading\"\n    >\n      <LoaderIcon class=\"size-4 animate-spin\" />\n    </EmojiPickerPrimitive.Loading>\n\n    <EmojiPickerPrimitive.Empty\n      class=\"absolute inset-0 flex items-center justify-center text-muted-foreground text-sm\"\n      data-slot=\"emoji-picker-empty\"\n    >\n      No emoji found.\n    </EmojiPickerPrimitive.Empty>\n\n    <EmojiPickerPrimitive.List\n      class=\"select-none pb-1\"\n      data-slot=\"emoji-picker-list\"\n      row-class=\"scroll-my-1 px-1\"\n    >\n      <template #category-header=\"{ category }\">\n        <slot name=\"category-header\" :category=\"category\">\n          <EmojiPickerCategoryHeader :category=\"category\" />\n        </slot>\n      </template>\n      <template #emoji=\"{ emoji }\">\n        <slot name=\"emoji\" :emoji=\"emoji\">\n          <EmojiPickerEmoji :emoji=\"emoji\" />\n        </slot>\n      </template>\n    </EmojiPickerPrimitive.List>\n  </EmojiPickerPrimitive.Viewport>\n</template>"
     },
     {
-      "name": "emoji-picker-footer.vue",
+      "path": "components/ui/emoji-picker/emoji-picker-footer.vue",
       "type": "registry:ui",
       "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from 'vue'\nimport { EmojiPicker as EmojiPickerPrimitive } from 'vue-frimousse'\nimport { cn } from '@/lib/utils'\nimport { buttonVariants } from '@/components/ui/button'\n\ninterface Props {\n  class?: HTMLAttributes['class']\n}\n\nconst props = defineProps<Props>()\n</script>\n\n<template>\n  <div\n    :class=\"cn(\n      'flex w-full min-w-0 max-w-[var(--frimousse-viewport-width)] items-center gap-1 border-t p-2',\n      props.class\n    )\"\n    data-slot=\"emoji-picker-footer\"\n    v-bind=\"$attrs\"\n  >\n    <EmojiPickerPrimitive.ActiveEmoji v-slot=\"{ emoji }\">\n      <div class=\"flex items-center justify-between w-full\">\n        <template v-if=\"emoji\">\n          <div class=\"flex items-center gap-1 flex-1\">\n            <div class=\"flex size-7 flex-none items-center justify-center text-lg\">\n              {{ emoji.emoji }}\n            </div>\n            <span class=\"truncate text-secondary-foreground text-xs\">{{ emoji.label }}</span>\n          </div>\n        </template>\n        <template v-else>\n          <span class=\"ml-1.5 flex h-7 items-center truncate text-muted-foreground text-xs\">\n            Select an emoji…\n          </span>\n        </template>\n        <EmojiPickerPrimitive.SkinToneSelector\n          :class=\"cn(buttonVariants({ variant: 'secondary', size: 'icon' }), 'rounded-md size-7')\"\n          title=\"Change skin tone\"\n        />\n      </div>\n    </EmojiPickerPrimitive.ActiveEmoji>\n  </div>\n</template>"
     },
     {
-      "name": "emoji-picker-emoji.vue",
+      "path": "components/ui/emoji-picker/emoji-picker-emoji.vue",
       "type": "registry:ui",
       "content": "<script setup lang=\"ts\">\nimport type { EmojiPickerListEmojiProps } from 'vue-frimousse'\nimport type { HTMLAttributes } from 'vue'\nimport { cn } from '@/lib/utils'\n\ninterface Props extends EmojiPickerListEmojiProps {\n  class?: HTMLAttributes['class']\n}\n\nconst props = defineProps<Props>()\n</script>\n\n<template>\n  <button\n    v-bind=\"$attrs\"\n    :class=\"cn(\n      'flex !size-7 items-center justify-center rounded-sm text-base data-[active]:bg-accent',\n      props.class\n    )\"\n    data-slot=\"emoji-picker-emoji\"\n  >\n    {{ props.emoji.emoji }}\n  </button>\n</template>"
     },
     {
-      "name": "emoji-picker-category-header.vue",
+      "path": "components/ui/emoji-picker/emoji-picker-category-header.vue",
       "type": "registry:ui",
       "content": "<script setup lang=\"ts\">\nimport type { EmojiPickerListCategoryHeaderProps } from 'vue-frimousse'\n\nconst props = defineProps<EmojiPickerListCategoryHeaderProps>()\n</script>\n\n<template>\n  <div\n    v-bind=\"$attrs\"\n    class=\"bg-popover px-3 pt-3.5 pb-2 text-muted-foreground text-xs leading-none\"\n    data-slot=\"emoji-picker-category-header\"\n  >\n    {{ props.category.label }}\n  </div>\n</template>"
     },
     {
-      "name": "index.ts",
+      "path": "components/ui/emoji-picker/index.ts",
       "type": "registry:ui",
       "content": "export { default as EmojiPicker } from './emoji-picker.vue'\nexport { default as EmojiPickerSearch } from './emoji-picker-search.vue'\nexport { default as EmojiPickerContent } from './emoji-picker-content.vue'\nexport { default as EmojiPickerFooter } from './emoji-picker-footer.vue'\nexport { default as EmojiPickerEmoji } from './emoji-picker-emoji.vue'\nexport { default as EmojiPickerCategoryHeader } from './emoji-picker-category-header.vue'"
     }
