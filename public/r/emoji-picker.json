@@ -6,7 +6,8 @@
   "type": "registry:ui",
   "description": "A beautiful and accessible emoji picker component built with Vue 3, TypeScript and Tailwind CSS.",
   "dependencies": [
-    "vue-frimousse"
+    "vue-frimousse",
+    "lucide-vue-next"
   ],
   "devDependencies": [
     "emojibase",

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { EmojiPicker as EmojiPickerPrimitive } from '@/packages'
+import { default as EmojiPickerPrimitive } from '@/packages'
 import { SearchIcon } from 'lucide-vue-next'
 import { cn } from '~/lib/utils'
 
