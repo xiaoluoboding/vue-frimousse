@@ -17,12 +17,11 @@
 
 - 🎯 **1:1 React Port**: Complete feature parity with the React Frimousse emoji picker
 - 🚀 **Vue 3 Composition API**: Built with modern Vue 3 patterns and TypeScript
-- 🎨 **Customizable Components**: Flexible component system with custom renderers
-- ⌨️ **Keyboard Navigation**: Full keyboard accessibility support
-- 🔍 **Search & Filter**: Real-time emoji search with category filtering
-- 🌈 **Skin Tone Support**: Complete skin tone variation support
-- 📱 **Responsive Design**: Works seamlessly across all device sizes
-- 🎭 **Emoji Data**: Uses Emojibase for comprehensive emoji data
+- ⚡️ **Lightweight and fast**: Dependency-free, tree-shakable, and virtualized with minimal re-renders
+- 🎨 **Unstyled and composable**: Bring your own styles and compose parts as you want
+- 🔄 **Always up-to-date**: Latest emoji data is fetched when needed and cached locally
+- 🔣 **No � symbols**: Unsupported emojis are automatically hidden
+- ♿️ **Accessible**: Keyboard navigable and screen reader-friendly
 
 ## Installation
 
@@ -34,202 +33,95 @@ pnpm add vue-frimousse
 yarn add vue-frimousse
 ```
 
-## Basic Usage
+If you are using [shadcn/vue](https://www.shadcn-vue.com), you can also install it as a pre-built component via the [shadcn CLI](https://www.shadcn-vue.com/docs/cli.html).
+
+```bash
+npx shadcn-vue@latest add https://vue-frimousse.robertshaw.id/r/emoji-picker.json
+```
+
+Learn more in the [shadcn/vue](#shadcnvue) section.
+
+## Usage
+
+Import the `EmojiPicker` parts and create your own component by composing them.
 
 ```vue
 <template>
-  <EmojiPicker.Root @emoji-click="onEmojiClick">
-    <EmojiPicker.Search placeholder="Search emojis..." />
+  <EmojiPicker.Root>
+    <EmojiPicker.Search />
     <EmojiPicker.Viewport>
+      <EmojiPicker.Loading>Loading…</EmojiPicker.Loading>
+      <EmojiPicker.Empty>No emoji found.</EmojiPicker.Empty>
       <EmojiPicker.List />
     </EmojiPicker.Viewport>
   </EmojiPicker.Root>
 </template>
 
 <script setup lang="ts">
-import { default as EmojiPicker } from 'vue-frimousse'
-
-const onEmojiClick = (emoji: any) => {
-  console.log('Selected emoji:', emoji)
-}
+  import { default as EmojiPicker } from "vue-frimousse";
 </script>
 ```
 
-## Advanced Usage
+Apart from a few sizing and overflow defaults, the parts don’t have any styles out-of-the-box. Being composable, you can bring your own styles and apply them however you want: [Tailwind CSS](https://tailwindcss.com/), CSS-in-JS, vanilla CSS via inline styles, classes, or by targeting the `[frimousse-*]` attributes present on each part.
 
-### Custom Components
+You might want to use it in a popover rather than on its own. Frimousse only provides the emoji picker itself so if you don’t have a popover component in your app yet, there are several libraries available: [Reka UI](https://reka-ui.com/docs/components/popover), [Base UI](https://www.shadcn-vue.com/docs/components/popover.html), [shadcn/vue](https://headlessui.com/react/popover), and [Nuxt UI](https://ui.nuxt.com/components/popover), to name a few.
 
-```vue
-<template>
-  <EmojiPicker.Root 
-    :components="{
-      CategoryHeader: CustomCategoryHeader,
-      Emoji: CustomEmojiButton,
-      Row: CustomRow
-    }"
-    @emoji-click="onEmojiClick"
-  >
-    <EmojiPicker.Search />
-    <EmojiPicker.Viewport>
-      <EmojiPicker.List />
-    </EmojiPicker.Viewport>
-  </EmojiPicker.Root>
-</template>
-```
+### shadcn/vue
 
-### With Loading and Empty States
-
-```vue
-<template>
-  <EmojiPicker.Root @emoji-click="onEmojiClick">
-    <EmojiPicker.Search />
-    
-    <EmojiPicker.Loading>
-      <div>Loading emojis...</div>
-    </EmojiPicker.Loading>
-    
-    <EmojiPicker.Empty>
-      <template #default="{ search }">
-        <div>No emojis found for "{{ search }}"</div>
-      </template>
-    </EmojiPicker.Empty>
-    
-    <EmojiPicker.Viewport>
-      <EmojiPicker.List />
-    </EmojiPicker.Viewport>
-  </EmojiPicker.Root>
-</template>
-```
-
-### Skin Tone Selector
-
-```vue
-<template>
-  <EmojiPicker.Root @emoji-click="onEmojiClick">
-    <EmojiPicker.SkinTone>
-      <template #default="{ skinTone, setSkinTone, skinToneVariations }">
-        <EmojiPicker.SkinToneSelector 
-          :skin-tone="skinTone"
-          @skin-tone-change="setSkinTone"
-        />
-      </template>
-    </EmojiPicker.SkinTone>
-    
-    <EmojiPicker.Search />
-    <EmojiPicker.Viewport>
-      <EmojiPicker.List />
-    </EmojiPicker.Viewport>
-  </EmojiPicker.Root>
-</template>
-```
-
-## API Reference
-
-### Components
-
-- `EmojiPicker.Root` - Main container component
-- `EmojiPicker.Search` - Search input component  
-- `EmojiPicker.Viewport` - Scrollable container for the emoji list
-- `EmojiPicker.List` - Virtualized emoji list component
-- `EmojiPicker.Loading` - Loading state component
-- `EmojiPicker.Empty` - Empty state component
-- `EmojiPicker.SkinToneSelector` - Skin tone selection button
-- `EmojiPicker.ActiveEmoji` - Active emoji display component
-- `EmojiPicker.SkinTone` - Skin tone context provider
-
-### Hooks
-
-- `useActiveEmoji()` - Get the currently active emoji
-- `useSkinTone(emoji)` - Manage skin tone state for an emoji
-
-### Types
-
-All TypeScript types are exported for full type safety:
-
-```typescript
-import type { 
-  EmojiPickerRootProps,
-  EmojiPickerListProps,
-  Emoji,
-  Category,
-  SkinTone,
-  Locale
-} from 'vue-frimousse'
-```
-
-## Use the Template
-
-### GitHub Template
-
-[create a repo from this template on GitHub](https://github.com/new?template_name=vue-frimousse&template_owner=xiaoluoboding)
-
-### Clone to local
+If you are using [shadcn/vue](https://www.shadcn-vue.com), you can install a pre-built version which integrates with the existing shadcn/vue variables via the [shadcn/vue CLI](https://www.shadcn-vue.com/docs/cli.html).
 
 ```bash
-git clone https://github.com/xiaoluoboding/vue-frimousse
-
-cd vue-frimousse
+npx shadcn-vue@latest add https://vue-frimousse.robertshaw.id/r/emoji-picker.json
 ```
 
-## Usage
+It can be composed and combined with other shadcn/ui components like [Popover](https://ui.shadcn.com/docs/components/popover).
 
-Building it is as easy as 1, 2, 3.
+## Documentation
 
-### 1、Install dependencies
+Find the full documentation and examples on [vue-frimousse.robertshaw.id](https://vue-frimousse.robertshaw.id).
+
+## Compatibility
+
+- Vue 3+ or Nuxt 3+
+- TypeScript 5.1 and above
+
+## Miscellaneous
+
+The name [“frimousse”](https://en.wiktionary.org/wiki/frimousse) means “little face” in French, and it can also refer to smileys and emoticons.
+
+The emoji picker component was originally created for the [Liveblocks Comments](https://liveblocks.io/comments) default components, within [`@liveblocks/react-ui`](https://github.com/liveblocks/liveblocks/tree/main/packages/liveblocks-react-ui).
+
+## Credits
+
+The emoji data is based on [Emojibase](https://emojibase.dev/).
+
+## Contributing
+
+All contributions are welcome! If you find a bug or have a feature request, feel free to create an [issue](https://github.com/xiaoluoboding/vue-frimousse/issues) or a [PR](https://github.com/xiaoluoboding/vue-frimousse/pulls).
+
+The project is setup as a monorepo with the `vue-frimousse` package at the root and [vue-frimousse.robertshaw.id](https://vue-frimousse.robertshaw.id) in the `app` directory.
+
+### Development
+
+Install dependencies and start development builds from the root.
 
 ```bash
-pnpm install
+npm i
+npm run dev
 ```
 
-### 2、Build a library
-
-Rename all the `vue-frimousse` to your component name in the file `package.json、vite.config.ts`, eg: `my-component`
+Test the Nuxt package
 
 ```bash
-pnpm run build:lib
+npm run dev:nuxt
 ```
 
-### 3、Build nuxt library
+### Tests
 
-This repository ships a Nuxt module so you can use the library in Nuxt projects.
-
-- Prepare the Nuxt playground and stub the module (handy for local testing)
+The package has 95%+ test coverage with [Vitest](https://vitest.dev/). Some tests use Vitest’s [browser mode](https://vitest.dev/guide/browser-testing) with [Playwright](https://playwright.dev/), make sure to install the required browser first.
 
 ```bash
-pnpm run dev:nuxt:prepare
-```
-
-- Run the Nuxt playground to verify everything works
-
-```bash
-pnpm run dev:nuxt
-```
-
-- Build the Nuxt module artifacts to `lib/nuxt`
-
-```bash
-pnpm run build:module
-```
-
-- (Optional) Build all outputs (ESM, UMD, Nuxt) in one go
-
-```bash
-pnpm run release
-```
-
-Use in a Nuxt app by adding the module and CSS in your `nuxt.config.ts`:
-
-```ts
-export default defineNuxtConfig({
-  modules: ['vue-frimousse/nuxt'],
-  css: ['vue-frimousse/style.css']
-})
-```
-
-### 4、Publish to npm
-
-```bash
-npm publish
+npm run test:unit
 ```
 
 ## License
