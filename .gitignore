@@ -32,3 +32,6 @@ coverage
 .nuxt
 playground/.nuxt
 /lib/*
+
+# AI IDE
+.windsurf/*
