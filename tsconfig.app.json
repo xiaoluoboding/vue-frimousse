@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "volar.d.ts", "app/**/*", "app/**/*.vue", "src/**/*", "src/**/*.vue"],
+  "include": ["env.d.ts", "volar.d.ts", "app/**/*", "app/**/*.vue", "src/**/*", "src/**/*.vue", "src/packages/__tests__/EmojiPicker.spec.ts"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "baseUrl": ".",

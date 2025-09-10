@@ -107,6 +107,7 @@
     "vite": "npm:rolldown-vite@latest",
     "vite-plugin-vue-devtools": "^8.0.0",
     "vitest": "^3.2.4",
+    "vitest-fetch-mock": "^0.4.5",
     "vue": "^3.5.20",
     "vue-frimousse": "link:",
     "vue-router": "^4.5.1",
