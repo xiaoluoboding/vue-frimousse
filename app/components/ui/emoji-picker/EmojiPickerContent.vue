@@ -15,7 +15,7 @@ const props = defineProps<Props>()
 
 <template>
   <EmojiPickerPrimitive.Viewport
-    :class="cn('relative flex-1 outline-hidden', props.class)"
+    :class="cn('relative flex-1 outline-hidden bg-popover', props.class)"
     data-slot="emoji-picker-viewport"
     v-bind="$attrs"
   >

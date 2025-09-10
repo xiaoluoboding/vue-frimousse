@@ -14,7 +14,7 @@ const props = defineProps<Props>()
 <template>
   <div
     :class="cn(
-      'flex w-full min-w-0 max-w-[var(--frimousse-viewport-width)] items-center gap-1 border-t p-2',
+      'flex w-full min-w-0 max-w-[var(--frimousse-viewport-width)] items-center gap-1 border-t p-2 bg-popover',
       props.class
     )"
     data-slot="emoji-picker-footer"
