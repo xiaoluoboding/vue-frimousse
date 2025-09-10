@@ -91,6 +91,8 @@ The name [“frimousse”](https://en.wiktionary.org/wiki/frimousse) means “li
 
 The emoji picker component was originally created for the [Liveblocks Comments](https://liveblocks.io/comments) default components, within [`@liveblocks/react-ui`](https://github.com/liveblocks/liveblocks/tree/main/packages/liveblocks-react-ui).
 
+This project is a Vue port of the [frimousse](https://github.com/liveblocks/frimousse)
+
 ## Credits
 
 The emoji data is based on [Emojibase](https://emojibase.dev/).
@@ -118,7 +120,7 @@ npm run dev:nuxt
 
 ### Tests
 
-The package has 95%+ test coverage with [Vitest](https://vitest.dev/). Some tests use Vitest’s [browser mode](https://vitest.dev/guide/browser-testing) with [Playwright](https://playwright.dev/), make sure to install the required browser first.
+The package has 95%+ test coverage with [Vitest](https://vitest.dev/).
 
 ```bash
 npm run test:unit
