@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { cn } from '~/lib/utils'
-import { buttonVariants } from '~/components/ui/button'
 
 interface Props {
   emoji: string
@@ -13,7 +12,6 @@ defineProps<Props>()
 <template>
   <div
     :class="cn(
-      buttonVariants({ variant: 'none' }),
       'group rounded-full border border-border border-dotted bg-background px-2.5 py-1 text-muted-foreground text-sm tabular-nums',
       $props.class
     )"
