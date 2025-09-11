@@ -6,6 +6,10 @@
       A lightweight, unstyled, and composable emoji picker for Vue.
     </p>
 
+    <br />
+
+    <ReactionsContainer />
+
     <Docs />
   </div>
 
@@ -17,6 +21,7 @@ import StickyHeader from '~/components/StickyHeader.vue'
 import Docs from '~/components/Docs.vue'
 import SiteFooter from '~/components/SiteFooter.vue'
 import { useSEO } from '~/composables/useSEO'
+import ReactionsContainer from '~/components/ReactionsContainer.vue'
 
 // Set up specific SEO metadata for the home page
 useSEO({

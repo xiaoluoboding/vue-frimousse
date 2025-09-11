@@ -115,8 +115,10 @@
     "vue-tsc": "^3.0.4"
   },
   "dependencies": {
+    "@number-flow/vue": "^0.4.8",
     "@vueuse/core": "^13.8.0",
     "@vueuse/head": "^2.0.0",
-    "motion": "^12.23.12"
+    "motion": "^12.23.12",
+    "vaul-vue": "^0.4.1"
   }
 }
