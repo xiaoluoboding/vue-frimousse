@@ -16,4 +16,15 @@
 import StickyHeader from '~/components/StickyHeader.vue'
 import Docs from '~/components/Docs.vue'
 import SiteFooter from '~/components/SiteFooter.vue'
+import { useSEO } from '~/composables/useSEO'
+
+// Set up specific SEO metadata for the home page
+useSEO({
+  title: 'Vue Frimousse - Lightweight Emoji Picker for Vue',
+  description: 'A lightweight, unstyled, and composable emoji picker for Vue. Easy to integrate, customize, and use in your Vue applications.',
+  keywords: 'vue emoji picker, vue components, emoji selector, vue3 emoji, typescript emoji picker, composable emoji picker, lightweight emoji picker',
+  url: 'https://vue-frimousse.robertshaw.id',
+  canonical: 'https://vue-frimousse.robertshaw.id',
+  type: 'website'
+})
 </script>

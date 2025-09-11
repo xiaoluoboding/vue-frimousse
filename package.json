@@ -116,6 +116,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^13.8.0",
+    "@vueuse/head": "^2.0.0",
     "motion": "^12.23.12"
   }
 }

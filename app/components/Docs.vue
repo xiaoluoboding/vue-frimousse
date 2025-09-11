@@ -880,7 +880,7 @@ import ColorfulButtonsBlur from './ColorfulButtonsBlur.vue'
 // import EmojiPicker from '@/packages'
 
 
-const installCode = 'pnpm i vue-frimousse'
+const installCode = 'npm i vue-frimousse'
 const shadcnCode = 'npx shadcn-vue@latest add https://vue-frimousse.robertshaw.id/r/emoji-picker.json'
 
 const exampleCode = `
