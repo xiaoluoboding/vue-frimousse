@@ -74,9 +74,9 @@ const handleEmojiSelect = (emojiData: { emoji: string }) => {
       <DrawerDescription class="sr-only">Select an emoji</DrawerDescription>
       <EmojiPicker.Root
         :onEmojiSelect="handleEmojiSelect"
-        class="flex flex-col w-full h-full bg-white dark:bg-neutral-900 rounded-xl isolate dark:border-neutral-800 border border-transparent"
+        class="flex flex-col w-full h-full bg-white mt-4 dark:bg-neutral-900 rounded-xl isolate border-transparent"
       >
-        <div class="flex items-center justify-between w-full px-2 mt-3">
+        <div class="flex items-center justify-between w-full px-2 mt-4">
           <EmojiPicker.Search
             class="relative flex-1 z-10 appearance-none mx-2 px-2.5 py-2 bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-400 rounded-md text-sm placeholder:text-neutral-500 dark:placeholder:text-neutral-500 placeholder:opacity-100"
           />
