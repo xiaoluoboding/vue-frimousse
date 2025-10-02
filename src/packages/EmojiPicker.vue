@@ -96,34 +96,37 @@ watch(rootRef, (element) => {
 });
 
 const handleFocusCapture = (event: FocusEvent) => {
-  const { searchRef, viewportRef } = store.get();
+  // Optimization: Early return pattern instead of nested conditions
+  if (event.defaultPrevented) return;
+
+  const { searchRef, viewportRef, search } = store.get();
+  const target = event.target as HTMLElement;
 
   const isSearch =
-    event.target === searchRef?.value ||
-    (event.target as HTMLElement)?.hasAttribute?.("frimousse-search");
+    target === searchRef?.value ||
+    target?.hasAttribute?.("frimousse-search");
 
   const isViewport =
-    event.target === viewportRef?.value ||
-    (event.target as HTMLElement)?.hasAttribute?.("frimousse-viewport");
+    target === viewportRef?.value ||
+    target?.hasAttribute?.("frimousse-viewport");
 
-  if (!event.defaultPrevented) {
-    isFocusedWithin.value = isSearch || isViewport;
+  isFocusedWithin.value = isSearch || isViewport;
 
-    if (!event.defaultPrevented) {
-      if (isViewport) {
-        store.get().onActiveEmojiChange("keyboard", 0, 0);
-      } else if (isSearch && store.get().search === "") {
-        store.set({ interaction: "none" });
-      }
-    }
+  if (isViewport) {
+    store.get().onActiveEmojiChange("keyboard", 0, 0);
+  } else if (isSearch && search === "") {
+    store.set({ interaction: "none" });
   }
 };
 
 const handleBlurCapture = (event: FocusEvent) => {
-  if (
-    !event.defaultPrevented &&
-    !(event.currentTarget as HTMLElement)?.contains?.(event.relatedTarget as Node)
-  ) {
+  // Optimization: Early return pattern for better readability
+  if (event.defaultPrevented) return;
+
+  const currentTarget = event.currentTarget as HTMLElement;
+  const relatedTarget = event.relatedTarget as Node;
+
+  if (!currentTarget?.contains?.(relatedTarget)) {
     isFocusedWithin.value = false;
   }
 };
