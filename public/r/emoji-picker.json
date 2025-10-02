@@ -5,17 +5,9 @@
   "homepage": "https://vue-frimousse.robertshaw.id",
   "type": "registry:ui",
   "description": "A beautiful and accessible emoji picker component built with Vue 3, TypeScript and Tailwind CSS.",
-  "dependencies": [
-    "vue-frimousse",
-    "lucide-vue-next"
-  ],
-  "devDependencies": [
-    "emojibase",
-    "emojibase-data"
-  ],
-  "registryDependencies": [
-    "button"
-  ],
+  "dependencies": ["vue-frimousse", "lucide-vue-next"],
+  "devDependencies": ["emojibase", "emojibase-data"],
+  "registryDependencies": ["button"],
   "files": [
     {
       "path": "components/ui/emoji-picker/emoji-picker.vue",
@@ -40,7 +32,7 @@
     {
       "path": "components/ui/emoji-picker/emoji-picker-emoji.vue",
       "type": "registry:ui",
-      "content": "<script setup lang=\"ts\">\nimport type { EmojiPickerListEmojiProps } from 'vue-frimousse'\nimport type { HTMLAttributes } from 'vue'\nimport { cn } from '@/lib/utils'\n\ninterface Props extends EmojiPickerListEmojiProps {\n  class?: HTMLAttributes['class']\n}\n\nconst props = defineProps<Props>()\n</script>\n\n<template>\n  <button\n    v-bind=\"$attrs\"\n    :class=\"cn(\n      'flex size-7 items-center justify-center rounded-sm text-base data-[active]:bg-accent',\n      props.class\n    )\"\n    data-slot=\"emoji-picker-emoji\"\n  >\n    {{ props.emoji.emoji }}\n  </button>\n</template>"
+      "content": "<script setup lang=\"ts\">\nimport type { EmojiPickerListEmojiProps } from 'vue-frimousse'\nimport type { HTMLAttributes } from 'vue'\nimport { cn } from '@/lib/utils'\n\ninterface Props extends EmojiPickerListEmojiProps {\n  class?: HTMLAttributes['class']\n}\n\nconst props = defineProps<Props>()\n</script>\n\n<template>\n  <button\n    v-bind=\"$attrs\"\n    :class=\"cn(\n      'flex size-7 items-center justify-center rounded-sm text-base',\n      props.emoji.isActive && 'bg-accent',\n      props.class\n    )\"\n    data-slot=\"emoji-picker-emoji\"\n  >\n    {{ props.emoji.emoji }}\n  </button>\n</template>"
     },
     {
       "path": "components/ui/emoji-picker/emoji-picker-category-header.vue",

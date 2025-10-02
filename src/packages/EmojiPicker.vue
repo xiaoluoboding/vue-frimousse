@@ -8,8 +8,8 @@
       ...rootStyle,
     }"
     :tabindex="-1"
-    @focuscapture="handleFocusCapture"
-    @blurcapture="handleBlurCapture"
+    @focus.capture="handleFocusCapture"
+    @blur.capture="handleBlurCapture"
     @keydown.enter.prevent="handleEnterKey"
     @keydown.up.prevent="handleArrowKey"
     @keydown.down.prevent="handleArrowKey"
@@ -30,6 +30,7 @@ import { useCreateStore } from './utils/store';
 import { noop } from './utils/noop';
 import type { EmojiPickerRootProps } from './types';
 import { useEmojiPickerData } from './hooks';
+import { useKeyboardNavigation } from './hooks/useKeyboardNavigation';
 
 interface Props extends EmojiPickerRootProps {
   style?: CSSProperties;
@@ -138,114 +139,8 @@ watch(isFocusedWithin, (focused) => {
   }
 });
 
-// Keyboard navigation handlers
-const handleEnterKey = () => {
-  if (!isFocusedWithin.value) {
-    return;
-  }
-
-  const { data, onEmojiSelect, activeColumnIndex, activeRowIndex } = store.get();
-  const activeEmoji = data?.rows[activeRowIndex]?.emojis[activeColumnIndex];
-
-  if (activeEmoji) {
-    onEmojiSelect(activeEmoji);
-  }
-};
-
-const handleArrowKey = (event: KeyboardEvent) => {
-  if (!isFocusedWithin.value) {
-    return;
-  }
-
-  const {
-    data,
-    onActiveEmojiChange,
-    interaction,
-    activeColumnIndex,
-    activeRowIndex,
-  } = store.get();
-
-  let columnIndex = activeColumnIndex;
-  let rowIndex = activeRowIndex;
-
-  if (interaction !== "none") {
-    if (data?.rows && data.rows.length > 0) {
-      switch (event.key) {
-        case "ArrowLeft": {
-          if (columnIndex === 0) {
-            const previousRowIndex = rowIndex - 1;
-            const previousRow = data.rows[previousRowIndex];
-
-            // If first column, move to last column of previous row (if available)
-            if (previousRow) {
-              rowIndex = previousRowIndex;
-              columnIndex = previousRow.emojis.length - 1;
-            }
-          } else {
-            // Otherwise, move to previous column
-            columnIndex -= 1;
-          }
-
-          break;
-        }
-
-        case "ArrowRight": {
-          if (columnIndex === data.rows[rowIndex]!.emojis.length - 1) {
-            const nextRowIndex = rowIndex + 1;
-            const nextRow = data.rows[nextRowIndex];
-
-            // If last column, move to first column of next row (if available)
-            if (nextRow) {
-              rowIndex = nextRowIndex;
-              columnIndex = 0;
-            }
-          } else {
-            // Otherwise, move to next column
-            columnIndex += 1;
-          }
-
-          break;
-        }
-
-        case "ArrowUp": {
-          const previousRow = data.rows[rowIndex - 1];
-
-          // If not first row, move to previous row
-          if (previousRow) {
-            rowIndex -= 1;
-
-            // If previous row doesn't have the same column, move to last column of previous row
-            if (!previousRow.emojis[columnIndex]) {
-              columnIndex = previousRow.emojis.length - 1;
-            }
-          }
-
-          break;
-        }
-
-        case "ArrowDown": {
-          const nextRow = data.rows[rowIndex + 1];
-
-          // If not last row, move to next row
-          if (nextRow) {
-            rowIndex += 1;
-
-            // If next row doesn't have the same column, move to last column of next row
-            if (!nextRow.emojis[columnIndex]) {
-              columnIndex = nextRow.emojis.length - 1;
-            }
-          }
-
-          break;
-        }
-      }
-    }
-
-    onActiveEmojiChange("keyboard", columnIndex, rowIndex);
-  } else {
-    onActiveEmojiChange("keyboard", 0, 0);
-  }
-};
+// Keyboard navigation (Optimization: extracted to composable)
+const { handleArrowKey, handleEnterKey } = useKeyboardNavigation(store, isFocusedWithin);
 
 // CSS custom properties management
 onMounted(() => {

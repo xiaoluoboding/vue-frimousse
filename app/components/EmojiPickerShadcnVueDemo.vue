@@ -4,7 +4,7 @@
       class="flex items-center justify-center rounded-t-lg border border-b-0 border-dotted bg-background"
     >
       <div class="relative flex w-full items-center justify-center h-[480px]">
-        <EmojiPicker class="!h-[325px]" @emoji-select="onEmojiClick">
+        <EmojiPicker class="!h-[325px] shadow-md" @emoji-select="onEmojiClick">
           <EmojiPickerSearch />
           <EmojiPickerContent />
         </EmojiPicker>

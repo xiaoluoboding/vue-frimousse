@@ -108,7 +108,10 @@ const handleEmojiSelect = (emojiData: { emoji: string }) => {
             </template>
             <template #emoji="{ emoji }">
               <button
-                className="flex rounded-[max(2vw,var(--radius-md))] text-[max(4vw,var(--text-lg))] w-[calc((100vw-1rem)/var(--frimousse-list-columns))] aspect-square items-center justify-center whitespace-nowrap rounded-md text-lg data-[active]:bg-neutral-100 dark:data-[active]:bg-neutral-800"
+                :class="[
+                  'flex rounded-[max(2vw,var(--radius-md))] text-[max(4vw,var(--text-lg))] w-[calc((100vw-1rem)/var(--frimousse-list-columns))] aspect-square items-center justify-center whitespace-nowrap rounded-md text-lg',
+                  emoji.isActive ? 'bg-neutral-100 dark:bg-neutral-800' : ''
+                ]"
               >
                 {{ emoji.emoji }}
               </button>
@@ -179,7 +182,10 @@ const handleEmojiSelect = (emojiData: { emoji: string }) => {
             </template>
             <template #emoji="{ emoji }">
               <button
-                className="flex size-8 items-center justify-center whitespace-nowrap rounded-md text-lg data-[active]:bg-neutral-100 dark:data-[active]:bg-neutral-800"
+                :class="[
+                  'flex size-8 items-center justify-center whitespace-nowrap rounded-md text-lg',
+                  emoji.isActive ? 'bg-neutral-100 dark:bg-neutral-800' : ''
+                ]"
               >
                 {{ emoji.emoji }}
               </button>

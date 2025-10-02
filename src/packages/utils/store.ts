@@ -60,12 +60,23 @@ export function useSelector<T, S>(
 ): Ref<S> {
   // Use Vue's computed to create a reactive ref that automatically updates
   // when the store state changes (since store.get() returns a reactive object)
+  // Optimization: Use custom compare function to avoid unnecessary updates
+  const previousValue = ref<S>()
+
   const slice = computed(() => {
-    const value = selector(store.get())
-    return value
+    const newValue = selector(store.get())
+
+    // Use custom compare function to determine if we should update
+    // This helps avoid unnecessary re-renders when the value hasn't meaningfully changed
+    if (previousValue.value !== undefined && compare(previousValue.value, newValue)) {
+      return previousValue.value
+    }
+
+    previousValue.value = newValue
+    return newValue
   })
 
-  return slice
+  return slice as Ref<S>
 }
 
 export function useSelectorKey<T, K extends keyof T>(

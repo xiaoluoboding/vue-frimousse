@@ -14,7 +14,8 @@ const props = defineProps<Props>()
   <button
     v-bind="$attrs"
     :class="cn(
-      'flex size-7 items-center justify-center rounded-sm text-base data-[active]:bg-accent',
+      'flex size-7 items-center justify-center rounded-sm text-base',
+      props.emoji.isActive && 'bg-accent',
       props.class
     )"
     data-slot="emoji-picker-emoji"

@@ -38,7 +38,10 @@
               </template>
               <template #emoji="{ emoji }">
                 <button
-                  className="flex size-8 items-center justify-center whitespace-nowrap rounded-md text-lg data-[active]:bg-neutral-100 dark:data-[active]:bg-neutral-800"
+                  :class="[
+                    'flex size-8 items-center justify-center whitespace-nowrap rounded-md text-lg',
+                    emoji.isActive ? 'bg-neutral-100 dark:bg-neutral-800' : ''
+                  ]"
                 >
                   {{ emoji.emoji }}
                 </button>
@@ -119,7 +122,10 @@ const exampleCode = `
           </template>
           <template #emoji="{ emoji }">
             <button
-              className="flex size-8 items-center justify-center whitespace-nowrap rounded-md text-lg data-[active]:bg-neutral-100 dark:data-[active]:bg-neutral-800"
+              :class="[
+                'flex size-8 items-center justify-center whitespace-nowrap rounded-md text-lg',
+                emoji.isActive ? 'bg-neutral-100 dark:bg-neutral-800' : ''
+              ]"
             >
               {{ emoji.emoji }}
             </button>

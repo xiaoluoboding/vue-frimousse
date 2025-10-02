@@ -187,29 +187,29 @@
       <a href="#emojipicker.list-inner-components">emojis</a> to alternate
       through a list of colors. In the example below, a row’s first emoji has
       a
-      <span className="inline-block rounded-[0.3em] bg-rose-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-rose-400/26">
+      <span class="inline-block rounded-[0.3em] bg-rose-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-rose-400/26">
         red
       </span>
       background, the second
-      <span className="inline-block rounded-[0.3em] bg-lime-500/18 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-lime-400/28">
+      <span class="inline-block rounded-[0.3em] bg-lime-500/18 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-lime-400/28">
         green
       </span>
       , the third
-      <span className="inline-block rounded-[0.3em] bg-sky-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-sky-400/22">
+      <span class="inline-block rounded-[0.3em] bg-sky-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-sky-400/22">
         blue
       </span>
       , then
-      <span className="inline-block rounded-[0.3em] bg-rose-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-rose-400/26">
+      <span class="inline-block rounded-[0.3em] bg-rose-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-rose-400/26">
         red
       </span>
       again, and so on. All <strong>odd</strong> rows follow the same pattern,
       while <strong>even</strong> rows offset it by one to avoid every column
       using the same color, starting with
-      <span className="inline-block rounded-[0.3em] bg-sky-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-sky-400/22">
+      <span class="inline-block rounded-[0.3em] bg-sky-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-sky-400/22">
         blue
       </span>
       instead of
-      <span className="inline-block rounded-[0.3em] bg-rose-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-rose-400/26">
+      <span class="inline-block rounded-[0.3em] bg-rose-500/12 px-[0.375em] pt-[0.245em] pb-[0.265em] leading-none dark:bg-rose-400/26">
         red
       </span>
       .
@@ -482,64 +482,64 @@
         <p>
           The component used to render a sticky category header in the list.
         </p>
-        <p className="mt-2 text-secondary-foreground/60!">
-          <CircleHelp
+        <p class="mt-2 text-secondary-foreground/60!">
+          <CircleAlert
             aria-hidden
-            className="-mt-0.5 mr-1.5 inline-block size-3.5"
+            class="-mt-0.5 mr-1.5 inline-block size-3.5"
           />
           <span>All category headers should be of the same size.</span>
         </p>
       </PropertiesListRow>
-      <PropertiesListRow className="pl-8!" name="[frimousse-category-header]">
+      <PropertiesListRow class="pl-8!" name="[frimousse-category-header]">
         <p>Can be targeted in CSS for styling.</p>
       </PropertiesListRow>
-      <PropertiesListRow className="pl-8!" name="category" type="Category">
+      <PropertiesListRow class="pl-8!" name="category" type="Category">
         <p>The category for this sticky header.</p>
       </PropertiesListRow>
-      <PropertiesListBasicRow className="pl-8!">
+      <PropertiesListBasicRow class="pl-8!">
         <p>
           All built-in <code>div</code> props.
         </p>
       </PropertiesListBasicRow>
       <PropertiesListRow name="Row" type="EmojiPickerListRowProps">
         <p>The component used to render a row of emojis in the list.</p>
-        <p className="mt-2 text-secondary-foreground/60!">
-          <CircleHelp
+        <p class="mt-2 text-secondary-foreground/60!">
+          <CircleAlert
             aria-hidden
-            className="-mt-0.5 mr-1.5 inline-block size-3.5"
+            class="-mt-0.5 mr-1.5 inline-flex size-3.5"
           />
           <span>All rows should be of the same size.</span>
         </p>
       </PropertiesListRow>
-      <PropertiesListRow className="pl-8!" name="[frimousse-row]">
+      <PropertiesListRow class="pl-8!" name="[frimousse-row]">
         <p>Can be targeted in CSS for styling.</p>
       </PropertiesListRow>
-      <PropertiesListBasicRow className="pl-8!">
+      <PropertiesListBasicRow class="pl-8!">
         <p>
           All built-in <code>div</code> props.
         </p>
       </PropertiesListBasicRow>
       <PropertiesListRow name="Emoji" type="EmojiPickerListEmojiProps">
         <p>The component used to render an emoji button in the list.</p>
-        <p className="mt-2 text-secondary-foreground/60!">
-          <CircleHelp
+        <p class="mt-2 text-secondary-foreground/60!">
+          <CircleAlert
             aria-hidden
-            className="-mt-0.5 mr-1.5 inline-block size-3.5"
+            class="-mt-0.5 mr-1.5 inline-block size-3.5"
           />
           <span>All emojis should be of the same size.</span>
         </p>
       </PropertiesListRow>
-      <PropertiesListRow className="pl-8!" name="[frimousse-emoji]">
+      <PropertiesListRow class="pl-8!" name="[frimousse-emoji]">
         <p>Can be targeted in CSS for styling.</p>
       </PropertiesListRow>
-      <PropertiesListRow className="pl-8!" name="[data-active]">
+      <PropertiesListRow class="pl-8!" name="[data-active]">
         <p>
           Present when the emoji is currently active (either hovered or
           selected via keyboard navigation).
         </p>
       </PropertiesListRow>
       <PropertiesListRow
-        className="pl-8!"
+        class="pl-8!"
         name="emoji"
         type="Emoji & { isActive: boolean }"
       >
@@ -549,7 +549,7 @@
           navigation).
         </p>
       </PropertiesListRow>
-      <PropertiesListBasicRow className="pl-8!">
+      <PropertiesListBasicRow class="pl-8!">
         <p>
           All built-in <code>button</code> props.
         </p>
@@ -876,6 +876,7 @@ import PropertiesListBasicRow from './PropertiesListBasicRow.vue'
 import PropertiesListRow from './PropertiesListRow.vue'
 import ColorfulButtonsAlternate from './ColorfulButtonsAlternate.vue'
 import ColorfulButtonsBlur from './ColorfulButtonsBlur.vue'
+import { CircleAlert } from 'lucide-vue-next'
 // import HooksWithData from './HooksWithData.vue'
 // import EmojiPicker from '@/packages'
 
