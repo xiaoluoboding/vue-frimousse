@@ -41,13 +41,13 @@ const props = withDefaults(defineProps<Props>(), {
   skinTone: 'none',
   onEmojiSelect: () => noop,
   sticky: true,
-  style: () => ({}),
 });
 
 const rootRef = ref<HTMLDivElement | null>(null);
 const isFocusedWithin = ref(false);
 
-const rootStyle = computed(() => props.style);
+// Optimization: Use nullish coalescing for clearer undefined handling
+const rootStyle = computed(() => props.style ?? {});
 
 // Create store
 const store = useCreateStore(() =>
