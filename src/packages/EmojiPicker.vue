@@ -70,21 +70,23 @@ useEmojiPickerData(store, {
 });
 
 // Watch for prop changes and update store
-watch(() => props.locale, (newLocale) => {
-  store.set({ locale: validateLocale(newLocale || 'en') });
-});
-
-watch(() => props.columns, (newColumns) => {
-  store.set({ columns: newColumns || 9 });
-});
-
-watch(() => props.sticky, (newSticky) => {
-  store.set({ sticky: newSticky !== false });
-});
-
-watch(() => props.skinTone, (newSkinTone) => {
-  store.set({ skinTone: validateSkinTone(newSkinTone || 'none') });
-});
+// Optimization: Merged 4 separate watchers into 1 to reduce subscriptions
+watch(
+  () => ({
+    locale: props.locale,
+    columns: props.columns,
+    sticky: props.sticky,
+    skinTone: props.skinTone,
+  }),
+  (newValues) => {
+    store.set({
+      locale: validateLocale(newValues.locale || 'en'),
+      columns: newValues.columns || 9,
+      sticky: newValues.sticky !== false,
+      skinTone: validateSkinTone(newValues.skinTone || 'none'),
+    });
+  }
+);
 
 // Set root ref in store
 watch(rootRef, (element) => {
