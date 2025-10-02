@@ -7,8 +7,14 @@
       '--frimousse-emoji-font': EMOJI_FONT_FAMILY,
       ...rootStyle,
     }"
+    :tabindex="-1"
     @focuscapture="handleFocusCapture"
     @blurcapture="handleBlurCapture"
+    @keydown.enter.prevent="handleEnterKey"
+    @keydown.up.prevent="handleArrowKey"
+    @keydown.down.prevent="handleArrowKey"
+    @keydown.left.prevent="handleArrowKey"
+    @keydown.right.prevent="handleArrowKey"
     v-bind="$attrs"
   >
     <slot />
@@ -127,132 +133,114 @@ watch(isFocusedWithin, (focused) => {
   }
 });
 
-// Keyboard navigation
-onMounted(() => {
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (!isFocusedWithin.value) {
-      return;
-    }
+// Keyboard navigation handlers
+const handleEnterKey = () => {
+  if (!isFocusedWithin.value) {
+    return;
+  }
 
-    if (
-      event.defaultPrevented ||
-      (!event.key.startsWith("Arrow") && event.key !== "Enter")
-    ) {
-      return;
-    }
+  const { data, onEmojiSelect, activeColumnIndex, activeRowIndex } = store.get();
+  const activeEmoji = data?.rows[activeRowIndex]?.emojis[activeColumnIndex];
 
-    const {
-      data,
-      onEmojiSelect,
-      onActiveEmojiChange,
-      interaction,
-      activeColumnIndex,
-      activeRowIndex,
-    } = store.get();
+  if (activeEmoji) {
+    onEmojiSelect(activeEmoji);
+  }
+};
 
-    // Select the active emoji with enter if it exists
-    if (event.key === "Enter") {
-      const activeEmoji = data?.rows[activeRowIndex]?.emojis[activeColumnIndex];
+const handleArrowKey = (event: KeyboardEvent) => {
+  if (!isFocusedWithin.value) {
+    return;
+  }
 
-      if (activeEmoji) {
-        event.preventDefault();
-        onEmojiSelect(activeEmoji);
-      }
-    }
+  const {
+    data,
+    onActiveEmojiChange,
+    interaction,
+    activeColumnIndex,
+    activeRowIndex,
+  } = store.get();
 
-    // Move the active emoji with arrow keys
-    if (event.key.startsWith("Arrow")) {
-      let columnIndex = activeColumnIndex;
-      let rowIndex = activeRowIndex;
+  let columnIndex = activeColumnIndex;
+  let rowIndex = activeRowIndex;
 
-      event.preventDefault();
+  if (interaction !== "none") {
+    if (data?.rows && data.rows.length > 0) {
+      switch (event.key) {
+        case "ArrowLeft": {
+          if (columnIndex === 0) {
+            const previousRowIndex = rowIndex - 1;
+            const previousRow = data.rows[previousRowIndex];
 
-      if (interaction !== "none") {
-        if (data?.rows && data.rows.length > 0) {
-          switch (event.key) {
-            case "ArrowLeft": {
-              if (columnIndex === 0) {
-                const previousRowIndex = rowIndex - 1;
-                const previousRow = data.rows[previousRowIndex];
-
-                // If first column, move to last column of previous row (if available)
-                if (previousRow) {
-                  rowIndex = previousRowIndex;
-                  columnIndex = previousRow.emojis.length - 1;
-                }
-              } else {
-                // Otherwise, move to previous column
-                columnIndex -= 1;
-              }
-
-              break;
+            // If first column, move to last column of previous row (if available)
+            if (previousRow) {
+              rowIndex = previousRowIndex;
+              columnIndex = previousRow.emojis.length - 1;
             }
-
-            case "ArrowRight": {
-              if (columnIndex === data.rows[rowIndex]!.emojis.length - 1) {
-                const nextRowIndex = rowIndex + 1;
-                const nextRow = data.rows[nextRowIndex];
-
-                // If last column, move to first column of next row (if available)
-                if (nextRow) {
-                  rowIndex = nextRowIndex;
-                  columnIndex = 0;
-                }
-              } else {
-                // Otherwise, move to next column
-                columnIndex += 1;
-              }
-
-              break;
-            }
-
-            case "ArrowUp": {
-              const previousRow = data.rows[rowIndex - 1];
-
-              // If not first row, move to previous row
-              if (previousRow) {
-                rowIndex -= 1;
-
-                // If previous row doesn't have the same column, move to last column of previous row
-                if (!previousRow.emojis[columnIndex]) {
-                  columnIndex = previousRow.emojis.length - 1;
-                }
-              }
-
-              break;
-            }
-
-            case "ArrowDown": {
-              const nextRow = data.rows[rowIndex + 1];
-
-              // If not last row, move to next row
-              if (nextRow) {
-                rowIndex += 1;
-
-                // If next row doesn't have the same column, move to last column of next row
-                if (!nextRow.emojis[columnIndex]) {
-                  columnIndex = nextRow.emojis.length - 1;
-                }
-              }
-
-              break;
-            }
+          } else {
+            // Otherwise, move to previous column
+            columnIndex -= 1;
           }
+
+          break;
         }
 
-        onActiveEmojiChange("keyboard", columnIndex, rowIndex);
-      } else {
-        onActiveEmojiChange("keyboard", 0, 0);
+        case "ArrowRight": {
+          if (columnIndex === data.rows[rowIndex]!.emojis.length - 1) {
+            const nextRowIndex = rowIndex + 1;
+            const nextRow = data.rows[nextRowIndex];
+
+            // If last column, move to first column of next row (if available)
+            if (nextRow) {
+              rowIndex = nextRowIndex;
+              columnIndex = 0;
+            }
+          } else {
+            // Otherwise, move to next column
+            columnIndex += 1;
+          }
+
+          break;
+        }
+
+        case "ArrowUp": {
+          const previousRow = data.rows[rowIndex - 1];
+
+          // If not first row, move to previous row
+          if (previousRow) {
+            rowIndex -= 1;
+
+            // If previous row doesn't have the same column, move to last column of previous row
+            if (!previousRow.emojis[columnIndex]) {
+              columnIndex = previousRow.emojis.length - 1;
+            }
+          }
+
+          break;
+        }
+
+        case "ArrowDown": {
+          const nextRow = data.rows[rowIndex + 1];
+
+          // If not last row, move to next row
+          if (nextRow) {
+            rowIndex += 1;
+
+            // If next row doesn't have the same column, move to last column of next row
+            if (!nextRow.emojis[columnIndex]) {
+              columnIndex = nextRow.emojis.length - 1;
+            }
+          }
+
+          break;
+        }
       }
     }
-  };
 
-  document.addEventListener("keydown", handleKeyDown);
-
-  onUnmounted(() => {
-    document.removeEventListener("keydown", handleKeyDown);
-  });
-});
+    onActiveEmojiChange("keyboard", columnIndex, rowIndex);
+  } else {
+    onActiveEmojiChange("keyboard", 0, 0);
+  }
+};
 
 // CSS custom properties management
 onMounted(() => {

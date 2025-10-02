@@ -11,7 +11,7 @@
     }"
     :tabindex="-1"
     @click="handleSelect"
-    @pointerdown="preventDefault"
+    @pointerdown.prevent
     @pointerenter="handlePointerEnter"
     @pointerleave="handlePointerLeave"
   >
@@ -51,7 +51,4 @@ const handlePointerLeave = () => {
   store.get().onActiveEmojiReset();
 };
 
-const preventDefault = (event: Event) => {
-  event.preventDefault();
-};
 </script>

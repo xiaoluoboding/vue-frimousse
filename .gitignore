@@ -35,3 +35,4 @@ playground/.nuxt
 
 # AI IDE
 .windsurf/*
+.cursor/*

@@ -16,7 +16,7 @@
       willChange: 'scroll-position',
       ...viewportStyle,
     }"
-    @scroll="handleScroll"
+    @scroll.passive="handleScroll"
     v-bind="$attrs"
   >
     <ActiveEmojiAnnouncer />
@@ -57,7 +57,7 @@ watch(viewportRef, (element) => {
 
 const handleScroll = (event: Event) => {
   emit('scroll', event);
-  
+
   const target = event.currentTarget as HTMLDivElement;
   store.get().onViewportScroll(target.scrollTop);
 };
