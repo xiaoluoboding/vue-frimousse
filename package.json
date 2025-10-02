@@ -1,6 +1,6 @@
 {
   "name": "vue-frimousse",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

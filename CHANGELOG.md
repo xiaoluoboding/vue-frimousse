@@ -1,3 +1,32 @@
+## [0.1.4](https://github.com/xiaoluoboding/vue-frimousse/compare/v0.1.3...v0.1.4) (2025-10-02)
+
+
+### Bug Fixes
+
+* fixed the build ([216e04e](https://github.com/xiaoluoboding/vue-frimousse/commit/216e04ec55f2ce5447c36eb8955147530473996b))
+* remove windsurf rules ([7a8e0c6](https://github.com/xiaoluoboding/vue-frimousse/commit/7a8e0c630e827931d2fad08dd4dd98c18e6b064e))
+* try to fix registry ([a828861](https://github.com/xiaoluoboding/vue-frimousse/commit/a8288619bd1fffa364df5ad45c1fc20b4e5df8c5))
+* try to fix registry ([d4b4c75](https://github.com/xiaoluoboding/vue-frimousse/commit/d4b4c754a862e398d617f8fd8dcd7bd7b6236bbd))
+
+
+### Features
+
+* add a demo for nuxt ([3066cdb](https://github.com/xiaoluoboding/vue-frimousse/commit/3066cdb3521a5f6b9e126708bfcf565f9506fee8))
+* add a README for registry ([197bf65](https://github.com/xiaoluoboding/vue-frimousse/commit/197bf65fd02733811066314e7721b8022b26e7a3))
+* add the reaction part ([80080a0](https://github.com/xiaoluoboding/vue-frimousse/commit/80080a0c32bd95637cee7452f2118745e5d6e35b))
+* change og image ([3a54ee0](https://github.com/xiaoluoboding/vue-frimousse/commit/3a54ee023d8be4e589ce019e34706ab59a90daaf))
+* change README.md ([2b0c1d4](https://github.com/xiaoluoboding/vue-frimousse/commit/2b0c1d4d518838eb101cecbb597689e94a7314d8))
+* change the docs ([8b6890b](https://github.com/xiaoluoboding/vue-frimousse/commit/8b6890b5e5346acdff4f9fa595b59c9757c73002))
+* improve the event ([3672e38](https://github.com/xiaoluoboding/vue-frimousse/commit/3672e38eec37d488f54d9b907184a544f76d5ebf))
+* remove all ! in shadcn vue emoji-picker ([4cf0df2](https://github.com/xiaoluoboding/vue-frimousse/commit/4cf0df23bc058ce4e5d56782eaa31406034aeddf))
+* try fix ([8a84ddf](https://github.com/xiaoluoboding/vue-frimousse/commit/8a84ddf66dc48e4aeb7780270b9213bf72c23a98))
+* try fix og image ([0726114](https://github.com/xiaoluoboding/vue-frimousse/commit/072611440c676e3b43092b89d62c9761ba7a73ee))
+* update register cod ([f9aa944](https://github.com/xiaoluoboding/vue-frimousse/commit/f9aa9446a29a47ab3184e1d907cea22af064e040))
+* update seo metadata ([be1f4b4](https://github.com/xiaoluoboding/vue-frimousse/commit/be1f4b4bbb69e6350dbfb01714dd6c6d630fc834))
+* update style ([a2e51ec](https://github.com/xiaoluoboding/vue-frimousse/commit/a2e51ec78119025abfe6509ab3f1e556c775372b))
+
+
+
 ## [0.1.3](https://github.com/xiaoluoboding/vue-frimousse/compare/v0.1.2...v0.1.3) (2025-09-09)
 
 
